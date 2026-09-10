@@ -362,31 +362,15 @@ body{padding:0}
   }
 }
 
-.deposit-qty-control{
-  display:grid;
-  grid-template-columns:64px 1fr 64px;
-  gap:10px;
-  align-items:center;
-  margin:12px 0 18px;
-  padding:12px;
-  border-radius:14px;
-  background:#dcecf4;
-  border:1.5px solid rgba(0,0,0,.16);
-}
-.deposit-qty-center{
-  display:grid;
-  grid-template-columns:1fr 68px auto;
-  gap:10px;
-  align-items:center;
-  min-width:0;
-}
-.deposit-qty-label{font-weight:900;font-size:18px;}
-.deposit-qty-price{font-weight:800;white-space:nowrap;}
-@media(max-width:640px){
-  .deposit-qty-control{grid-template-columns:58px 1fr 58px;}
-  .deposit-qty-center{grid-template-columns:1fr 58px;}
-  .deposit-qty-price{grid-column:1 / -1;text-align:center;font-size:14px;}
-}
+.item-controls{grid-column:1/-1;display:grid;grid-template-columns:58px 1fr 58px;gap:8px;align-items:center;margin-top:7px;position:relative;z-index:3}
+.qty-btn{height:50px;border-radius:10px;border:1.5px solid rgba(0,0,0,.24);background:rgba(255,255,255,.82);font-size:34px;line-height:1;font-weight:950;cursor:pointer;touch-action:manipulation}
+.qty-btn:active{transform:scale(.96)}
+.qty-btn:disabled{opacity:.32}
+.qty-display{height:50px;border-radius:10px;border:1.5px solid rgba(0,0,0,.18);background:rgba(255,255,255,.76);display:flex;align-items:center;justify-content:center;font-size:27px;font-weight:950;font-variant-numeric:tabular-nums}
+.deposit-qty-control{display:grid;grid-template-columns:64px 1fr 64px;gap:10px;align-items:center;margin:12px 0 18px;padding:12px;border-radius:14px;background:#dcecf4;border:1.5px solid rgba(0,0,0,.16)}
+.deposit-qty-center{display:grid;grid-template-columns:1fr 68px auto;gap:10px;align-items:center;min-width:0}
+.deposit-qty-label{font-weight:900;font-size:18px}.deposit-qty-price{font-weight:800;white-space:nowrap}
+@media(max-width:640px){.deposit-qty-control{grid-template-columns:58px 1fr 58px}.deposit-qty-center{grid-template-columns:1fr 58px}.deposit-qty-price{grid-column:1/-1;text-align:center;font-size:14px}}
 
 </style>
 
@@ -415,86 +399,181 @@ body{padding:0}
 
   <div class="deposit-grid">
     <div class="deposit-qty-control">
-        <button class="qty-btn minus-btn" type="button" onclick="returnDeposit()" aria-label="Ein Glas retour">−</button>
-        <div class="deposit-qty-center">
-          <div class="deposit-qty-label">🥛 Glaseinsatz</div>
-          <div class="qty-display" id="count-glass">0</div>
-          <div class="deposit-qty-price">7,00 € / Glas</div>
-        </div>
-        <button class="qty-btn plus-btn" type="button" onclick="addDeposit()" aria-label="Ein Glaseinsatz hinzufügen">+</button>
-      </div>
+<button class="qty-btn minus-btn" type="button" onclick="returnDeposit()">−</button>
+<div class="deposit-qty-center">
+<div class="deposit-qty-label">🥛 Glaseinsatz</div>
+<div class="qty-display" id="count-glass">0</div>
+<div class="deposit-qty-price">7,00 € / Glas</div>
+</div>
+<button class="qty-btn plus-btn" type="button" onclick="addDeposit()">+</button>
+</div>
   </div>
 
   <div class="section-title">Getränke</div>
   <div id="drinkGrid" class="grid">
-    <button class="item beer" onclick="addItem('bier_radler033')">
-      <div class="icon">🍺</div><div class="info"><div class="name">Bier / Radler</div><div class="size">1/3 l</div></div><div class="price">4,50 €</div>
-    </button>
-    <button class="item beer" onclick="addItem('bier_radler05')">
-      <div class="icon">🍺</div><div class="info"><div class="name">Bier / Radler</div><div class="size">1/2 l</div></div><div class="price">5,50 €</div>
-    </button>
+    <div class="item beer" data-item-id="bier_radler033">
+<div class="icon">🍺</div><div class="info"><div class="name">Bier / Radler</div><div class="size">1/3 l</div></div><div class="price">4,50 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('bier_radler033')">−</button>
+<div class="qty-display" id="count-bier_radler033">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('bier_radler033')">+</button>
+</div>
+</div>
+    <div class="item beer" data-item-id="bier_radler05">
+<div class="icon">🍺</div><div class="info"><div class="name">Bier / Radler</div><div class="size">1/2 l</div></div><div class="price">5,50 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('bier_radler05')">−</button>
+<div class="qty-display" id="count-bier_radler05">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('bier_radler05')">+</button>
+</div>
+</div>
 
-    <button class="item wine" onclick="addItem('sturm_spritzer_kaiser033')">
-      <div class="icon">🥛</div><div class="info"><div class="name">Sturm / Spritzer / Kaiser</div><div class="size">1/3 l</div></div><div class="price">4,00 €</div>
-    </button>
-    <button class="item wine" onclick="addItem('sturm_spritzer_kaiser05')">
-      <div class="icon">🥛</div><div class="info"><div class="name">Sturm / Spritzer / Kaiser</div><div class="size">1/2 l</div></div><div class="price">5,00 €</div>
-    </button>
+    <div class="item wine" data-item-id="sturm_spritzer_kaiser033">
+<div class="icon">🥛</div><div class="info"><div class="name">Sturm / Spritzer / Kaiser</div><div class="size">1/3 l</div></div><div class="price">4,00 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('sturm_spritzer_kaiser033')">−</button>
+<div class="qty-display" id="count-sturm_spritzer_kaiser033">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('sturm_spritzer_kaiser033')">+</button>
+</div>
+</div>
+    <div class="item wine" data-item-id="sturm_spritzer_kaiser05">
+<div class="icon">🥛</div><div class="info"><div class="name">Sturm / Spritzer / Kaiser</div><div class="size">1/2 l</div></div><div class="price">5,00 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('sturm_spritzer_kaiser05')">−</button>
+<div class="qty-display" id="count-sturm_spritzer_kaiser05">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('sturm_spritzer_kaiser05')">+</button>
+</div>
+</div>
 
-    <button class="item wine" onclick="addItem('wein')">
-      <div class="icon">🍷</div><div class="info"><div class="name">Wein</div><div class="size">1/8 l</div></div><div class="price">2,50 €</div>
-    </button>
-    <button class="item wine" onclick="addItem('schnaps')">
-      <div class="icon">🥃</div><div class="info"><div class="name">Schnaps</div><div class="size">2 cl</div></div><div class="price">2,00 €</div>
-    </button>
+    <div class="item wine" data-item-id="wein">
+<div class="icon">🍷</div><div class="info"><div class="name">Wein</div><div class="size">1/8 l</div></div><div class="price">2,50 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('wein')">−</button>
+<div class="qty-display" id="count-wein">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('wein')">+</button>
+</div>
+</div>
+    <div class="item wine" data-item-id="schnaps">
+<div class="icon">🥃</div><div class="info"><div class="name">Schnaps</div><div class="size">2 cl</div></div><div class="price">2,00 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('schnaps')">−</button>
+<div class="qty-display" id="count-schnaps">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('schnaps')">+</button>
+</div>
+</div>
 
-    <button class="item juice" onclick="addItem('saftpur033')">
-      <div class="icon">🍇</div><div class="info"><div class="name">Apfel / Traube pur</div><div class="size">1/3 l</div></div><div class="price">3,50 €</div>
-    </button>
-    <button class="item juice" onclick="addItem('saftpur05')">
-      <div class="icon">🍇</div><div class="info"><div class="name">Apfel / Traube pur</div><div class="size">1/2 l</div></div><div class="price">4,50 €</div>
-    </button>
+    <div class="item juice" data-item-id="saftpur033">
+<div class="icon">🍇</div><div class="info"><div class="name">Apfel / Traube pur</div><div class="size">1/3 l</div></div><div class="price">3,50 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('saftpur033')">−</button>
+<div class="qty-display" id="count-saftpur033">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('saftpur033')">+</button>
+</div>
+</div>
+    <div class="item juice" data-item-id="saftpur05">
+<div class="icon">🍇</div><div class="info"><div class="name">Apfel / Traube pur</div><div class="size">1/2 l</div></div><div class="price">4,50 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('saftpur05')">−</button>
+<div class="qty-display" id="count-saftpur05">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('saftpur05')">+</button>
+</div>
+</div>
 
-    <button class="item juice has-soda" onclick="addItem('saft_soda033')">
-      <div class="icon">🧺</div><div class="info"><div class="name">Apfel / Traube / Himbeer / Holler mit Soda</div><div class="size">1/3 l</div></div><div class="price">3,00 €</div>
-    </button>
-    <button class="item juice has-soda" onclick="addItem('saft_soda05')">
-      <div class="icon">🧺</div><div class="info"><div class="name">Apfel / Traube / Himbeer / Holler mit Soda</div><div class="size">1/2 l</div></div><div class="price">3,50 €</div>
-    </button>
+    <div class="item juice has-soda" data-item-id="saft_soda033">
+<div class="icon">🧺</div><div class="info"><div class="name">Apfel / Traube / Himbeer / Holler mit Soda</div><div class="size">1/3 l</div></div><div class="price">3,00 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('saft_soda033')">−</button>
+<div class="qty-display" id="count-saft_soda033">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('saft_soda033')">+</button>
+</div>
+</div>
+    <div class="item juice has-soda" data-item-id="saft_soda05">
+<div class="icon">🧺</div><div class="info"><div class="name">Apfel / Traube / Himbeer / Holler mit Soda</div><div class="size">1/2 l</div></div><div class="price">3,50 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('saft_soda05')">−</button>
+<div class="qty-display" id="count-saft_soda05">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('saft_soda05')">+</button>
+</div>
+</div>
 
-    <button class="item juice" onclick="addItem('saftwasser033')">
-      <div class="icon">🍇</div><div class="info"><div class="name">Apfel / Traube Leitung</div><div class="size">1/3 l</div></div><div class="price">2,50 €</div>
-    </button>
-    <button class="item juice" onclick="addItem('saftwasser05')">
-      <div class="icon">🍇</div><div class="info"><div class="name">Apfel / Traube Leitung</div><div class="size">1/2 l</div></div><div class="price">3,50 €</div>
-    </button>
+    <div class="item juice" data-item-id="saftwasser033">
+<div class="icon">🍇</div><div class="info"><div class="name">Apfel / Traube Leitung</div><div class="size">1/3 l</div></div><div class="price">2,50 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('saftwasser033')">−</button>
+<div class="qty-display" id="count-saftwasser033">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('saftwasser033')">+</button>
+</div>
+</div>
+    <div class="item juice" data-item-id="saftwasser05">
+<div class="icon">🍇</div><div class="info"><div class="name">Apfel / Traube Leitung</div><div class="size">1/2 l</div></div><div class="price">3,00 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('saftwasser05')">−</button>
+<div class="qty-display" id="count-saftwasser05">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('saftwasser05')">+</button>
+</div>
+</div>
 
-    <button class="item juice" onclick="addItem('himb_wasser033')">
-      <div class="icon">🌼</div><div class="info"><div class="name">Himbeer / Holler Leitung</div><div class="size">1/3 l</div></div><div class="price">2,00 €</div>
-    </button>
-    <button class="item juice" onclick="addItem('himb_wasser05')">
-      <div class="icon">🌼</div><div class="info"><div class="name">Himbeer / Holler Leitung</div><div class="size">1/2 l</div></div><div class="price">2,50 €</div>
-    </button>
+    <div class="item juice" data-item-id="himb_wasser033">
+<div class="icon">🌼</div><div class="info"><div class="name">Himbeer / Holler Leitung</div><div class="size">1/3 l</div></div><div class="price">2,00 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('himb_wasser033')">−</button>
+<div class="qty-display" id="count-himb_wasser033">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('himb_wasser033')">+</button>
+</div>
+</div>
+    <div class="item juice" data-item-id="himb_wasser05">
+<div class="icon">🌼</div><div class="info"><div class="name">Himbeer / Holler Leitung</div><div class="size">1/2 l</div></div><div class="price">2,50 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('himb_wasser05')">−</button>
+<div class="qty-display" id="count-himb_wasser05">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('himb_wasser05')">+</button>
+</div>
+</div>
 
-    <button class="item soda has-soda" onclick="addItem('soda033')">
-      <div class="icon">🥤</div><div class="info"><div class="name">Soda</div><div class="size">1/3 l</div></div><div class="price">3,00 €</div>
-    </button>
-    <button class="item soda has-soda" onclick="addItem('soda05')">
-      <div class="icon">🥤</div><div class="info"><div class="name">Soda</div><div class="size">1/2 l</div></div><div class="price">3,50 €</div>
-    </button>
+    <div class="item soda has-soda" data-item-id="soda033">
+<div class="icon">🥤</div><div class="info"><div class="name">Soda</div><div class="size">1/3 l</div></div><div class="price">3,00 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('soda033')">−</button>
+<div class="qty-display" id="count-soda033">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('soda033')">+</button>
+</div>
+</div>
+    <div class="item soda has-soda" data-item-id="soda05">
+<div class="icon">🥤</div><div class="info"><div class="name">Soda</div><div class="size">1/2 l</div></div><div class="price">3,50 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('soda05')">−</button>
+<div class="qty-display" id="count-soda05">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('soda05')">+</button>
+</div>
+</div>
   </div>
 
   <div class="food-title">Speisen</div>
   <div id="foodGrid" class="food-grid">
-    <button class="item food" onclick="addItem('fleischbrot')">
-      <div class="info"><div class="name">Fleischbrot</div></div><div class="price">5,00 €</div>
-    </button>
-    <button class="item food" onclick="addItem('aufstrichbrot')">
-      <div class="info"><div class="name">Aufstrichbrot</div></div><div class="price">3,50 €</div>
-    </button>
-    <button class="item food" onclick="addItem('schmalzbrot')">
-      <div class="info"><div class="name">Schmalzbrot</div></div><div class="price">3,00 €</div>
-    </button>
+    <div class="item food" data-item-id="fleischbrot">
+<div class="info"><div class="name">Fleischbrot</div></div><div class="price">5,00 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('fleischbrot')">−</button>
+<div class="qty-display" id="count-fleischbrot">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('fleischbrot')">+</button>
+</div>
+</div>
+    <div class="item food" data-item-id="aufstrichbrot">
+<div class="info"><div class="name">Aufstrichbrot</div></div><div class="price">3,50 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('aufstrichbrot')">−</button>
+<div class="qty-display" id="count-aufstrichbrot">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('aufstrichbrot')">+</button>
+</div>
+</div>
+    <div class="item food" data-item-id="schmalzbrot">
+<div class="info"><div class="name">Schmalzbrot</div></div><div class="price">3,00 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('schmalzbrot')">−</button>
+<div class="qty-display" id="count-schmalzbrot">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('schmalzbrot')">+</button>
+</div>
+</div>
   </div>
 
   <div class="actions">
@@ -534,7 +613,7 @@ const items = [
   {id:"saft_soda05",  name:"Apfel / Traube / Himbeer / Holler mit Soda", size:"1/2 l", price:3.50, type:"juice", icon:"🧺", soda:true},
 
   {id:"saftwasser033", name:"Apfel / Traube Leitung", size:"1/3 l", price:2.50, type:"juice", icon:"🍇"},
-  {id:"saftwasser05",  name:"Apfel / Traube Leitung", size:"1/2 l", price:3.50, type:"juice", icon:"🍇"},
+  {id:"saftwasser05",  name:"Apfel / Traube Leitung", size:"1/2 l", price:3.00, type:"juice", icon:"🍇"},
 
   {id:"himb_wasser033", name:"Himbeer / Holler Leitung", size:"1/3 l", price:2.00, type:"juice", icon:"🌼"},
   {id:"himb_wasser05",  name:"Himbeer / Holler Leitung", size:"1/2 l", price:2.50, type:"juice", icon:"🌼"},
@@ -551,6 +630,7 @@ const items = [
 ];
 
 let history = [];
+let actionHistory = [];
 
 function euro(v){
   return v.toLocaleString("de-AT",{
@@ -570,13 +650,29 @@ function returnDeposit(){
 
 function addItem(id){
   history.push(id);
+  actionHistory.push({type:"add",id:id});
+  save();
+  render();
+}
+
+function removeItem(id){
+  const i=history.lastIndexOf(id);
+  if(i===-1) return;
+  history.splice(i,1);
+  actionHistory.push({type:"remove",id:id});
   save();
   render();
 }
 
 function undoLast(){
-  if(!history.length) return;
-  history.pop();
+  if(!actionHistory.length) return;
+  const a=actionHistory.pop();
+  if(a.type==="add"){
+    const i=history.lastIndexOf(a.id);
+    if(i!==-1) history.splice(i,1);
+  } else if(a.type==="remove"){
+    history.push(a.id);
+  }
   save();
   render();
 }
@@ -584,6 +680,7 @@ function undoLast(){
 function resetAll(){
   // Sofort alles vollständig zurücksetzen.
   history.length = 0;
+  actionHistory.length = 0;
 
   // Auch ältere gespeicherte Versionen entfernen.
   try{
@@ -614,18 +711,17 @@ function resetAll(){
 }
 
 function save(){
-  try{
-    localStorage.setItem("stadtkrugCalculatorV14", JSON.stringify(history));
-  }catch(e){
-    // Rechner funktioniert auch ohne Browser-Speicher.
-  }
+  try{localStorage.setItem("stadtkrugCalculatorV18",JSON.stringify({history,actionHistory}));}catch(e){}
 }
-
 function load(){
   try{
-    const saved=JSON.parse(localStorage.getItem("stadtkrugCalculatorV12")||"[]");
-    if(Array.isArray(saved)) history=saved;
-  }catch(e){history=[];}
+    const s=JSON.parse(localStorage.getItem("stadtkrugCalculatorV18")||"null");
+    if(s&&Array.isArray(s.history)){history=s.history;actionHistory=Array.isArray(s.actionHistory)?s.actionHistory:[];return;}
+    for(const k of ["stadtkrugCalculatorV14","stadtkrugCalculatorV13","stadtkrugCalculatorV12"]){
+      const old=JSON.parse(localStorage.getItem(k)||"null");
+      if(Array.isArray(old)){history=old;actionHistory=old.map(id=>({type:"add",id}));save();return;}
+    }
+  }catch(e){history=[];actionHistory=[];}
 }
 
 function render(){
@@ -641,7 +737,19 @@ function render(){
 
   document.getElementById("total").textContent=euro(total);
   document.getElementById("bottomTotal").textContent=euro(total);
-  document.getElementById("undoBtn").disabled=!history.length;
+  items.forEach(item=>{
+    if(item.type==="deposit") return;
+    const c=document.getElementById("count-"+item.id);
+    if(c) c.textContent=counts[item.id]||0;
+    const card=document.querySelector('[data-item-id="'+item.id+'"]');
+    if(card){
+      const minus=card.querySelector(".minus-btn");
+      if(minus) minus.disabled=!(counts[item.id]>0);
+    }
+  });
+  const gc=document.getElementById("count-glass");
+  if(gc) gc.textContent=(counts["glaseinsatz"]||0)-(counts["glasretour"]||0);
+  document.getElementById("undoBtn").disabled=!actionHistory.length;
 
   const summary=document.getElementById("summary");
   summary.innerHTML="";
