@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V22-IPAD-LAYOUT -->
+  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V23-STATISTIK -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -684,6 +684,61 @@ body{padding:0}
   }
 }
 
+
+/* V23: Statistik bewusst deutlich von der aktuellen Bestellung trennen */
+.daily-total-btn{
+  margin-top:48px !important;
+}
+
+
+/* V23: Lebensmittelkarten – Name und Preis dürfen sich nicht überlagern */
+.item.food .name,
+.food.item .name,
+.item.green .name{
+  font-size:17px !important;
+  line-height:1.08 !important;
+  overflow-wrap:anywhere;
+}
+.item.food .price,
+.food.item .price,
+.item.green .price{
+  position:static !important;
+  display:block !important;
+  margin-top:5px !important;
+  line-height:1.1 !important;
+  white-space:nowrap;
+}
+@media(max-width:900px){
+  .item.food .name,
+  .food.item .name,
+  .item.green .name{
+    font-size:15px !important;
+  }
+  .item.food .price,
+  .food.item .price,
+  .item.green .price{
+    font-size:15px !important;
+  }
+}
+
+
+[data-item-id="fleischbrot"] .name,
+[data-item-id="aufstrichbrot"] .name,
+[data-item-id="schmalzbrot"] .name{
+  font-size:15px !important;
+  line-height:1.08 !important;
+}
+[data-item-id="fleischbrot"] .price,
+[data-item-id="aufstrichbrot"] .price,
+[data-item-id="schmalzbrot"] .price{
+  position:static !important;
+  display:block !important;
+  margin-top:5px !important;
+  font-size:15px !important;
+  line-height:1.1 !important;
+  white-space:nowrap;
+}
+
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -918,16 +973,16 @@ body{padding:0}
   </section>
 
   <button class="daily-total-btn" type="button" onclick="toggleDailyTotal()">
-    ∑ Gesamtabrechnung
+    📊 Statistik
   </button>
 
   <div class="daily-total-panel" id="dailyTotalPanel" hidden>
     <div class="daily-total-header">
       <div>
-        <div class="daily-total-title">Gesamtabrechnung</div>
+        <div class="daily-total-title">Statistik</div>
         <div class="daily-total-subtitle" id="dailyTotalMeta"></div>
       </div>
-      <button class="daily-total-close" type="button" onclick="toggleDailyTotal(false)" aria-label="Gesamtabrechnung schließen">×</button>
+      <button class="daily-total-close" type="button" onclick="toggleDailyTotal(false)" aria-label="Statistik schließen">×</button>
     </div>
     <div class="daily-total-list" id="dailyTotalList"></div>
     <div class="daily-total-footer">
@@ -1279,6 +1334,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 22</div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 23</div>
 </body>
 </html>

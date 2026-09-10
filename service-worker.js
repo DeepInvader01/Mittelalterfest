@@ -1,5 +1,5 @@
-// BUILD V22 - IPAD LAYOUT
-const CACHE_NAME = 'mittelalterfest-eggenburg-v22';
+// BUILD V23 - STATISTIK
+const CACHE_NAME = 'mittelalterfest-eggenburg-v23';
 const APP_SHELL = [
   './',
   './index.html',
