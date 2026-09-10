@@ -1,5 +1,5 @@
 {
-  "name": "Mittelalterfest Eggenburg Rechner",
+  "name": "Mittelalterfest Eggenburg V21",
   "short_name": "Mittelalterfest",
   "start_url": "./",
   "scope": "./",
@@ -13,5 +13,6 @@
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "description": "Mittelalterfest Eggenburg Kassa – Build V21"
 }

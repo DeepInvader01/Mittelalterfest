@@ -1,4 +1,5 @@
-const CACHE_NAME = 'mittelalterfest-eggenburg-v20';
+// BUILD V21 - FORCED UPDATE
+const CACHE_NAME = 'mittelalterfest-eggenburg-v21';
 const APP_SHELL = [
   './',
   './index.html',
