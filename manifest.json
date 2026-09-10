@@ -1,5 +1,5 @@
 {
-  "name": "Mittelalterfest Eggenburg V21",
+  "name": "Mittelalterfest Eggenburg V22",
   "short_name": "Mittelalterfest",
   "start_url": "./",
   "scope": "./",
@@ -14,5 +14,5 @@
       "purpose": "any maskable"
     }
   ],
-  "description": "Mittelalterfest Eggenburg Kassa – Build V21"
+  "description": "Mittelalterfest Eggenburg Kassa – Build V22"
 }

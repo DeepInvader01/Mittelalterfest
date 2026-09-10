@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V21-FORCED-UPDATE -->
+  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V22-IPAD-LAYOUT -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -553,6 +553,137 @@ body{padding:0}
   .daily-total-row .subtotal{font-size:14px}
 }
 
+
+/* V22: kompaktere Mengensteuerung für iPad */
+.item-controls{
+  grid-template-columns:46px minmax(44px,1fr) 46px;
+  gap:6px;
+}
+.qty-btn{
+  width:46px;
+  min-width:46px;
+  max-width:46px;
+  height:46px;
+  padding:0;
+  font-size:28px;
+}
+.qty-display{
+  min-width:0;
+  width:100%;
+  height:46px;
+  font-size:24px;
+  overflow:hidden;
+}
+.deposit-qty-control{
+  grid-template-columns:50px minmax(0,1fr) 50px;
+  gap:8px;
+}
+.deposit-qty-control .qty-btn{
+  width:50px;
+  min-width:50px;
+  max-width:50px;
+  height:50px;
+}
+.deposit-qty-center{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 58px;
+  gap:8px;
+  align-items:center;
+}
+.deposit-qty-label{
+  min-width:0;
+  font-size:17px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.deposit-qty-center .qty-display{
+  width:58px;
+  min-width:58px;
+}
+@media(max-width:900px){
+  .item{
+    overflow:hidden;
+  }
+  .item-controls{
+    grid-template-columns:42px minmax(38px,1fr) 42px;
+    gap:5px;
+  }
+  .qty-btn{
+    width:42px;
+    min-width:42px;
+    max-width:42px;
+    height:42px;
+    font-size:26px;
+  }
+  .qty-display{
+    height:42px;
+    font-size:22px;
+  }
+  .deposit-qty-control{
+    grid-template-columns:44px minmax(0,1fr) 44px;
+    gap:6px;
+    padding:10px;
+  }
+  .deposit-qty-control .qty-btn{
+    width:44px;
+    min-width:44px;
+    max-width:44px;
+    height:44px;
+  }
+  .deposit-qty-center{
+    grid-template-columns:minmax(0,1fr) 52px;
+    gap:6px;
+  }
+  .deposit-qty-label{
+    font-size:16px;
+  }
+  .deposit-qty-center .qty-display{
+    width:52px;
+    min-width:52px;
+    height:44px;
+  }
+}
+@media(max-width:640px){
+  .item-controls{
+    grid-template-columns:38px minmax(34px,1fr) 38px;
+    gap:4px;
+  }
+  .qty-btn{
+    width:38px;
+    min-width:38px;
+    max-width:38px;
+    height:38px;
+    font-size:24px;
+    border-radius:9px;
+  }
+  .qty-display{
+    height:38px;
+    font-size:20px;
+  }
+  .deposit-qty-control{
+    grid-template-columns:40px minmax(0,1fr) 40px;
+    gap:5px;
+  }
+  .deposit-qty-control .qty-btn{
+    width:40px;
+    min-width:40px;
+    max-width:40px;
+    height:40px;
+  }
+  .deposit-qty-center{
+    grid-template-columns:minmax(0,1fr) 48px;
+  }
+  .deposit-qty-label{
+    font-size:15px;
+  }
+  .deposit-qty-center .qty-display{
+    width:48px;
+    min-width:48px;
+    height:40px;
+  }
+}
+
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -595,7 +726,7 @@ body{padding:0}
 <div class="deposit-qty-center">
 <div class="deposit-qty-label">🥛 Glaseinsatz</div>
 <div class="qty-display" id="count-glass">0</div>
-<div class="deposit-qty-price">7,00 € / Glas</div>
+
 </div>
 <button class="qty-btn plus-btn" type="button" onclick="addDeposit()">+</button>
 </div>
@@ -743,7 +874,7 @@ body{padding:0}
   <div class="food-title">Speisen</div>
   <div id="foodGrid" class="food-grid">
     <div class="item food" data-item-id="fleischbrot">
-<div class="info"><div class="name">Fleischbrot</div></div><div class="price">5,00 €</div>
+<div class="info"><div class="name">Fleisch</div></div><div class="price">5,00 €</div>
 <div class="item-controls">
 <button class="qty-btn minus-btn" type="button" onclick="removeItem('fleischbrot')">−</button>
 <div class="qty-display" id="count-fleischbrot">0</div>
@@ -751,7 +882,7 @@ body{padding:0}
 </div>
 </div>
     <div class="item food" data-item-id="aufstrichbrot">
-<div class="info"><div class="name">Aufstrichbrot</div></div><div class="price">3,50 €</div>
+<div class="info"><div class="name">Aufstrich</div></div><div class="price">3,50 €</div>
 <div class="item-controls">
 <button class="qty-btn minus-btn" type="button" onclick="removeItem('aufstrichbrot')">−</button>
 <div class="qty-display" id="count-aufstrichbrot">0</div>
@@ -759,7 +890,7 @@ body{padding:0}
 </div>
 </div>
     <div class="item food" data-item-id="schmalzbrot">
-<div class="info"><div class="name">Schmalzbrot</div></div><div class="price">3,00 €</div>
+<div class="info"><div class="name">Schmalz</div></div><div class="price">3,00 €</div>
 <div class="item-controls">
 <button class="qty-btn minus-btn" type="button" onclick="removeItem('schmalzbrot')">−</button>
 <div class="qty-display" id="count-schmalzbrot">0</div>
@@ -836,9 +967,9 @@ const items = [
   {id:"glaseinsatz", name:"Glaseinsatz", price:7.00, type:"deposit"},
   {id:"glasretour", name:"Glas retour", price:-7.00, type:"deposit"},
 
-  {id:"fleischbrot", name:"Fleischbrot", price:5.00, type:"food"},
-  {id:"aufstrichbrot", name:"Aufstrichbrot", price:3.50, type:"food"},
-  {id:"schmalzbrot", name:"Schmalzbrot", price:3.00, type:"food"}
+  {id:"fleischbrot", name:"Fleisch", price:5.00, type:"food"},
+  {id:"aufstrichbrot", name:"Aufstrich", price:3.50, type:"food"},
+  {id:"schmalzbrot", name:"Schmalz", price:3.00, type:"food"}
 ];
 
 let orders = [
@@ -1148,6 +1279,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 21</div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 22</div>
 </body>
 </html>
