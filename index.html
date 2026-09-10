@@ -372,6 +372,82 @@ body{padding:0}
 .deposit-qty-label{font-weight:900;font-size:18px}.deposit-qty-price{font-weight:800;white-space:nowrap}
 @media(max-width:640px){.deposit-qty-control{grid-template-columns:58px 1fr 58px}.deposit-qty-center{grid-template-columns:1fr 58px}.deposit-qty-price{grid-column:1/-1;text-align:center;font-size:14px}}
 
+
+.order-switcher{
+  display:grid;
+  grid-template-columns:64px minmax(180px,1fr) 64px auto;
+  gap:9px;
+  align-items:stretch;
+  margin:8px 0 10px;
+}
+.order-nav-btn,
+.new-order-btn{
+  border:1.5px solid #98a8b8;
+  background:linear-gradient(#ffffff,#e9eef3);
+  color:#263748;
+  border-radius:12px;
+  font-weight:900;
+  touch-action:manipulation;
+  cursor:pointer;
+}
+.order-nav-btn{
+  min-height:66px;
+  font-size:46px;
+  line-height:1;
+  padding:0 8px 5px;
+}
+.order-nav-btn:disabled{
+  opacity:.30;
+}
+.new-order-btn{
+  min-height:66px;
+  padding:0 18px;
+  font-size:20px;
+  white-space:nowrap;
+  background:linear-gradient(#e7f5ff,#cfeaff);
+  border-color:#62a9dc;
+}
+.order-nav-btn:active,
+.new-order-btn:active{
+  transform:scale(.97);
+}
+.order-switcher-center{
+  min-height:66px;
+  border:1.5px solid #c6d0d9;
+  background:rgba(255,255,255,.82);
+  border-radius:12px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:7px 12px;
+  text-align:center;
+}
+.order-switcher-title{
+  font-size:21px;
+  font-weight:950;
+  color:#2e3b49;
+}
+.order-switcher-info{
+  margin-top:3px;
+  font-size:14px;
+  font-weight:750;
+  color:#687585;
+}
+@media(max-width:640px){
+  .order-switcher{
+    grid-template-columns:58px 1fr 58px;
+  }
+  .new-order-btn{
+    grid-column:1 / -1;
+    min-height:52px;
+    font-size:18px;
+  }
+  .order-nav-btn{min-height:62px;}
+  .order-switcher-center{min-height:62px;}
+  .order-switcher-title{font-size:19px;}
+}
+
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -390,6 +466,17 @@ body{padding:0}
       <div class="title">Mittelalterfest Eggenburg</div>
     </div>
     <div class="cheers">Tanja ♡</div>
+  </div>
+
+
+  <div class="order-switcher">
+    <button class="order-nav-btn" id="prevOrderBtn" type="button" onclick="previousOrder()" aria-label="Vorherige Bestellung">‹</button>
+    <div class="order-switcher-center">
+      <div class="order-switcher-title" id="orderPosition">Bestellung 1 von 1</div>
+      <div class="order-switcher-info" id="orderInfo">Neue Bestellung</div>
+    </div>
+    <button class="order-nav-btn" id="nextOrderBtn" type="button" onclick="nextOrder()" aria-label="Nächste Bestellung">›</button>
+    <button class="new-order-btn" type="button" onclick="newOrder()">＋ Neue Bestellung</button>
   </div>
 
   <div class="total-card">
@@ -578,7 +665,7 @@ body{padding:0}
 
   <div class="actions">
     <button id="undoBtn" class="action undo" onclick="undoLast()" disabled>↩ Letzte Eingabe zurück</button>
-    <button class="action reset" onclick="resetAll()">🗑 Alles löschen</button>
+    <button class="action reset" onclick="resetAll()">🗑 Bestellung leeren</button>
   </div>
 
   <section class="order">
@@ -629,8 +716,20 @@ const items = [
   {id:"schmalzbrot", name:"Schmalzbrot", price:3.00, type:"food"}
 ];
 
-let history = [];
-let actionHistory = [];
+let orders = [
+  { history: [], actionHistory: [] }
+];
+let activeOrderIndex = 0;
+
+function currentOrder(){
+  if(!orders.length){
+    orders = [{history:[], actionHistory:[]}];
+    activeOrderIndex = 0;
+  }
+  if(activeOrderIndex < 0) activeOrderIndex = 0;
+  if(activeOrderIndex >= orders.length) activeOrderIndex = orders.length - 1;
+  return orders[activeOrderIndex];
+}
 
 function euro(v){
   return v.toLocaleString("de-AT",{
@@ -649,126 +748,197 @@ function returnDeposit(){
 }
 
 function addItem(id){
-  history.push(id);
-  actionHistory.push({type:"add",id:id});
+  const order = currentOrder();
+  order.history.push(id);
+  order.actionHistory.push({type:"add",id:id});
   save();
   render();
 }
 
 function removeItem(id){
-  const i=history.lastIndexOf(id);
-  if(i===-1) return;
-  history.splice(i,1);
-  actionHistory.push({type:"remove",id:id});
+  const order = currentOrder();
+  const i = order.history.lastIndexOf(id);
+  if(i === -1) return;
+  order.history.splice(i,1);
+  order.actionHistory.push({type:"remove",id:id});
   save();
   render();
 }
 
 function undoLast(){
-  if(!actionHistory.length) return;
-  const a=actionHistory.pop();
-  if(a.type==="add"){
-    const i=history.lastIndexOf(a.id);
-    if(i!==-1) history.splice(i,1);
-  } else if(a.type==="remove"){
-    history.push(a.id);
+  const order = currentOrder();
+  if(!order.actionHistory.length) return;
+
+  const a = order.actionHistory.pop();
+  if(a.type === "add"){
+    const i = order.history.lastIndexOf(a.id);
+    if(i !== -1) order.history.splice(i,1);
+  }else if(a.type === "remove"){
+    order.history.push(a.id);
   }
+
   save();
   render();
 }
 
 function resetAll(){
-  // Sofort alles vollständig zurücksetzen.
-  history.length = 0;
-  actionHistory.length = 0;
-
-  // Auch ältere gespeicherte Versionen entfernen.
-  try{
-    localStorage.removeItem("stadtkrugCalculatorV4");
-    localStorage.removeItem("stadtkrugCalculatorV5");
-    localStorage.removeItem("stadtkrugCalculatorV6");
-    localStorage.removeItem("stadtkrugCalculatorV7");
-    localStorage.removeItem("stadtkrugCalculatorV12");
-    localStorage.removeItem("stadtkrugCalculatorV13");
-    localStorage.removeItem("stadtkrugCalculatorV14");
-  }catch(e){}
-
-  // Leeren Zustand speichern.
-  try{
-    localStorage.setItem("stadtkrugCalculatorV14", JSON.stringify([]));
-  }catch(e){}
-
-  // Oberfläche zuverlässig zurücksetzen.
-  document.getElementById("total").textContent = euro(0);
-  document.getElementById("bottomTotal").textContent = euro(0);
-  document.getElementById("undoBtn").disabled = true;
-
-  const summary = document.getElementById("summary");
-  summary.innerHTML = '<div class="empty">Noch keine Artikel eingegeben.</div>';
-
-  // Danach den gesamten Zustand noch einmal neu zeichnen.
+  const order = currentOrder();
+  order.history = [];
+  order.actionHistory = [];
+  save();
   render();
 }
 
-function save(){
-  try{localStorage.setItem("stadtkrugCalculatorV18",JSON.stringify({history,actionHistory}));}catch(e){}
+function newOrder(){
+  orders.push({history:[], actionHistory:[]});
+  activeOrderIndex = orders.length - 1;
+  save();
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
 }
+
+function previousOrder(){
+  if(activeOrderIndex <= 0) return;
+  activeOrderIndex--;
+  save();
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function nextOrder(){
+  if(activeOrderIndex >= orders.length - 1) return;
+  activeOrderIndex++;
+  save();
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function save(){
+  try{
+    localStorage.setItem("stadtkrugCalculatorV19", JSON.stringify({
+      orders:orders,
+      activeOrderIndex:activeOrderIndex
+    }));
+  }catch(e){}
+}
+
 function load(){
   try{
-    const s=JSON.parse(localStorage.getItem("stadtkrugCalculatorV18")||"null");
-    if(s&&Array.isArray(s.history)){history=s.history;actionHistory=Array.isArray(s.actionHistory)?s.actionHistory:[];return;}
-    for(const k of ["stadtkrugCalculatorV14","stadtkrugCalculatorV13","stadtkrugCalculatorV12"]){
-      const old=JSON.parse(localStorage.getItem(k)||"null");
-      if(Array.isArray(old)){history=old;actionHistory=old.map(id=>({type:"add",id}));save();return;}
+    // V19 laden
+    const state = JSON.parse(localStorage.getItem("stadtkrugCalculatorV19") || "null");
+    if(state && Array.isArray(state.orders) && state.orders.length){
+      orders = state.orders.map(o => ({
+        history: Array.isArray(o.history) ? o.history : [],
+        actionHistory: Array.isArray(o.actionHistory) ? o.actionHistory : []
+      }));
+      activeOrderIndex = Number.isInteger(state.activeOrderIndex) ? state.activeOrderIndex : 0;
+      currentOrder();
+      return;
     }
-  }catch(e){history=[];actionHistory=[];}
+
+    // Bestehende V18-Bestellung automatisch als Bestellung 1 übernehmen.
+    const v18 = JSON.parse(localStorage.getItem("stadtkrugCalculatorV18") || "null");
+    if(v18 && Array.isArray(v18.history)){
+      orders = [{
+        history:v18.history,
+        actionHistory:Array.isArray(v18.actionHistory)
+          ? v18.actionHistory
+          : v18.history.map(id => ({type:"add",id:id}))
+      }];
+      activeOrderIndex = 0;
+      save();
+      return;
+    }
+
+    // Ältere Ein-Bestellungs-Versionen ebenfalls übernehmen.
+    for(const key of ["stadtkrugCalculatorV14","stadtkrugCalculatorV13","stadtkrugCalculatorV12"]){
+      const old = JSON.parse(localStorage.getItem(key) || "null");
+      if(Array.isArray(old)){
+        orders = [{
+          history:old,
+          actionHistory:old.map(id => ({type:"add",id:id}))
+        }];
+        activeOrderIndex = 0;
+        save();
+        return;
+      }
+    }
+  }catch(e){
+    orders = [{history:[], actionHistory:[]}];
+    activeOrderIndex = 0;
+  }
 }
 
 function render(){
-  let total=0;
-  const counts={};
+  const order = currentOrder();
+  const history = order.history;
+  const actionHistory = order.actionHistory;
 
-  history.forEach(id=>{
-    const item=items.find(x=>x.id===id);
+  let total = 0;
+  const counts = {};
+
+  history.forEach(id => {
+    const item = items.find(x => x.id === id);
     if(!item) return;
-    total+=item.price;
-    counts[id]=(counts[id]||0)+1;
+    total += item.price;
+    counts[id] = (counts[id] || 0) + 1;
   });
 
-  document.getElementById("total").textContent=euro(total);
-  document.getElementById("bottomTotal").textContent=euro(total);
-  items.forEach(item=>{
-    if(item.type==="deposit") return;
-    const c=document.getElementById("count-"+item.id);
-    if(c) c.textContent=counts[item.id]||0;
-    const card=document.querySelector('[data-item-id="'+item.id+'"]');
+  document.getElementById("total").textContent = euro(total);
+  document.getElementById("bottomTotal").textContent = euro(total);
+
+  // Navigation / Bestellungsanzeige
+  document.getElementById("orderPosition").textContent =
+    `Bestellung ${activeOrderIndex + 1} von ${orders.length}`;
+
+  const positiveItemCount = history.filter(id => id !== "glasretour").length;
+  document.getElementById("orderInfo").textContent =
+    positiveItemCount === 0
+      ? "Neue Bestellung"
+      : `${positiveItemCount} ${positiveItemCount === 1 ? "Position" : "Positionen"} · ${euro(total)}`;
+
+  document.getElementById("prevOrderBtn").disabled = activeOrderIndex === 0;
+  document.getElementById("nextOrderBtn").disabled = activeOrderIndex === orders.length - 1;
+
+  // Stückzahl direkt in jedem Artikel anzeigen.
+  items.forEach(item => {
+    if(item.type === "deposit") return;
+    const c = document.getElementById("count-" + item.id);
+    if(c) c.textContent = counts[item.id] || 0;
+
+    const card = document.querySelector('[data-item-id="' + item.id + '"]');
     if(card){
-      const minus=card.querySelector(".minus-btn");
-      if(minus) minus.disabled=!(counts[item.id]>0);
+      const minus = card.querySelector(".minus-btn");
+      if(minus) minus.disabled = !(counts[item.id] > 0);
     }
   });
-  const gc=document.getElementById("count-glass");
-  if(gc) gc.textContent=(counts["glaseinsatz"]||0)-(counts["glasretour"]||0);
-  document.getElementById("undoBtn").disabled=!actionHistory.length;
 
-  const summary=document.getElementById("summary");
-  summary.innerHTML="";
+  // Glaseinsatz-Saldo: ausgegebene minus retournierte Gläser.
+  const glassCount = (counts["glaseinsatz"] || 0) - (counts["glasretour"] || 0);
+  const gc = document.getElementById("count-glass");
+  if(gc) gc.textContent = glassCount;
+
+  document.getElementById("undoBtn").disabled = !actionHistory.length;
+
+  const summary = document.getElementById("summary");
+  summary.innerHTML = "";
 
   if(!history.length){
-    summary.innerHTML=`<div class="empty">Noch keine Artikel eingegeben.</div>`;
+    summary.innerHTML = `<div class="empty">Noch keine Artikel eingegeben.</div>`;
     return;
   }
 
-  [...new Set(history)].forEach(id=>{
-    const item=items.find(x=>x.id===id);
-    const qty=counts[id];
-    const row=document.createElement("div");
-    row.className="order-row";
-    const label=item.size ? `${item.name} ${item.size}` : item.name;
-    row.innerHTML=`
+  [...new Set(history)].forEach(id => {
+    const item = items.find(x => x.id === id);
+    if(!item) return;
+    const qty = counts[id];
+    const row = document.createElement("div");
+    row.className = "order-row";
+    const label = item.size ? `${item.name} ${item.size}` : item.name;
+    row.innerHTML = `
       <div>${label}</div>
       <div class="qty">${qty}</div>
-      <div class="sum">${euro(qty*item.price)}</div>
+      <div class="sum">${euro(qty * item.price)}</div>
     `;
     summary.appendChild(row);
   });

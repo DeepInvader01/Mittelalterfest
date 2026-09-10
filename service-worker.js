@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mittelalterfest-eggenburg-v18';
+const CACHE_NAME = 'mittelalterfest-eggenburg-v19';
 const APP_SHELL = [
   './',
   './index.html',
