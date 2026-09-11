@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V26 -->
+  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V27 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -958,6 +958,102 @@ body{padding:0}
   .data-actions{flex-direction:column}
 }
 
+/* V27: Trinkgeld und eigene kompakte Handyansicht */
+.top-complete-btn{
+  width:100%;
+  min-height:58px;
+  margin:0 0 10px;
+  border:1.5px solid #68b56d;
+  border-radius:12px;
+  background:linear-gradient(#e6f7df,#ccebc2);
+  color:#18451f;
+  font-size:21px;
+  font-weight:950;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+.top-complete-btn.reopen{background:linear-gradient(#fff2c8,#ffe19a);border-color:#d5a116;color:#5a4111}
+.tip-control{
+  min-height:82px;
+  padding:10px 12px;
+  border:1.5px solid #c59b22;
+  border-radius:14px;
+  background:linear-gradient(135deg,#fff8d9,#ffe79a);
+  display:grid;
+  grid-template-columns:minmax(95px,1fr) minmax(105px,150px);
+  gap:7px 10px;
+  align-items:center;
+}
+.tip-control label{font-size:18px;font-weight:950;color:#5c4410}
+.tip-input-wrap{display:flex;align-items:center;min-width:0;border:1.5px solid rgba(0,0,0,.22);border-radius:10px;background:rgba(255,255,255,.88);overflow:hidden}
+.tip-input-wrap input{width:100%;min-width:0;height:46px;padding:0 6px 0 10px;border:0;background:transparent;font-size:23px;font-weight:950;text-align:right;outline:none}
+.tip-input-wrap span{padding-right:10px;font-size:20px;font-weight:900}
+.tip-presets{grid-column:1 / -1;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.tip-presets button{min-height:38px;border:1px solid rgba(0,0,0,.2);border-radius:8px;background:rgba(255,255,255,.78);font-size:16px;font-weight:900;cursor:pointer;touch-action:manipulation}
+
+@media(max-width:520px){
+  .app{padding:7px 6px calc(18px + env(safe-area-inset-bottom))}
+  .header{margin-bottom:5px}
+  .title{font-size:25px;letter-spacing:-.7px}
+  .cheers{font-size:19px}
+  .order-switcher{gap:5px;margin:5px 0 7px;grid-template-columns:48px minmax(0,1fr) 48px}
+  .order-nav-btn{min-height:52px;font-size:38px}
+  .order-switcher-center{min-height:52px;padding:4px 5px}
+  .order-switcher-title{font-size:16px}
+  .order-switcher-info,.order-switcher-time{font-size:12px;margin-top:1px}
+  .new-order-btn,.orders-btn{min-height:46px;padding:0 5px;font-size:14px}
+  .total-card{padding:5px 8px 7px;margin-bottom:6px}
+  .total-label{font-size:17px}
+  .total{font-size:43px}
+  .change-card{padding:9px;margin:6px 0 7px}
+  .change-title{font-size:19px}
+  .change-subtitle{font-size:12px}
+  .change-result{font-size:28px}
+  .cash-entry{gap:5px;margin-top:7px}
+  .cash-input,.cash-entry button{min-height:44px;font-size:16px}
+  .cash-input{font-size:20px}
+  .change-message{font-size:13px;margin-top:5px}
+  .top-complete-btn{min-height:48px;margin-bottom:7px;font-size:18px}
+  .deposit-grid{grid-template-columns:1fr 1fr;gap:6px;margin:6px 0 8px}
+  .deposit-qty-control{
+    position:relative;
+    grid-template-columns:minmax(42px,1fr) 32px minmax(42px,1fr) !important;
+    gap:5px !important;
+    min-height:112px;
+    margin:0 !important;
+    padding:38px 7px 7px !important;
+  }
+  .deposit-qty-control .qty-btn{height:48px !important;min-height:48px !important;font-size:31px !important}
+  .deposit-qty-center{display:contents !important}
+  .deposit-qty-label{position:absolute;top:9px;left:5px;right:5px;text-align:center;font-size:14px !important;overflow:visible !important;text-overflow:clip !important}
+  .deposit-qty-center .qty-display{width:32px !important;min-width:32px !important;max-width:32px !important;height:34px !important;min-height:34px !important;font-size:17px !important}
+  .tip-control{min-height:112px;padding:7px;display:flex;flex-direction:column;justify-content:center;gap:5px}
+  .tip-control label{font-size:14px}
+  .tip-input-wrap{width:100%}
+  .tip-input-wrap input{height:38px;font-size:19px}
+  .tip-input-wrap span{font-size:17px;padding-right:7px}
+  .tip-presets{display:grid;width:100%;grid-template-columns:repeat(3,1fr);gap:4px}
+  .tip-presets button{min-height:34px;padding:0;font-size:13px}
+  .grid{gap:6px}
+  .item{
+    min-height:0 !important;
+    padding:7px !important;
+    gap:4px !important;
+    border-radius:11px;
+    grid-template-columns:36px minmax(0,1fr) !important;
+  }
+  .item .icon{font-size:31px !important;align-self:start;margin-top:3px}
+  .item .name{font-size:15px !important;line-height:1.03 !important}
+  .item .size{font-size:14px !important;margin-top:3px}
+  .item .price{grid-column:2;font-size:17px !important;margin-top:1px;align-self:end}
+  .item-controls{grid-template-columns:minmax(42px,1fr) 30px minmax(42px,1fr) !important;gap:5px !important;margin-top:4px}
+  .item-controls .qty-btn{height:46px !important;min-height:46px !important;font-size:30px !important;border-radius:9px !important}
+  .item-controls .qty-display{width:30px !important;min-width:30px !important;max-width:30px !important;height:32px !important;min-height:32px !important;font-size:17px !important}
+  .food-title{font-size:22px;margin-top:7px}
+  .food-grid{gap:6px}
+  .food.item{grid-template-columns:minmax(0,1fr) auto !important}
+}
+
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -975,7 +1071,7 @@ body{padding:0}
     <div class="title-wrap">
       <div class="title">Mittelalterfest Eggenburg</div>
     </div>
-    <div class="cheers">Marcel</div>
+    <div class="cheers">Tanja ♡</div>
   </div>
 
 
@@ -1015,6 +1111,8 @@ body{padding:0}
     <div class="change-message" id="changeMessage">Noch kein Bargeld eingegeben.</div>
   </section>
 
+  <button id="completeTopBtn" class="top-complete-btn" type="button" onclick="toggleCompleteOrder()">✓ Bestellung abschließen</button>
+
   <div class="deposit-grid">
     <div class="deposit-qty-control">
 <button class="qty-btn minus-btn" type="button" onclick="returnDeposit()">−</button>
@@ -1025,6 +1123,18 @@ body{padding:0}
 </div>
 <button class="qty-btn plus-btn" type="button" onclick="addDeposit()">+</button>
 </div>
+    <div class="tip-control">
+      <label for="tipAmount">💰 Trinkgeld</label>
+      <div class="tip-input-wrap">
+        <input id="tipAmount" type="text" inputmode="decimal" autocomplete="off" placeholder="0,00" aria-label="Trinkgeld in Euro" oninput="setTipAmount(this.value)">
+        <span>€</span>
+      </div>
+      <div class="tip-presets">
+        <button type="button" onclick="addTip(0.5)">+0,50</button>
+        <button type="button" onclick="addTip(1)">+1</button>
+        <button type="button" onclick="addTip(2)">+2</button>
+      </div>
+    </div>
   </div>
 
   <div class="section-title">Getränke</div>
@@ -1244,7 +1354,7 @@ body{padding:0}
     <div class="daily-total-list" id="dailyTotalList"></div>
     <div class="stats-cards" id="statsCards"></div>
     <div class="daily-total-footer">
-      <div>Verkaufsumsatz ohne Glaseinsatz</div>
+      <div>Umsatz inkl. Trinkgeld, ohne Glaseinsatz</div>
       <div id="dailyGrandTotal">0,00 €</div>
     </div>
     <button class="day-reset-btn" type="button" onclick="resetDay()">Alle Tagesdaten löschen</button>
@@ -1592,8 +1702,8 @@ load();
 render();
 </script>
 <script>
-/* V26: erweiterte Bestellverwaltung */
-const STORAGE_KEY_V26 = "stadtkrugCalculatorV26";
+/* V27: erweiterte Bestellverwaltung */
+const STORAGE_KEY_V27 = "stadtkrugCalculatorV27";
 let nextOrderNumber = 1;
 let deletedOrderSnapshot = null;
 let deletedOrderTimer = null;
@@ -1609,7 +1719,8 @@ function createOrder(history = [], number = nextOrderNumber++){
     status: "open",
     history: Array.isArray(history) ? history : [],
     actionHistory: [],
-    cashReceived: null
+    cashReceived: null,
+    tipAmount: 0
   };
 }
 
@@ -1624,13 +1735,18 @@ function normalizeOrder(order, index){
     status: order.status === "completed" ? "completed" : "open",
     history: Array.isArray(order.history) ? order.history.filter(id => items.some(item => item.id === id)) : [],
     actionHistory: Array.isArray(order.actionHistory) ? order.actionHistory : [],
-    cashReceived: Number.isFinite(order.cashReceived) ? order.cashReceived : null
+    cashReceived: Number.isFinite(order.cashReceived) ? order.cashReceived : null,
+    tipAmount: Number.isFinite(order.tipAmount) && order.tipAmount >= 0 ? order.tipAmount : 0
   };
 }
 
-function loadV26(){
+function loadV27(){
   try{
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY_V26) || "null");
+    const saved = JSON.parse(
+      localStorage.getItem(STORAGE_KEY_V27) ||
+      localStorage.getItem("stadtkrugCalculatorV26") ||
+      "null"
+    );
     if(saved && Array.isArray(saved.orders) && saved.orders.length){
       orders = saved.orders.map(normalizeOrder);
       activeOrderIndex = Number.isInteger(saved.activeOrderIndex) ? saved.activeOrderIndex : orders.length - 1;
@@ -1651,8 +1767,8 @@ function loadV26(){
 
 save = function(){
   try{
-    localStorage.setItem(STORAGE_KEY_V26, JSON.stringify({
-      version: 26,
+    localStorage.setItem(STORAGE_KEY_V27, JSON.stringify({
+      version: 27,
       orders,
       activeOrderIndex,
       nextOrderNumber
@@ -1661,10 +1777,11 @@ save = function(){
 };
 
 function orderTotal(order){
-  return order.history.reduce((sum,id) => {
+  const itemTotal = order.history.reduce((sum,id) => {
     const item = items.find(entry => entry.id === id);
     return sum + (item ? item.price : 0);
   }, 0);
+  return itemTotal + (Number.isFinite(order.tipAmount) ? order.tipAmount : 0);
 }
 
 function orderItemCount(order){
@@ -1728,10 +1845,11 @@ undoLast = function(){
 resetAll = function(){
   const order = currentOrder();
   if(order.status === "completed") return;
-  if(order.history.length && !confirm(`Bestellung ${order.number} wirklich leeren?`)) return;
+  if((order.history.length || order.tipAmount > 0) && !confirm(`Bestellung ${order.number} wirklich leeren?`)) return;
   order.history = [];
   order.actionHistory = [];
   order.cashReceived = null;
+  order.tipAmount = 0;
   touchOrder(order);
   save();
   render();
@@ -1739,7 +1857,7 @@ resetAll = function(){
 
 newOrder = function(){
   const order = currentOrder();
-  if(order.status === "open" && !order.history.length){
+  if(order.status === "open" && !order.history.length && !(order.tipAmount > 0)){
     window.scrollTo({top:0, behavior:"smooth"});
     return;
   }
@@ -1772,7 +1890,7 @@ function toggleCompleteOrder(){
     order.status = "open";
     order.completedAt = null;
   }else{
-    if(!order.history.length){
+    if(!order.history.length && !(order.tipAmount > 0)){
       alert("Eine leere Bestellung kann nicht abgeschlossen werden.");
       return;
     }
@@ -1810,6 +1928,24 @@ function setCashExact(){
   input.value = amount.toFixed(2).replace(".", ",");
   setCashReceived(amount);
 };
+
+function setTipAmount(value){
+  const order = currentOrder();
+  if(order.status === "completed") return;
+  order.tipAmount = parseCash(value) || 0;
+  touchOrder(order);
+  save();
+  render();
+}
+
+function addTip(amount){
+  const order = currentOrder();
+  if(order.status === "completed") return;
+  order.tipAmount = Math.round(((order.tipAmount || 0) + amount) * 100) / 100;
+  touchOrder(order);
+  save();
+  render();
+}
 
 function updateChange(){
   const order = currentOrder();
@@ -1857,6 +1993,12 @@ function setEditingState(order, counts){
   const completeButton = document.getElementById("completeBtn");
   completeButton.textContent = locked ? "↺ Bestellung wieder öffnen" : "✓ Bestellung abschließen";
   completeButton.classList.toggle("reopen", locked);
+  const completeTopButton = document.getElementById("completeTopBtn");
+  completeTopButton.textContent = locked ? "↺ Bestellung wieder öffnen" : "✓ Bestellung abschließen";
+  completeTopButton.classList.toggle("reopen", locked);
+  const tipInput = document.getElementById("tipAmount");
+  tipInput.disabled = locked;
+  document.querySelectorAll(".tip-presets button").forEach(button => button.disabled = locked);
 }
 
 const renderV19 = render;
@@ -1865,6 +2007,26 @@ render = function(){
   const order = currentOrder();
   const counts = {};
   order.history.forEach(id => counts[id] = (counts[id] || 0) + 1);
+  const completeTotal = orderTotal(order);
+  document.getElementById("total").textContent = euro(completeTotal);
+  document.getElementById("bottomTotal").textContent = euro(completeTotal);
+  const positionCount = orderItemCount(order);
+  document.getElementById("orderInfo").textContent = positionCount === 0 && !(order.tipAmount > 0)
+    ? "Neue Bestellung"
+    : `${positionCount ? `${positionCount} ${positionCount === 1 ? "Position" : "Positionen"}` : "Nur Trinkgeld"} · ${euro(completeTotal)}`;
+  const tipInput = document.getElementById("tipAmount");
+  if(document.activeElement !== tipInput){
+    tipInput.value = order.tipAmount > 0 ? order.tipAmount.toFixed(2).replace(".", ",") : "";
+  }
+  if(order.tipAmount > 0){
+    const summary = document.getElementById("summary");
+    const empty = summary.querySelector(".empty");
+    if(empty) empty.remove();
+    const row = document.createElement("div");
+    row.className = "order-row tip-summary-row";
+    row.innerHTML = `<div>Trinkgeld</div><div class="qty">1</div><div class="sum">${euro(order.tipAmount)}</div>`;
+    summary.appendChild(row);
+  }
   document.getElementById("orderPosition").textContent = `Bestellung ${activeOrderIndex + 1} von ${orders.length}`;
   document.getElementById("orderTime").textContent = `${formatTime(order.createdAt)} Uhr · ${order.status === "completed" ? "Abgeschlossen" : "Offen"}`;
   document.getElementById("orderSummaryTitle").textContent = order.status === "completed" ? `Abgeschlossene Bestellung ${order.number}` : `Offene Bestellung ${order.number}`;
@@ -1887,9 +2049,10 @@ function toggleOrdersPanel(force){
 function orderItemSummary(order){
   const counts = {};
   order.history.forEach(id => counts[id] = (counts[id] || 0) + 1);
-  return items.filter(item => counts[item.id] && item.type !== "deposit")
+  const articleText = items.filter(item => counts[item.id] && item.type !== "deposit")
     .map(item => `${counts[item.id]}× ${item.name}${item.size ? ` ${item.size}` : ""}`)
     .join(", ");
+  return [articleText, order.tipAmount > 0 ? `Trinkgeld ${euro(order.tipAmount)}` : ""].filter(Boolean).join(", ");
 }
 
 function renderOrdersPanel(){
@@ -1983,9 +2146,14 @@ renderDailyTotal = function(){
   let salesTotal = 0;
   let drinkTotal = 0;
   let foodTotal = 0;
+  let tipTotal = 0;
   let enteredCount = 0;
-  const nonEmpty = orders.filter(order => order.history.length);
-  nonEmpty.forEach(order => order.history.forEach(id => {
+  const nonEmpty = orders.filter(order => order.history.length || order.tipAmount > 0);
+  nonEmpty.forEach(order => {
+    const tip = Number.isFinite(order.tipAmount) ? order.tipAmount : 0;
+    tipTotal += tip;
+    salesTotal += tip;
+    order.history.forEach(id => {
     const item = items.find(entry => entry.id === id);
     if(!item) return;
     counts[id] = (counts[id] || 0) + 1;
@@ -1995,7 +2163,8 @@ renderDailyTotal = function(){
       else drinkTotal += item.price;
     }
     enteredCount++;
-  }));
+    });
+  });
   list.innerHTML = "";
   items.forEach(item => {
     const qty = counts[item.id] || 0;
@@ -2016,7 +2185,7 @@ renderDailyTotal = function(){
   const saleTotalForOrder = order => order.history.reduce((sum,id) => {
     const item = items.find(entry => entry.id === id);
     return sum + (item && item.type !== "deposit" ? item.price : 0);
-  }, 0);
+  }, Number.isFinite(order.tipAmount) ? order.tipAmount : 0);
   const highest = nonEmpty.length ? Math.max(...nonEmpty.map(saleTotalForOrder)) : 0;
   meta.textContent = `${nonEmpty.length} Bestellungen · ${openCount} offen · ${completedCount} abgeschlossen · ${enteredCount} Eingaben`;
   grand.textContent = euro(salesTotal);
@@ -2024,6 +2193,7 @@ renderDailyTotal = function(){
   cards.innerHTML = `
     <div class="stat-card"><div class="value">${euro(drinkTotal)}</div><div class="label">Getränke</div></div>
     <div class="stat-card"><div class="value">${euro(foodTotal)}</div><div class="label">Speisen</div></div>
+    <div class="stat-card"><div class="value">${euro(tipTotal)}</div><div class="label">Trinkgeld</div></div>
     <div class="stat-card"><div class="value">${euro(average)}</div><div class="label">Durchschnitt</div></div>
     <div class="stat-card"><div class="value">${euro(highest)}</div><div class="label">Höchste Bestellung</div></div>
     <div class="stat-card"><div class="value">${Math.max(0,issued-returned)}</div><div class="label">Offene Gläser</div></div>
@@ -2042,7 +2212,7 @@ function resetDay(){
 };
 
 function exportData(){
-  const data = JSON.stringify({version:26, exportedAt:new Date().toISOString(), orders, nextOrderNumber}, null, 2);
+  const data = JSON.stringify({version:27, exportedAt:new Date().toISOString(), orders, nextOrderNumber}, null, 2);
   const blob = new Blob([data], {type:"application/json"});
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -2085,7 +2255,7 @@ function addAccessibleLabels(){
   document.querySelector(".deposit-qty-control .minus-btn")?.setAttribute("aria-label", "Glasretour hinzufügen");
 }
 
-loadV26();
+loadV27();
 addAccessibleLabels();
 save();
 render();
@@ -2097,6 +2267,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 26</div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 27</div>
 </body>
 </html>
