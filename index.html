@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V27 -->
+  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V28 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -988,7 +988,7 @@ body{padding:0}
 .tip-input-wrap{display:flex;align-items:center;min-width:0;border:1.5px solid rgba(0,0,0,.22);border-radius:10px;background:rgba(255,255,255,.88);overflow:hidden}
 .tip-input-wrap input{width:100%;min-width:0;height:46px;padding:0 6px 0 10px;border:0;background:transparent;font-size:23px;font-weight:950;text-align:right;outline:none}
 .tip-input-wrap span{padding-right:10px;font-size:20px;font-weight:900}
-.tip-presets{grid-column:1 / -1;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.tip-presets{grid-column:1 / -1;display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
 .tip-presets button{min-height:38px;border:1px solid rgba(0,0,0,.2);border-radius:8px;background:rgba(255,255,255,.78);font-size:16px;font-weight:900;cursor:pointer;touch-action:manipulation}
 
 @media(max-width:520px){
@@ -996,12 +996,17 @@ body{padding:0}
   .header{margin-bottom:5px}
   .title{font-size:25px;letter-spacing:-.7px}
   .cheers{font-size:19px}
-  .order-switcher{gap:5px;margin:5px 0 7px;grid-template-columns:48px minmax(0,1fr) 48px}
+  .order-switcher{gap:5px;margin:5px 0 7px;grid-template-columns:48px repeat(4,minmax(0,1fr)) 48px}
+  .order-switcher > .order-nav-btn:first-child{grid-column:1 / 2}
+  .order-switcher-center{grid-column:2 / 6}
+  .order-switcher > .order-nav-btn:nth-of-type(2){grid-column:6 / 7}
   .order-nav-btn{min-height:52px;font-size:38px}
   .order-switcher-center{min-height:52px;padding:4px 5px}
   .order-switcher-title{font-size:16px}
   .order-switcher-info,.order-switcher-time{font-size:12px;margin-top:1px}
-  .new-order-btn,.orders-btn{min-height:46px;padding:0 5px;font-size:14px}
+  .new-order-btn,.orders-btn{min-height:46px;padding:0 5px;font-size:14px;white-space:normal}
+  .new-order-btn{grid-column:1 / 4}
+  .orders-btn{grid-column:4 / 7}
   .total-card{padding:5px 8px 7px;margin-bottom:6px}
   .total-label{font-size:17px}
   .total{font-size:43px}
@@ -1032,7 +1037,7 @@ body{padding:0}
   .tip-input-wrap{width:100%}
   .tip-input-wrap input{height:38px;font-size:19px}
   .tip-input-wrap span{font-size:17px;padding-right:7px}
-  .tip-presets{display:grid;width:100%;grid-template-columns:repeat(3,1fr);gap:4px}
+  .tip-presets{display:grid;width:100%;grid-template-columns:repeat(2,1fr);gap:4px}
   .tip-presets button{min-height:34px;padding:0;font-size:13px}
   .grid{gap:6px}
   .item{
@@ -1071,7 +1076,7 @@ body{padding:0}
     <div class="title-wrap">
       <div class="title">Mittelalterfest Eggenburg</div>
     </div>
-    <div class="cheers">Tanja ♡</div>
+    <div class="cheers">Marcel</div>
   </div>
 
 
@@ -1130,9 +1135,8 @@ body{padding:0}
         <span>€</span>
       </div>
       <div class="tip-presets">
-        <button type="button" onclick="addTip(0.5)">+0,50</button>
+        <button type="button" onclick="roundUpTip()" aria-label="Auf den nächsten vollen Euro aufrunden">Aufrd</button>
         <button type="button" onclick="addTip(1)">+1</button>
-        <button type="button" onclick="addTip(2)">+2</button>
       </div>
     </div>
   </div>
@@ -1947,6 +1951,19 @@ function addTip(amount){
   render();
 }
 
+function roundUpTip(){
+  const order = currentOrder();
+  if(order.status === "completed") return;
+  const total = orderTotal(order);
+  const roundedTotal = Math.ceil(total - 0.000001);
+  const increment = Math.round((roundedTotal - total) * 100) / 100;
+  if(increment <= 0) return;
+  order.tipAmount = Math.round(((order.tipAmount || 0) + increment) * 100) / 100;
+  touchOrder(order);
+  save();
+  render();
+}
+
 function updateChange(){
   const order = currentOrder();
   const total = orderTotal(order);
@@ -2267,6 +2284,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 27</div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 28</div>
 </body>
 </html>
