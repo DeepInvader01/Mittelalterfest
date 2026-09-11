@@ -937,23 +937,6 @@ body{padding:0}
 </div>
 </div>
 
-    <div class="item wine" data-item-id="wein">
-<div class="icon">🍷</div><div class="info"><div class="name">Wein</div><div class="size">1/8 l</div></div><div class="price">2,50 €</div>
-<div class="item-controls">
-<button class="qty-btn minus-btn" type="button" onclick="removeItem('wein')">−</button>
-<div class="qty-display" id="count-wein">0</div>
-<button class="qty-btn plus-btn" type="button" onclick="addItem('wein')">+</button>
-</div>
-</div>
-    <div class="item wine" data-item-id="schnaps">
-<div class="icon">🥃</div><div class="info"><div class="name">Schnaps</div><div class="size">2 cl</div></div><div class="price">2,00 €</div>
-<div class="item-controls">
-<button class="qty-btn minus-btn" type="button" onclick="removeItem('schnaps')">−</button>
-<div class="qty-display" id="count-schnaps">0</div>
-<button class="qty-btn plus-btn" type="button" onclick="addItem('schnaps')">+</button>
-</div>
-</div>
-
     <div class="item juice" data-item-id="saftpur033">
 <div class="icon">🍇</div><div class="info"><div class="name">Apfel / Traube pur</div><div class="size">1/3 l</div></div><div class="price">3,50 €</div>
 <div class="item-controls">
@@ -1038,6 +1021,23 @@ body{padding:0}
 <button class="qty-btn plus-btn" type="button" onclick="addItem('soda05')">+</button>
 </div>
 </div>
+
+    <div class="item wine" data-item-id="wein">
+<div class="icon">🍷</div><div class="info"><div class="name">Wein</div><div class="size">1/8 l</div></div><div class="price">2,50 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('wein')">−</button>
+<div class="qty-display" id="count-wein">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('wein')">+</button>
+</div>
+</div>
+    <div class="item wine" data-item-id="schnaps">
+<div class="icon">🥃</div><div class="info"><div class="name">Schnaps</div><div class="size">2 cl</div></div><div class="price">2,00 €</div>
+<div class="item-controls">
+<button class="qty-btn minus-btn" type="button" onclick="removeItem('schnaps')">−</button>
+<div class="qty-display" id="count-schnaps">0</div>
+<button class="qty-btn plus-btn" type="button" onclick="addItem('schnaps')">+</button>
+</div>
+</div>
   </div>
 
   <div class="food-title">Speisen</div>
@@ -1115,9 +1115,6 @@ const items = [
   {id:"sturm_spritzer_kaiser033", name:"Sturm / Spritzer / Kaiser", size:"1/3 l", price:4.00, type:"wine", icon:"🥛"},
   {id:"sturm_spritzer_kaiser05",  name:"Sturm / Spritzer / Kaiser", size:"1/2 l", price:5.00, type:"wine", icon:"🥛"},
 
-  {id:"wein", name:"Wein", size:"1/8 l", price:2.50, type:"wine", icon:"🍷"},
-  {id:"schnaps", name:"Schnaps", size:"2 cl", price:2.00, type:"wine", icon:"🥃"},
-
   {id:"saftpur033", name:"Apfel / Traube pur", size:"1/3 l", price:3.50, type:"juice", icon:"🍇"},
   {id:"saftpur05",  name:"Apfel / Traube pur", size:"1/2 l", price:4.50, type:"juice", icon:"🍇"},
 
@@ -1132,6 +1129,9 @@ const items = [
 
   {id:"soda033", name:"Soda", size:"1/3 l", price:3.00, type:"soda", icon:"🥤", soda:true},
   {id:"soda05",  name:"Soda", size:"1/2 l", price:3.50, type:"soda", icon:"🥤", soda:true},
+
+  {id:"wein", name:"Wein", size:"1/8 l", price:2.50, type:"wine", icon:"🍷"},
+  {id:"schnaps", name:"Schnaps", size:"2 cl", price:2.00, type:"wine", icon:"🥃"},
 
   {id:"glaseinsatz", name:"Glaseinsatz", price:7.00, type:"deposit"},
   {id:"glasretour", name:"Glas retour", price:-7.00, type:"deposit"},
