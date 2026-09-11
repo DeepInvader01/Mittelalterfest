@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V24-FINAL -->
+  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V26 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -853,6 +853,111 @@ body{padding:0}
   }
 }
 
+/* V26: Bestellverwaltung, parallele Bestellungen und Rückgeld */
+.order-switcher{
+  grid-template-columns:64px minmax(180px,1fr) 64px auto auto;
+}
+.orders-btn{
+  min-height:66px;
+  padding:0 16px;
+  border:1.5px solid #8b6b3d;
+  border-radius:12px;
+  background:linear-gradient(#f7ead0,#ead4aa);
+  color:#4c3822;
+  font-size:18px;
+  font-weight:950;
+  cursor:pointer;
+  touch-action:manipulation;
+  white-space:nowrap;
+}
+.order-switcher-time{
+  margin-top:2px;
+  color:#4e5c6b;
+  font-size:14px;
+  font-weight:850;
+}
+.change-card{
+  margin:8px 0 12px;
+  padding:12px 14px;
+  border:2px solid #5c875f;
+  border-radius:14px;
+  background:linear-gradient(135deg,#f4fff0,#dff4d7);
+}
+.change-heading{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.change-title{font-size:23px;font-weight:950;color:#18451f}
+.change-subtitle{font-size:14px;font-weight:750;color:#536b54;margin-top:2px}
+.change-result{font-size:38px;line-height:1;font-weight:950;color:#103d13;white-space:nowrap}
+.change-result.short{color:#b21d1d}
+.cash-entry{display:grid;grid-template-columns:minmax(125px,1.5fr) repeat(5,minmax(72px,1fr));gap:8px;margin-top:10px}
+.cash-input,.cash-entry button{
+  min-height:52px;
+  border:1.5px solid rgba(0,0,0,.25);
+  border-radius:10px;
+  background:rgba(255,255,255,.88);
+  color:#263748;
+  font-size:20px;
+  font-weight:900;
+}
+.cash-input{width:100%;padding:0 13px;font-size:24px}
+.cash-entry button{cursor:pointer;touch-action:manipulation}
+.cash-entry button:active{transform:scale(.97)}
+.cash-entry .cash-exact{background:#d8ebff;border-color:#62a9dc}
+.change-message{margin-top:7px;font-size:15px;font-weight:800;color:#4c654e}
+.change-message.short{color:#a51d1d}
+.actions{grid-template-columns:1fr 1fr 1fr}
+.complete{background:linear-gradient(#e6f7df,#ccebc2);border-color:#68b56d;color:#18451f}
+.complete.reopen{background:linear-gradient(#fff2c8,#ffe19a);border-color:#d5a116;color:#5a4111}
+.order-locked{opacity:.72}
+.orders-panel{margin-top:14px;border:2px solid #5f7182;border-radius:14px;background:#f8fbfd;overflow:hidden}
+.orders-panel-header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;background:#dfe9f1;border-bottom:1px solid #b9c6d1}
+.orders-panel-title{font-size:24px;font-weight:950;color:#2e3b49}
+.orders-panel-subtitle{font-size:14px;font-weight:750;color:#647383;margin-top:3px}
+.panel-close{width:44px;height:44px;border:1px solid #aebbc7;border-radius:10px;background:#fff;font-size:28px;font-weight:900;cursor:pointer}
+.orders-list{padding:10px}
+.order-list-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:12px;margin-bottom:8px;border:1.5px solid #c5d0da;border-radius:12px;background:#fff}
+.order-list-card:last-child{margin-bottom:0}
+.order-list-card.active{border-color:#2783c2;box-shadow:0 0 0 2px rgba(39,131,194,.14)}
+.order-list-main{min-width:0}
+.order-list-title{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:19px;font-weight:950}
+.status-badge{padding:3px 8px;border-radius:999px;font-size:13px;font-weight:900}
+.status-badge.open{background:#d9efff;color:#175684}
+.status-badge.completed{background:#dff4d7;color:#225d27}
+.order-list-detail{margin-top:5px;color:#5c6875;font-size:15px;font-weight:700}
+.order-list-items{margin-top:6px;color:#303b46;font-size:14px;line-height:1.35}
+.order-list-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.order-list-actions button,.data-actions button{min-height:44px;padding:0 13px;border:1.5px solid #9aabba;border-radius:9px;background:#edf4f8;font-size:15px;font-weight:900;cursor:pointer}
+.order-list-actions .delete-order{background:#fff0f0;border-color:#d36a6a;color:#9b1d1d}
+.data-actions{display:flex;gap:8px;justify-content:flex-end;padding:12px 14px;border-top:1px solid #c9d3dc;background:#eef3f6}
+.stats-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px 14px}
+.stat-card{padding:10px;border:1px solid #c7d1da;border-radius:10px;background:#fff;text-align:center}
+.stat-card .value{font-size:21px;font-weight:950;color:#263748}
+.stat-card .label{margin-top:3px;font-size:13px;font-weight:750;color:#687585}
+.day-reset-btn{width:calc(100% - 28px);min-height:46px;margin:0 14px 14px;border:1.5px solid #c75454;border-radius:10px;background:#fff1f1;color:#8f1717;font-size:16px;font-weight:900;cursor:pointer}
+.undo-toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:20;display:flex;align-items:center;gap:16px;max-width:calc(100% - 24px);padding:12px 14px;border-radius:12px;background:#25313c;color:#fff;box-shadow:0 7px 24px rgba(0,0,0,.3);font-size:16px;font-weight:800}
+.undo-toast[hidden]{display:none}
+.undo-toast button{min-height:40px;border:0;border-radius:8px;padding:0 12px;background:#ffe79a;color:#46320e;font-weight:950;cursor:pointer}
+
+@media(max-width:900px){
+  .order-switcher{grid-template-columns:58px minmax(150px,1fr) 58px}
+  .new-order-btn,.orders-btn{min-height:52px;font-size:17px}
+  .new-order-btn{grid-column:1 / 3}
+  .orders-btn{grid-column:3 / 4}
+  .cash-entry{grid-template-columns:repeat(3,1fr)}
+  .cash-input{grid-column:1 / 3}
+  .stats-cards{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .actions{grid-template-columns:1fr}
+  .change-heading{align-items:flex-start}
+  .change-result{font-size:32px}
+  .cash-entry{grid-template-columns:1fr 1fr 1fr}
+  .cash-input{grid-column:1 / 4}
+  .order-list-card{grid-template-columns:1fr}
+  .order-list-actions{justify-content:stretch}
+  .order-list-actions button{flex:1}
+  .data-actions{flex-direction:column}
+}
+
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -879,15 +984,36 @@ body{padding:0}
     <div class="order-switcher-center">
       <div class="order-switcher-title" id="orderPosition">Bestellung 1 von 1</div>
       <div class="order-switcher-info" id="orderInfo">Neue Bestellung</div>
+      <div class="order-switcher-time" id="orderTime"></div>
     </div>
     <button class="order-nav-btn" id="nextOrderBtn" type="button" onclick="nextOrder()" aria-label="Nächste Bestellung">›</button>
     <button class="new-order-btn" type="button" onclick="newOrder()">＋ Neue Bestellung</button>
+    <button class="orders-btn" type="button" onclick="toggleOrdersPanel()">📋 Bestellungen</button>
   </div>
 
   <div class="total-card">
     <div class="total-label">Gesamtsumme</div>
     <div class="total" id="total">0,00 €</div>
   </div>
+
+  <section class="change-card" aria-labelledby="changeTitle">
+    <div class="change-heading">
+      <div>
+        <div class="change-title" id="changeTitle">Rückgeld</div>
+        <div class="change-subtitle">Gegebener Betrag</div>
+      </div>
+      <div class="change-result" id="changeResult" aria-live="polite">0,00 €</div>
+    </div>
+    <div class="cash-entry">
+      <input id="cashReceived" class="cash-input" type="text" inputmode="decimal" autocomplete="off" placeholder="z. B. 50" aria-label="Gegebener Geldbetrag" oninput="setCashReceived(this.value)">
+      <button type="button" onclick="setCashPreset(10)">10 €</button>
+      <button type="button" onclick="setCashPreset(20)">20 €</button>
+      <button type="button" onclick="setCashPreset(50)">50 €</button>
+      <button type="button" onclick="setCashPreset(100)">100 €</button>
+      <button type="button" class="cash-exact" onclick="setCashExact()">Passend</button>
+    </div>
+    <div class="change-message" id="changeMessage">Noch kein Bargeld eingegeben.</div>
+  </section>
 
   <div class="deposit-grid">
     <div class="deposit-qty-control">
@@ -1071,11 +1197,12 @@ body{padding:0}
   <div class="actions">
     <button id="undoBtn" class="action undo" onclick="undoLast()" disabled>↩ Letzte Eingabe zurück</button>
     <button class="action reset" onclick="resetAll()">🗑 Bestellung leeren</button>
+    <button id="completeBtn" class="action complete" onclick="toggleCompleteOrder()">✓ Bestellung abschließen</button>
   </div>
 
   <section class="order">
     <div class="order-head">
-      <strong>Aktuelle Bestellung</strong>
+      <strong id="orderSummaryTitle">Aktuelle Bestellung</strong>
       <span style="text-align:center">Anzahl</span>
       <span style="text-align:right">Summe</span>
     </div>
@@ -1083,6 +1210,22 @@ body{padding:0}
     <div class="order-total">
       <span>Gesamtsumme</span>
       <span class="total-number" id="bottomTotal">0,00 €</span>
+    </div>
+  </section>
+
+  <section class="orders-panel" id="ordersPanel" hidden aria-labelledby="ordersTitle">
+    <div class="orders-panel-header">
+      <div>
+        <div class="orders-panel-title" id="ordersTitle">Bestellungen</div>
+        <div class="orders-panel-subtitle" id="ordersMeta"></div>
+      </div>
+      <button class="panel-close" type="button" onclick="toggleOrdersPanel(false)" aria-label="Bestellübersicht schließen">×</button>
+    </div>
+    <div class="orders-list" id="ordersList"></div>
+    <div class="data-actions">
+      <button type="button" onclick="exportData()">Sicherung exportieren</button>
+      <button type="button" onclick="document.getElementById('importFile').click()">Sicherung importieren</button>
+      <input id="importFile" type="file" accept="application/json,.json" hidden onchange="importData(this.files[0]);this.value=''">
     </div>
   </section>
 
@@ -1099,10 +1242,17 @@ body{padding:0}
       <button class="daily-total-close" type="button" onclick="toggleDailyTotal(false)" aria-label="Statistik schließen">×</button>
     </div>
     <div class="daily-total-list" id="dailyTotalList"></div>
+    <div class="stats-cards" id="statsCards"></div>
     <div class="daily-total-footer">
-      <div>Gesamtumsatz</div>
+      <div>Verkaufsumsatz ohne Glaseinsatz</div>
       <div id="dailyGrandTotal">0,00 €</div>
     </div>
+    <button class="day-reset-btn" type="button" onclick="resetDay()">Alle Tagesdaten löschen</button>
+  </div>
+
+  <div class="undo-toast" id="undoToast" hidden role="status" aria-live="polite">
+    <span id="undoToastText"></span>
+    <button type="button" onclick="restoreDeletedOrder()">Rückgängig</button>
   </div>
 
 </div>
@@ -1442,12 +1592,511 @@ load();
 render();
 </script>
 <script>
+/* V26: erweiterte Bestellverwaltung */
+const STORAGE_KEY_V26 = "stadtkrugCalculatorV26";
+let nextOrderNumber = 1;
+let deletedOrderSnapshot = null;
+let deletedOrderTimer = null;
+
+function createOrder(history = [], number = nextOrderNumber++){
+  const now = new Date().toISOString();
+  return {
+    id: `order-${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
+    number,
+    createdAt: now,
+    updatedAt: now,
+    completedAt: null,
+    status: "open",
+    history: Array.isArray(history) ? history : [],
+    actionHistory: [],
+    cashReceived: null
+  };
+}
+
+function normalizeOrder(order, index){
+  const createdAt = order.createdAt || new Date(Date.now() + index).toISOString();
+  return {
+    id: order.id || `order-${Date.now()}-${index}`,
+    number: Number.isInteger(order.number) ? order.number : index + 1,
+    createdAt,
+    updatedAt: order.updatedAt || createdAt,
+    completedAt: order.completedAt || null,
+    status: order.status === "completed" ? "completed" : "open",
+    history: Array.isArray(order.history) ? order.history.filter(id => items.some(item => item.id === id)) : [],
+    actionHistory: Array.isArray(order.actionHistory) ? order.actionHistory : [],
+    cashReceived: Number.isFinite(order.cashReceived) ? order.cashReceived : null
+  };
+}
+
+function loadV26(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY_V26) || "null");
+    if(saved && Array.isArray(saved.orders) && saved.orders.length){
+      orders = saved.orders.map(normalizeOrder);
+      activeOrderIndex = Number.isInteger(saved.activeOrderIndex) ? saved.activeOrderIndex : orders.length - 1;
+      nextOrderNumber = Number.isInteger(saved.nextOrderNumber)
+        ? saved.nextOrderNumber
+        : Math.max(...orders.map(order => order.number)) + 1;
+    }else{
+      orders = orders.map(normalizeOrder);
+      nextOrderNumber = Math.max(...orders.map(order => order.number), 0) + 1;
+    }
+  }catch(error){
+    orders = [createOrder([], 1)];
+    nextOrderNumber = 2;
+    activeOrderIndex = 0;
+  }
+  currentOrder();
+}
+
+save = function(){
+  try{
+    localStorage.setItem(STORAGE_KEY_V26, JSON.stringify({
+      version: 26,
+      orders,
+      activeOrderIndex,
+      nextOrderNumber
+    }));
+  }catch(error){}
+};
+
+function orderTotal(order){
+  return order.history.reduce((sum,id) => {
+    const item = items.find(entry => entry.id === id);
+    return sum + (item ? item.price : 0);
+  }, 0);
+}
+
+function orderItemCount(order){
+  return order.history.filter(id => id !== "glasretour").length;
+}
+
+function formatTime(value){
+  if(!value) return "";
+  const date = new Date(value);
+  if(Number.isNaN(date.getTime())) return "";
+  return date.toLocaleTimeString("de-AT", {hour:"2-digit", minute:"2-digit"});
+}
+
+function formatDateTime(value){
+  const date = new Date(value);
+  if(Number.isNaN(date.getTime())) return "";
+  return date.toLocaleString("de-AT", {day:"2-digit", month:"2-digit", hour:"2-digit", minute:"2-digit"});
+}
+
+function touchOrder(order){
+  order.updatedAt = new Date().toISOString();
+}
+
+addItem = function(id){
+  const order = currentOrder();
+  if(order.status === "completed") return;
+  order.history.push(id);
+  order.actionHistory.push({type:"add", id});
+  touchOrder(order);
+  save();
+  render();
+};
+
+removeItem = function(id){
+  const order = currentOrder();
+  if(order.status === "completed") return;
+  const index = order.history.lastIndexOf(id);
+  if(index === -1) return;
+  order.history.splice(index,1);
+  order.actionHistory.push({type:"remove", id});
+  touchOrder(order);
+  save();
+  render();
+};
+
+undoLast = function(){
+  const order = currentOrder();
+  if(order.status === "completed" || !order.actionHistory.length) return;
+  const action = order.actionHistory.pop();
+  if(action.type === "add"){
+    const index = order.history.lastIndexOf(action.id);
+    if(index !== -1) order.history.splice(index,1);
+  }else if(action.type === "remove"){
+    order.history.push(action.id);
+  }
+  touchOrder(order);
+  save();
+  render();
+};
+
+resetAll = function(){
+  const order = currentOrder();
+  if(order.status === "completed") return;
+  if(order.history.length && !confirm(`Bestellung ${order.number} wirklich leeren?`)) return;
+  order.history = [];
+  order.actionHistory = [];
+  order.cashReceived = null;
+  touchOrder(order);
+  save();
+  render();
+};
+
+newOrder = function(){
+  const order = currentOrder();
+  if(order.status === "open" && !order.history.length){
+    window.scrollTo({top:0, behavior:"smooth"});
+    return;
+  }
+  orders.push(createOrder());
+  activeOrderIndex = orders.length - 1;
+  save();
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
+};
+
+previousOrder = function(){
+  if(activeOrderIndex <= 0) return;
+  activeOrderIndex--;
+  save();
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
+};
+
+nextOrder = function(){
+  if(activeOrderIndex >= orders.length - 1) return;
+  activeOrderIndex++;
+  save();
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
+};
+
+function toggleCompleteOrder(){
+  const order = currentOrder();
+  if(order.status === "completed"){
+    order.status = "open";
+    order.completedAt = null;
+  }else{
+    if(!order.history.length){
+      alert("Eine leere Bestellung kann nicht abgeschlossen werden.");
+      return;
+    }
+    order.status = "completed";
+    order.completedAt = new Date().toISOString();
+  }
+  touchOrder(order);
+  save();
+  render();
+};
+
+function parseCash(value){
+  const cleaned = String(value || "").trim().replace(/\s/g, "").replace(",", ".").replace(/[^0-9.]/g, "");
+  if(!cleaned) return null;
+  const amount = Number(cleaned);
+  return Number.isFinite(amount) && amount >= 0 ? amount : null;
+}
+
+function setCashReceived(value){
+  const order = currentOrder();
+  order.cashReceived = parseCash(value);
+  save();
+  updateChange();
+};
+
+function setCashPreset(amount){
+  const input = document.getElementById("cashReceived");
+  input.value = String(amount).replace(".", ",");
+  setCashReceived(amount);
+};
+
+function setCashExact(){
+  const amount = Math.max(0, orderTotal(currentOrder()));
+  const input = document.getElementById("cashReceived");
+  input.value = amount.toFixed(2).replace(".", ",");
+  setCashReceived(amount);
+};
+
+function updateChange(){
+  const order = currentOrder();
+  const total = orderTotal(order);
+  const result = document.getElementById("changeResult");
+  const message = document.getElementById("changeMessage");
+  const input = document.getElementById("cashReceived");
+  if(document.activeElement !== input){
+    input.value = Number.isFinite(order.cashReceived) ? order.cashReceived.toFixed(2).replace(".", ",") : "";
+  }
+  input.disabled = order.status === "completed";
+  if(!Number.isFinite(order.cashReceived)){
+    result.textContent = "0,00 €";
+    result.classList.remove("short");
+    message.className = "change-message";
+    message.textContent = "Noch kein Bargeld eingegeben.";
+    return;
+  }
+  const difference = order.cashReceived - total;
+  result.textContent = euro(Math.abs(difference));
+  if(difference < -0.005){
+    result.classList.add("short");
+    message.className = "change-message short";
+    message.textContent = "Dieser Betrag fehlt noch.";
+  }else{
+    result.classList.remove("short");
+    message.className = "change-message";
+    message.textContent = Math.abs(difference) < 0.005 ? "Passend bezahlt." : "Dieses Rückgeld ausgeben.";
+  }
+}
+
+function setEditingState(order, counts){
+  const locked = order.status === "completed";
+  document.querySelectorAll("#drinkGrid .qty-btn, #foodGrid .qty-btn, .deposit-qty-control .qty-btn").forEach(button => {
+    if(locked) button.disabled = true;
+    else if(button.classList.contains("minus-btn")){
+      const card = button.closest("[data-item-id]");
+      if(card) button.disabled = !(counts[card.dataset.itemId] > 0);
+      else button.disabled = false;
+    }else button.disabled = false;
+  });
+  document.getElementById("undoBtn").disabled = locked || !order.actionHistory.length;
+  document.querySelector(".action.reset").disabled = locked;
+  document.querySelector(".order").classList.toggle("order-locked", locked);
+  const completeButton = document.getElementById("completeBtn");
+  completeButton.textContent = locked ? "↺ Bestellung wieder öffnen" : "✓ Bestellung abschließen";
+  completeButton.classList.toggle("reopen", locked);
+}
+
+const renderV19 = render;
+render = function(){
+  renderV19();
+  const order = currentOrder();
+  const counts = {};
+  order.history.forEach(id => counts[id] = (counts[id] || 0) + 1);
+  document.getElementById("orderPosition").textContent = `Bestellung ${activeOrderIndex + 1} von ${orders.length}`;
+  document.getElementById("orderTime").textContent = `${formatTime(order.createdAt)} Uhr · ${order.status === "completed" ? "Abgeschlossen" : "Offen"}`;
+  document.getElementById("orderSummaryTitle").textContent = order.status === "completed" ? `Abgeschlossene Bestellung ${order.number}` : `Offene Bestellung ${order.number}`;
+  setEditingState(order, counts);
+  updateChange();
+  const panel = document.getElementById("ordersPanel");
+  if(panel && !panel.hidden) renderOrdersPanel();
+};
+
+function toggleOrdersPanel(force){
+  const panel = document.getElementById("ordersPanel");
+  const show = typeof force === "boolean" ? force : panel.hidden;
+  panel.hidden = !show;
+  if(show){
+    renderOrdersPanel();
+    setTimeout(() => panel.scrollIntoView({behavior:"smooth", block:"nearest"}), 0);
+  }
+}
+
+function orderItemSummary(order){
+  const counts = {};
+  order.history.forEach(id => counts[id] = (counts[id] || 0) + 1);
+  return items.filter(item => counts[item.id] && item.type !== "deposit")
+    .map(item => `${counts[item.id]}× ${item.name}${item.size ? ` ${item.size}` : ""}`)
+    .join(", ");
+}
+
+function renderOrdersPanel(){
+  const list = document.getElementById("ordersList");
+  const openCount = orders.filter(order => order.status === "open").length;
+  const completedCount = orders.filter(order => order.status === "completed").length;
+  document.getElementById("ordersMeta").textContent = `${openCount} offen · ${completedCount} abgeschlossen`;
+  list.innerHTML = "";
+  [...orders].map((order,index) => ({order,index})).reverse().forEach(({order,index}) => {
+    const card = document.createElement("div");
+    card.className = `order-list-card${index === activeOrderIndex ? " active" : ""}`;
+    const statusText = order.status === "completed" ? "Abgeschlossen" : "Offen";
+    const summary = orderItemSummary(order) || "Noch keine Artikel";
+    card.innerHTML = `
+      <div class="order-list-main">
+        <div class="order-list-title">Bestellung ${order.number}<span class="status-badge ${order.status}">${statusText}</span></div>
+        <div class="order-list-detail">${formatDateTime(order.createdAt)} Uhr · ${orderItemCount(order)} Positionen · ${euro(orderTotal(order))}</div>
+        <div class="order-list-items"></div>
+      </div>
+      <div class="order-list-actions">
+        <button type="button" data-action="view">Ansehen</button>
+        <button type="button" class="delete-order" data-action="delete">Löschen</button>
+      </div>`;
+    card.querySelector(".order-list-items").textContent = summary;
+    card.querySelector('[data-action="view"]').addEventListener("click", () => showOrder(index));
+    card.querySelector('[data-action="delete"]').addEventListener("click", () => deleteOrder(index));
+    list.appendChild(card);
+  });
+}
+
+function showOrder(index){
+  if(index < 0 || index >= orders.length) return;
+  activeOrderIndex = index;
+  save();
+  render();
+  toggleOrdersPanel(false);
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function deleteOrder(index){
+  const order = orders[index];
+  if(!order) return;
+  if(!confirm(`Bestellung ${order.number} über ${euro(orderTotal(order))} wirklich löschen?\nSie wird auch aus der Statistik entfernt.`)) return;
+  deletedOrderSnapshot = {order: JSON.parse(JSON.stringify(order)), index, placeholderId:null};
+  orders.splice(index,1);
+  if(!orders.length){
+    orders.push(createOrder());
+    deletedOrderSnapshot.placeholderId = orders[0].id;
+    activeOrderIndex = 0;
+  }else if(activeOrderIndex > index){
+    activeOrderIndex--;
+  }else if(activeOrderIndex >= orders.length){
+    activeOrderIndex = orders.length - 1;
+  }
+  save();
+  render();
+  showDeleteToast(order.number);
+}
+
+function showDeleteToast(number){
+  const toast = document.getElementById("undoToast");
+  document.getElementById("undoToastText").textContent = `Bestellung ${number} gelöscht.`;
+  toast.hidden = false;
+  clearTimeout(deletedOrderTimer);
+  deletedOrderTimer = setTimeout(() => {
+    toast.hidden = true;
+    deletedOrderSnapshot = null;
+  }, 10000);
+}
+
+function restoreDeletedOrder(){
+  if(!deletedOrderSnapshot) return;
+  if(deletedOrderSnapshot.placeholderId && orders.length === 1 && orders[0].id === deletedOrderSnapshot.placeholderId){
+    orders.splice(0,1);
+  }
+  const index = Math.min(deletedOrderSnapshot.index, orders.length);
+  orders.splice(index,0,deletedOrderSnapshot.order);
+  activeOrderIndex = index;
+  deletedOrderSnapshot = null;
+  clearTimeout(deletedOrderTimer);
+  document.getElementById("undoToast").hidden = true;
+  save();
+  render();
+}
+
+renderDailyTotal = function(){
+  const list = document.getElementById("dailyTotalList");
+  const meta = document.getElementById("dailyTotalMeta");
+  const grand = document.getElementById("dailyGrandTotal");
+  const counts = {};
+  let salesTotal = 0;
+  let drinkTotal = 0;
+  let foodTotal = 0;
+  let enteredCount = 0;
+  const nonEmpty = orders.filter(order => order.history.length);
+  nonEmpty.forEach(order => order.history.forEach(id => {
+    const item = items.find(entry => entry.id === id);
+    if(!item) return;
+    counts[id] = (counts[id] || 0) + 1;
+    if(item.type !== "deposit"){
+      salesTotal += item.price;
+      if(item.type === "food") foodTotal += item.price;
+      else drinkTotal += item.price;
+    }
+    enteredCount++;
+  }));
+  list.innerHTML = "";
+  items.forEach(item => {
+    const qty = counts[item.id] || 0;
+    if(!qty) return;
+    const row = document.createElement("div");
+    row.className = "daily-total-row";
+    const label = item.size ? `${item.name} ${item.size}` : item.name;
+    row.innerHTML = `<div class="label"></div><div class="qty">${qty}×</div><div class="subtotal">${euro(qty * item.price)}</div>`;
+    row.querySelector(".label").textContent = label;
+    list.appendChild(row);
+  });
+  if(!list.children.length) list.innerHTML = `<div class="daily-total-empty">Noch keine Artikel in den Bestellungen vorhanden.</div>`;
+  const openCount = nonEmpty.filter(order => order.status === "open").length;
+  const completedCount = nonEmpty.filter(order => order.status === "completed").length;
+  const issued = counts.glaseinsatz || 0;
+  const returned = counts.glasretour || 0;
+  const average = nonEmpty.length ? salesTotal / nonEmpty.length : 0;
+  const saleTotalForOrder = order => order.history.reduce((sum,id) => {
+    const item = items.find(entry => entry.id === id);
+    return sum + (item && item.type !== "deposit" ? item.price : 0);
+  }, 0);
+  const highest = nonEmpty.length ? Math.max(...nonEmpty.map(saleTotalForOrder)) : 0;
+  meta.textContent = `${nonEmpty.length} Bestellungen · ${openCount} offen · ${completedCount} abgeschlossen · ${enteredCount} Eingaben`;
+  grand.textContent = euro(salesTotal);
+  const cards = document.getElementById("statsCards");
+  cards.innerHTML = `
+    <div class="stat-card"><div class="value">${euro(drinkTotal)}</div><div class="label">Getränke</div></div>
+    <div class="stat-card"><div class="value">${euro(foodTotal)}</div><div class="label">Speisen</div></div>
+    <div class="stat-card"><div class="value">${euro(average)}</div><div class="label">Durchschnitt</div></div>
+    <div class="stat-card"><div class="value">${euro(highest)}</div><div class="label">Höchste Bestellung</div></div>
+    <div class="stat-card"><div class="value">${Math.max(0,issued-returned)}</div><div class="label">Offene Gläser</div></div>
+    <div class="stat-card"><div class="value">${issued} / ${returned}</div><div class="label">Ausgegeben / retour</div></div>`;
+};
+
+function resetDay(){
+  if(!confirm("Wirklich alle Bestellungen und Tagesdaten löschen?")) return;
+  if(!confirm("Diese Aktion kann nicht rückgängig gemacht werden. Alle Tagesdaten jetzt löschen?")) return;
+  nextOrderNumber = 1;
+  orders = [createOrder()];
+  activeOrderIndex = 0;
+  deletedOrderSnapshot = null;
+  save();
+  render();
+};
+
+function exportData(){
+  const data = JSON.stringify({version:26, exportedAt:new Date().toISOString(), orders, nextOrderNumber}, null, 2);
+  const blob = new Blob([data], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `mittelalterfest-sicherung-${new Date().toISOString().slice(0,10)}.json`;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
+function importData(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const data = JSON.parse(reader.result);
+      if(!data || !Array.isArray(data.orders) || !data.orders.length) throw new Error();
+      if(!confirm("Die aktuelle Bestellliste durch diese Sicherung ersetzen?")) return;
+      orders = data.orders.map(normalizeOrder);
+      nextOrderNumber = Number.isInteger(data.nextOrderNumber) ? data.nextOrderNumber : Math.max(...orders.map(order => order.number)) + 1;
+      activeOrderIndex = orders.length - 1;
+      save();
+      render();
+      alert("Sicherung erfolgreich importiert.");
+    }catch(error){
+      alert("Diese Datei enthält keine gültige Mittelalterfest-Sicherung.");
+    }
+  };
+  reader.readAsText(file);
+}
+
+function addAccessibleLabels(){
+  document.querySelectorAll("[data-item-id]").forEach(card => {
+    const name = card.querySelector(".name")?.textContent || "Artikel";
+    const size = card.querySelector(".size")?.textContent || "";
+    const label = `${name} ${size}`.trim();
+    card.querySelector(".plus-btn")?.setAttribute("aria-label", `${label} hinzufügen`);
+    card.querySelector(".minus-btn")?.setAttribute("aria-label", `${label} entfernen`);
+  });
+  document.querySelector(".deposit-qty-control .plus-btn")?.setAttribute("aria-label", "Glaseinsatz hinzufügen");
+  document.querySelector(".deposit-qty-control .minus-btn")?.setAttribute("aria-label", "Glasretour hinzufügen");
+}
+
+loadV26();
+addAccessibleLabels();
+save();
+render();
+</script>
+<script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
     navigator.serviceWorker.register('./service-worker.js').catch(function () {});
   });
 }
 </script>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 24</div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 26</div>
 </body>
 </html>

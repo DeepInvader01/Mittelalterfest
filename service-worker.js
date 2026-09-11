@@ -1,5 +1,5 @@
-// BUILD V25 - FINAL
-const CACHE_NAME = 'mittelalterfest-eggenburg-v25';
+// BUILD V26
+const CACHE_NAME = 'mittelalterfest-eggenburg-v26';
 const APP_SHELL = [
   './',
   './index.html',
@@ -29,6 +29,22 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+
+  const requestUrl = new URL(event.request.url);
+  const wantsLatestApp = event.request.mode === 'navigate' || requestUrl.pathname.endsWith('/index.html');
+
+  if (wantsLatestApp) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put('./index.html', copy));
+          return response;
+        })
+        .catch(() => caches.match('./index.html'))
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then(cached => {
