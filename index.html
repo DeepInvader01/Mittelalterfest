@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V29 -->
+  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V30 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1065,7 +1065,7 @@ body{padding:0}
   top:0;
   z-index:12;
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(5,1fr);
   gap:6px;
   margin:10px 0 0;
   padding:6px 0;
@@ -1096,11 +1096,52 @@ body{padding:0}
 .product-page .grid,.product-page .food-grid{margin-top:0}
 .product-page .food-grid{grid-template-columns:repeat(3,1fr)}
 
+/* V30: kompakte Einzelartikel mit zwei getrennten Größen */
+.combo-grid,.single-menu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.menu-combo,.single-menu-card{position:relative;border:2px solid;border-radius:14px;padding:10px;overflow:hidden}
+.combo-head,.single-menu-head{display:flex;align-items:center;gap:7px;min-height:42px;font-size:19px;line-height:1.05;font-weight:900}
+.combo-icon,.single-menu-head span{flex:0 0 auto;font-size:30px}
+.combo-name,.single-menu-head strong{min-width:0;overflow-wrap:anywhere}
+.combo-size-row{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px;padding-top:8px;margin-top:7px;border-top:1px solid rgba(0,0,0,.17)}
+.combo-size{display:flex;flex-direction:column;gap:1px;font-size:16px}
+.combo-size span,.single-menu-price{font-weight:900}
+.combo-controls{display:grid;grid-template-columns:42px 30px 42px;align-items:center;gap:4px}
+.combo-controls .qty-btn{width:42px;height:42px;min-height:42px;padding:0;border-radius:9px;font-size:28px;font-weight:900}
+.combo-controls .qty-display{width:30px;height:31px;min-height:31px;font-size:17px}
+.single-menu-card{display:flex;flex-direction:column;gap:8px}
+.single-menu-price{font-size:18px;margin-left:auto}
+.single-menu-card .combo-controls{margin-top:auto;align-self:stretch;grid-template-columns:minmax(42px,1fr) 32px minmax(42px,1fr)}
+.single-menu-card .qty-btn{width:auto}
+.custom-order-panel{grid-column:1/-1;margin-top:10px;padding:12px;border:2px solid #8d629a;border-radius:14px;background:#f7e9ff}
+.custom-title{font-size:20px;font-weight:900;margin-bottom:8px}
+.custom-fields{display:grid;grid-template-columns:minmax(0,2fr) minmax(90px,1fr) auto;gap:7px}
+.custom-fields input{width:100%;height:45px;border:1.5px solid #aaa;border-radius:9px;padding:0 10px;font-size:17px;background:#fff}
+.custom-price-wrap{position:relative}.custom-price-wrap input{padding-right:30px}.custom-price-wrap span{position:absolute;right:10px;top:11px;font-size:18px;font-weight:900}
+.custom-fields button{border:1.5px solid #765182;border-radius:9px;background:#fff;font-weight:900;font-size:16px;padding:0 12px}
+.custom-added-list{display:grid;gap:6px;margin-top:9px}
+.custom-added-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:7px;padding-top:7px;border-top:1px solid rgba(0,0,0,.16)}
+.custom-added-name{font-weight:850;overflow-wrap:anywhere}.custom-added-price{font-weight:900}.custom-empty{opacity:.65;font-size:14px}
+
 @media(max-width:520px){
   .product-tabs{margin-top:7px;padding:4px 0;gap:4px}
-  .product-tab{min-height:42px;padding:0 4px;font-size:14px}
+  .product-tab{min-height:42px;padding:0 2px;font-size:11px}
   .swipe-hint{font-size:12px;margin-bottom:5px}
   .product-page .food-grid{grid-template-columns:1fr 1fr;gap:6px}
+  .combo-grid,.single-menu-grid{gap:6px}
+  .menu-combo,.single-menu-card{padding:7px;border-radius:11px}
+  .combo-head,.single-menu-head{min-height:36px;font-size:15px;gap:5px}
+  .combo-icon,.single-menu-head span{font-size:25px}
+  .combo-size-row{grid-template-columns:minmax(0,1fr) auto;gap:3px;padding-top:6px;margin-top:5px}
+  .combo-size{font-size:13px}
+  .combo-controls{grid-template-columns:36px 26px 36px;gap:3px}
+  .combo-controls .qty-btn{width:36px;height:39px;min-height:39px;font-size:25px}
+  .combo-controls .qty-display{width:26px;min-width:26px;max-width:26px;height:29px;min-height:29px;font-size:15px}
+  .single-menu-price{font-size:16px}
+  .single-menu-card .combo-controls{grid-template-columns:minmax(36px,1fr) 27px minmax(36px,1fr)}
+  .custom-order-panel{padding:9px;margin-top:7px}
+  .custom-fields{grid-template-columns:minmax(0,1fr) 88px}
+  .custom-fields button{grid-column:1/-1;min-height:40px}
+  .custom-added-row{grid-template-columns:minmax(0,1fr) auto}.custom-added-row .combo-controls{grid-column:1/-1;justify-self:end}
 }
 
 </style>
@@ -1187,11 +1228,13 @@ body{padding:0}
   </div>
 
   <nav class="product-tabs" aria-label="Produktkategorien">
-    <button type="button" class="product-tab active" data-page="0" aria-selected="true" onclick="showProductPage(0)">Bier & Co.</button>
-    <button type="button" class="product-tab" data-page="1" aria-selected="false" onclick="showProductPage(1)">Säfte</button>
-    <button type="button" class="product-tab" data-page="2" aria-selected="false" onclick="showProductPage(2)">Speisen</button>
+    <button type="button" class="product-tab active" data-page="0" aria-selected="true" onclick="showProductPage(0)">Ausschank</button>
+    <button type="button" class="product-tab" data-page="1" aria-selected="false" onclick="showProductPage(1)">Himbeer</button>
+    <button type="button" class="product-tab" data-page="2" aria-selected="false" onclick="showProductPage(2)">Apfel</button>
+    <button type="button" class="product-tab" data-page="3" aria-selected="false" onclick="showProductPage(3)">Speisen</button>
+    <button type="button" class="product-tab" data-page="4" aria-selected="false" onclick="showProductPage(4)">Sonder</button>
   </nav>
-  <div class="swipe-hint" id="swipeHint">1 von 3 · Zum Wechseln seitlich wischen</div>
+  <div class="swipe-hint" id="swipeHint">1 von 5 · Zum Wechseln seitlich wischen</div>
 
   <div class="section-title">Getränke</div>
   <div id="drinkGrid" class="grid">
@@ -1764,6 +1807,60 @@ let nextOrderNumber = 1;
 let deletedOrderSnapshot = null;
 let deletedOrderTimer = null;
 
+const detailedMenuItems = [
+  {id:"bier033",name:"Bier",size:"1/3 l",price:4.50,type:"beer",icon:"🍺"},
+  {id:"bier05",name:"Bier",size:"1/2 l",price:5.50,type:"beer",icon:"🍺"},
+  {id:"radler033",name:"Radler",size:"1/3 l",price:4.50,type:"beer",icon:"🍺"},
+  {id:"radler05",name:"Radler",size:"1/2 l",price:5.50,type:"beer",icon:"🍺"},
+  {id:"sturm033",name:"Sturm",size:"1/3 l",price:4.00,type:"wine",icon:"🥛"},
+  {id:"sturm05",name:"Sturm",size:"1/2 l",price:5.00,type:"wine",icon:"🥛"},
+  {id:"kaiserspritzer033",name:"Kaiserspritzer",size:"1/3 l",price:4.00,type:"wine",icon:"🥂"},
+  {id:"kaiserspritzer05",name:"Kaiserspritzer",size:"1/2 l",price:5.00,type:"wine",icon:"🥂"},
+  {id:"gspr_weiss033",name:"G'spritzter Weiß",size:"1/3 l",price:4.00,type:"wine",icon:"🥂"},
+  {id:"gspr_weiss05",name:"G'spritzter Weiß",size:"1/2 l",price:5.00,type:"wine",icon:"🥂"},
+  {id:"gspr_rot033",name:"G'spritzter Rot",size:"1/3 l",price:4.00,type:"wine",icon:"🍷"},
+  {id:"gspr_rot05",name:"G'spritzter Rot",size:"1/2 l",price:5.00,type:"wine",icon:"🍷"},
+
+  {id:"himbeer_soda033",name:"Himbeersaft mit Soda",size:"1/3 l",price:3.00,type:"juice",icon:"🌼",soda:true},
+  {id:"himbeer_soda05",name:"Himbeersaft mit Soda",size:"1/2 l",price:3.50,type:"juice",icon:"🌼",soda:true},
+  {id:"holler_soda033",name:"Hollersaft mit Soda",size:"1/3 l",price:3.00,type:"juice",icon:"🌼",soda:true},
+  {id:"holler_soda05",name:"Hollersaft mit Soda",size:"1/2 l",price:3.50,type:"juice",icon:"🌼",soda:true},
+  {id:"himbeer_leitung033",name:"Himbeersaft mit Leitung",size:"1/3 l",price:2.00,type:"juice",icon:"🌼"},
+  {id:"himbeer_leitung05",name:"Himbeersaft mit Leitung",size:"1/2 l",price:2.50,type:"juice",icon:"🌼"},
+  {id:"holler_leitung033",name:"Hollersaft mit Leitung",size:"1/3 l",price:2.00,type:"juice",icon:"🌼"},
+  {id:"holler_leitung05",name:"Hollersaft mit Leitung",size:"1/2 l",price:2.50,type:"juice",icon:"🌼"},
+  {id:"leitung033",name:"Leitungswasser",size:"1/3 l",price:0.50,type:"water",icon:"💧"},
+  {id:"leitung05",name:"Leitungswasser",size:"1/2 l",price:0.50,type:"water",icon:"💧"},
+
+  {id:"apfel_pur033",name:"Apfelsaft pur",size:"1/3 l",price:3.50,type:"juice",icon:"🍎"},
+  {id:"apfel_pur05",name:"Apfelsaft pur",size:"1/2 l",price:4.50,type:"juice",icon:"🍎"},
+  {id:"traube_pur033",name:"Traubensaft pur",size:"1/3 l",price:3.50,type:"juice",icon:"🍇"},
+  {id:"traube_pur05",name:"Traubensaft pur",size:"1/2 l",price:4.50,type:"juice",icon:"🍇"},
+  {id:"apfel_soda033",name:"Apfelsaft mit Soda",size:"1/3 l",price:3.00,type:"juice",icon:"🍎",soda:true},
+  {id:"apfel_soda05",name:"Apfelsaft mit Soda",size:"1/2 l",price:3.50,type:"juice",icon:"🍎",soda:true},
+  {id:"traube_soda033",name:"Traubensaft mit Soda",size:"1/3 l",price:3.00,type:"juice",icon:"🍇",soda:true},
+  {id:"traube_soda05",name:"Traubensaft mit Soda",size:"1/2 l",price:3.50,type:"juice",icon:"🍇",soda:true},
+  {id:"apfel_leitung033",name:"Apfelsaft mit Leitung",size:"1/3 l",price:2.50,type:"juice",icon:"🍎"},
+  {id:"apfel_leitung05",name:"Apfelsaft mit Leitung",size:"1/2 l",price:3.00,type:"juice",icon:"🍎"},
+  {id:"traube_leitung033",name:"Traubensaft mit Leitung",size:"1/3 l",price:2.50,type:"juice",icon:"🍇"},
+  {id:"traube_leitung05",name:"Traubensaft mit Leitung",size:"1/2 l",price:3.00,type:"juice",icon:"🍇"},
+
+  {id:"ritterbrot",name:"Ritterbrot",price:5.00,type:"food",icon:"🍞"},
+  {id:"geselchtesbrot",name:"Brot mit Geselchtem",price:5.00,type:"food",icon:"🍞"},
+  {id:"surbratenbrot",name:"Brot mit Surbraten",price:5.00,type:"food",icon:"🍞"},
+  {id:"schweinsbratenbrot",name:"Brot mit Schweinsbraten",price:5.00,type:"food",icon:"🍞"},
+  {id:"blutwurstbrot",name:"Brot mit Blutwurst",price:5.00,type:"food",icon:"🍞"},
+  {id:"grammelaufstrichbrot",name:"Grammelaufstrichbrot",price:3.50,type:"food",icon:"🍞"},
+  {id:"liptauerbrot",name:"Liptauerbrot",price:3.50,type:"food",icon:"🍞"},
+  {id:"scherzel_schmalzbrot",name:"Schmalzbrot mit Zwiebel (Scherzel)",price:3.00,type:"food",icon:"🍞"},
+
+  {id:"sommerspritzer033",name:"Sommerspritzer",size:"1/3 l",price:4.00,type:"wine",icon:"🥂"},
+  {id:"sommerspritzer05",name:"Sommerspritzer",size:"1/2 l",price:5.00,type:"wine",icon:"🥂"}
+];
+detailedMenuItems.forEach(item => {
+  if(!items.some(existing => existing.id === item.id)) items.push(item);
+});
+
 function createOrder(history = [], number = nextOrderNumber++){
   const now = new Date().toISOString();
   return {
@@ -1780,8 +1877,29 @@ function createOrder(history = [], number = nextOrderNumber++){
   };
 }
 
+function customItemId(name, price){
+  return `custom|${Math.round(price * 100)}|${encodeURIComponent(name).replace(/'/g,"%27")}`;
+}
+
+function ensureCustomItemFromId(id){
+  if(typeof id !== "string" || !id.startsWith("custom|")) return null;
+  const parts = id.split("|");
+  const cents = Number(parts[1]);
+  let name = "Sonderwunsch";
+  try{name = decodeURIComponent(parts.slice(2).join("|")) || name;}catch(error){}
+  if(!Number.isFinite(cents)) return null;
+  let item = items.find(entry => entry.id === id);
+  if(!item){
+    item = {id,name,price:cents / 100,type:"custom",icon:"✍️"};
+    items.push(item);
+  }
+  return item;
+}
+
 function normalizeOrder(order, index){
   const createdAt = order.createdAt || new Date(Date.now() + index).toISOString();
+  const normalizedHistory = Array.isArray(order.history) ? order.history : [];
+  normalizedHistory.forEach(ensureCustomItemFromId);
   return {
     id: order.id || `order-${Date.now()}-${index}`,
     number: Number.isInteger(order.number) ? order.number : index + 1,
@@ -1789,7 +1907,7 @@ function normalizeOrder(order, index){
     updatedAt: order.updatedAt || createdAt,
     completedAt: order.completedAt || null,
     status: order.status === "completed" ? "completed" : "open",
-    history: Array.isArray(order.history) ? order.history.filter(id => items.some(item => item.id === id)) : [],
+    history: normalizedHistory.filter(id => items.some(item => item.id === id)),
     actionHistory: Array.isArray(order.actionHistory) ? order.actionHistory : [],
     cashReceived: Number.isFinite(order.cashReceived) ? order.cashReceived : null,
     tipAmount: Number.isFinite(order.tipAmount) && order.tipAmount >= 0 ? order.tipAmount : 0
@@ -2068,6 +2186,12 @@ function setEditingState(order, counts){
   const tipInput = document.getElementById("tipAmount");
   tipInput.disabled = locked;
   document.querySelectorAll(".tip-presets button").forEach(button => button.disabled = locked);
+  ["customName","customPrice"].forEach(id => {
+    const field = document.getElementById(id);
+    if(field) field.disabled = locked;
+  });
+  const customButton = document.querySelector(".custom-fields button");
+  if(customButton) customButton.disabled = locked;
 }
 
 const renderV19 = render;
@@ -2096,6 +2220,7 @@ render = function(){
     row.innerHTML = `<div>Trinkgeld</div><div class="qty">1</div><div class="sum">${euro(order.tipAmount)}</div>`;
     summary.appendChild(row);
   }
+  renderCustomItems(order, counts);
   document.getElementById("orderPosition").textContent = `Bestellung ${activeOrderIndex + 1} von ${orders.length}`;
   document.getElementById("orderTime").textContent = `${formatTime(order.createdAt)} Uhr · ${order.status === "completed" ? "Abgeschlossen" : "Offen"}`;
   document.getElementById("orderSummaryTitle").textContent = order.status === "completed" ? `Abgeschlossene Bestellung ${order.number}` : `Offene Bestellung ${order.number}`;
@@ -2281,7 +2406,7 @@ function resetDay(){
 };
 
 function exportData(){
-  const data = JSON.stringify({version:27, exportedAt:new Date().toISOString(), orders, nextOrderNumber}, null, 2);
+  const data = JSON.stringify({version:30, exportedAt:new Date().toISOString(), orders, nextOrderNumber}, null, 2);
   const blob = new Blob([data], {type:"application/json"});
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -2317,8 +2442,10 @@ function addAccessibleLabels(){
     const name = card.querySelector(".name")?.textContent || "Artikel";
     const size = card.querySelector(".size")?.textContent || "";
     const label = `${name} ${size}`.trim();
-    card.querySelector(".plus-btn")?.setAttribute("aria-label", `${label} hinzufügen`);
-    card.querySelector(".minus-btn")?.setAttribute("aria-label", `${label} entfernen`);
+    const plus = card.querySelector(".plus-btn");
+    const minus = card.querySelector(".minus-btn");
+    if(plus && !plus.hasAttribute("aria-label")) plus.setAttribute("aria-label", `${label} hinzufügen`);
+    if(minus && !minus.hasAttribute("aria-label")) minus.setAttribute("aria-label", `${label} entfernen`);
   });
   document.querySelector(".deposit-qty-control .plus-btn")?.setAttribute("aria-label", "Glaseinsatz hinzufügen");
   document.querySelector(".deposit-qty-control .minus-btn")?.setAttribute("aria-label", "Glasretour hinzufügen");
@@ -2411,7 +2538,205 @@ function showProductPage(index){
   document.getElementById("swipeHint").textContent = `${activeProductPage + 1} von ${pages.length} · Zum Wechseln seitlich wischen`;
 }
 
-setupProductPager();
+function createComboCard(definition){
+  const small = items.find(item => item.id === definition.ids[0]);
+  const large = items.find(item => item.id === definition.ids[1]);
+  const card = document.createElement("div");
+  const sodaClass = small?.soda ? " has-soda" : "";
+  card.className = `menu-combo ${definition.color}${sodaClass}`;
+  card.innerHTML = `
+    <div class="combo-head"><span class="combo-icon">${definition.icon}</span><span class="combo-name">${definition.name}</span></div>
+    <div class="combo-size-row" data-item-id="${small.id}">
+      <div class="combo-size"><strong>1/3 l</strong><span>${euro(small.price)}</span></div>
+      <div class="combo-controls">
+        <button class="qty-btn minus-btn" type="button" onclick="removeItem('${small.id}')" aria-label="${definition.name} 1/3 Liter entfernen">−</button>
+        <div class="qty-display" id="count-${small.id}">0</div>
+        <button class="qty-btn plus-btn" type="button" onclick="addItem('${small.id}')" aria-label="${definition.name} 1/3 Liter hinzufügen">+</button>
+      </div>
+    </div>
+    <div class="combo-size-row" data-item-id="${large.id}">
+      <div class="combo-size"><strong>1/2 l</strong><span>${euro(large.price)}</span></div>
+      <div class="combo-controls">
+        <button class="qty-btn minus-btn" type="button" onclick="removeItem('${large.id}')" aria-label="${definition.name} 1/2 Liter entfernen">−</button>
+        <div class="qty-display" id="count-${large.id}">0</div>
+        <button class="qty-btn plus-btn" type="button" onclick="addItem('${large.id}')" aria-label="${definition.name} 1/2 Liter hinzufügen">+</button>
+      </div>
+    </div>`;
+  return card;
+}
+
+function createSingleCard(id, color){
+  const item = items.find(entry => entry.id === id);
+  const card = document.createElement("div");
+  card.className = `single-menu-card ${color}`;
+  card.dataset.itemId = id;
+  card.innerHTML = `
+    <div class="single-menu-head"><span>${item.icon || ""}</span><strong></strong></div>
+    <div class="single-menu-price">${item.size ? `${item.size} · ` : ""}${euro(item.price)}</div>
+    <div class="combo-controls">
+      <button class="qty-btn minus-btn" type="button" onclick="removeItem('${id}')" aria-label="${item.name} entfernen">−</button>
+      <div class="qty-display" id="count-${id}">0</div>
+      <button class="qty-btn plus-btn" type="button" onclick="addItem('${id}')" aria-label="${item.name} hinzufügen">+</button>
+    </div>`;
+  card.querySelector("strong").textContent = item.name;
+  return card;
+}
+
+function createCustomPanel(){
+  const panel = document.createElement("div");
+  panel.className = "custom-order-panel";
+  panel.innerHTML = `
+    <div class="custom-title">✍️ Sonderwunsch</div>
+    <div class="custom-fields">
+      <input id="customName" type="text" autocomplete="off" placeholder="Beschreibung" aria-label="Beschreibung des Sonderwunsches">
+      <div class="custom-price-wrap"><input id="customPrice" type="text" inputmode="decimal" autocomplete="off" placeholder="Preis" aria-label="Preis des Sonderwunsches"><span>€</span></div>
+      <button type="button" onclick="addCustomItem()">Hinzufügen</button>
+    </div>
+    <div class="custom-added-list" id="customAddedList"></div>`;
+  return panel;
+}
+
+function addCustomItem(){
+  const order = currentOrder();
+  if(order.status === "completed") return;
+  const nameInput = document.getElementById("customName");
+  const priceInput = document.getElementById("customPrice");
+  const name = nameInput.value.trim();
+  const price = parseCash(priceInput.value);
+  if(!name){alert("Bitte den Sonderwunsch beschreiben.");return;}
+  if(price === null){alert("Bitte einen gültigen Preis eingeben.");return;}
+  const id = customItemId(name,price);
+  ensureCustomItemFromId(id);
+  order.history.push(id);
+  order.actionHistory.push({type:"add",id});
+  touchOrder(order);
+  nameInput.value = "";
+  priceInput.value = "";
+  save();
+  render();
+}
+
+function renderCustomItems(order, counts){
+  const list = document.getElementById("customAddedList");
+  if(!list) return;
+  list.innerHTML = "";
+  const customIds = [...new Set(order.history.filter(id => id.startsWith("custom|")))];
+  if(!customIds.length){
+    list.innerHTML = `<div class="custom-empty">Noch kein Sonderwunsch in dieser Bestellung.</div>`;
+    return;
+  }
+  customIds.forEach(id => {
+    const item = ensureCustomItemFromId(id);
+    if(!item) return;
+    const row = document.createElement("div");
+    row.className = "custom-added-row";
+    row.dataset.itemId = id;
+    row.innerHTML = `
+      <div class="custom-added-name"></div>
+      <div class="custom-added-price">${euro(item.price)}</div>
+      <div class="combo-controls">
+        <button class="qty-btn minus-btn" type="button" onclick="removeItem('${id}')" aria-label="${item.name} entfernen">−</button>
+        <div class="qty-display" id="count-${id}">${counts[id] || 0}</div>
+        <button class="qty-btn plus-btn" type="button" onclick="addItem('${id}')" aria-label="${item.name} hinzufügen">+</button>
+      </div>`;
+    row.querySelector(".custom-added-name").textContent = item.name;
+    list.appendChild(row);
+  });
+}
+
+function setupProductPagerV30(){
+  const drinkGrid = document.getElementById("drinkGrid");
+  const foodGrid = document.getElementById("foodGrid");
+  if(!drinkGrid || !foodGrid) return;
+
+  const groups = [
+    [
+      {name:"Bier",icon:"🍺",color:"beer",ids:["bier033","bier05"]},
+      {name:"Radler",icon:"🍺",color:"beer",ids:["radler033","radler05"]},
+      {name:"Sturm",icon:"🥛",color:"wine",ids:["sturm033","sturm05"]},
+      {name:"Kaiserspritzer",icon:"🥂",color:"wine",ids:["kaiserspritzer033","kaiserspritzer05"]},
+      {name:"G'spritzter Weiß",icon:"🥂",color:"wine",ids:["gspr_weiss033","gspr_weiss05"]},
+      {name:"G'spritzter Rot",icon:"🍷",color:"wine",ids:["gspr_rot033","gspr_rot05"]}
+    ],
+    [
+      {name:"Himbeersaft mit Soda",icon:"🌼",color:"juice",ids:["himbeer_soda033","himbeer_soda05"]},
+      {name:"Hollersaft mit Soda",icon:"🌼",color:"juice",ids:["holler_soda033","holler_soda05"]},
+      {name:"Himbeersaft mit Leitung",icon:"🌼",color:"juice",ids:["himbeer_leitung033","himbeer_leitung05"]},
+      {name:"Hollersaft mit Leitung",icon:"🌼",color:"juice",ids:["holler_leitung033","holler_leitung05"]},
+      {name:"Soda",icon:"🥤",color:"soda",ids:["soda033","soda05"]},
+      {name:"Leitungswasser",icon:"💧",color:"soda",ids:["leitung033","leitung05"]}
+    ],
+    [
+      {name:"Apfelsaft pur",icon:"🍎",color:"juice",ids:["apfel_pur033","apfel_pur05"]},
+      {name:"Traubensaft pur",icon:"🍇",color:"juice",ids:["traube_pur033","traube_pur05"]},
+      {name:"Apfelsaft mit Soda",icon:"🍎",color:"juice",ids:["apfel_soda033","apfel_soda05"]},
+      {name:"Traubensaft mit Soda",icon:"🍇",color:"juice",ids:["traube_soda033","traube_soda05"]},
+      {name:"Apfelsaft mit Leitung",icon:"🍎",color:"juice",ids:["apfel_leitung033","apfel_leitung05"]},
+      {name:"Traubensaft mit Leitung",icon:"🍇",color:"juice",ids:["traube_leitung033","traube_leitung05"]}
+    ]
+  ];
+  const foodIds = ["ritterbrot","geselchtesbrot","surbratenbrot","schweinsbratenbrot","blutwurstbrot","grammelaufstrichbrot","liptauerbrot","scherzel_schmalzbrot"];
+  const pager = document.createElement("div");
+  pager.id = "productPager";
+  pager.className = "product-pager";
+
+  groups.forEach((definitions,index) => {
+    const page = document.createElement("section");
+    page.className = "product-page";
+    page.dataset.productPage = index;
+    page.hidden = index !== 0;
+    const grid = document.createElement("div");
+    grid.className = "combo-grid";
+    definitions.forEach(definition => grid.appendChild(createComboCard(definition)));
+    page.appendChild(grid);
+    pager.appendChild(page);
+  });
+
+  const foodPage = document.createElement("section");
+  foodPage.className = "product-page";
+  foodPage.dataset.productPage = "3";
+  foodPage.hidden = true;
+  const foodMenuGrid = document.createElement("div");
+  foodMenuGrid.className = "single-menu-grid food-menu-grid";
+  foodIds.forEach(id => foodMenuGrid.appendChild(createSingleCard(id,"food")));
+  foodPage.appendChild(foodMenuGrid);
+  pager.appendChild(foodPage);
+
+  const specialPage = document.createElement("section");
+  specialPage.className = "product-page";
+  specialPage.dataset.productPage = "4";
+  specialPage.hidden = true;
+  const specialGrid = document.createElement("div");
+  specialGrid.className = "single-menu-grid special-menu-grid";
+  specialGrid.append(createSingleCard("wein","wine"),createSingleCard("schnaps","wine"),createComboCard({name:"Sommerspritzer",icon:"🥂",color:"wine",ids:["sommerspritzer033","sommerspritzer05"]}));
+  specialPage.append(specialGrid,createCustomPanel());
+  pager.appendChild(specialPage);
+
+  drinkGrid.replaceWith(pager);
+  foodGrid.remove();
+  document.querySelector(".food-title")?.remove();
+
+  let startX = null;
+  let startY = null;
+  pager.addEventListener("touchstart", event => {
+    if(event.target.closest("button,input")) return;
+    const touch = event.changedTouches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+  }, {passive:true});
+  pager.addEventListener("touchend", event => {
+    if(startX === null) return;
+    const touch = event.changedTouches[0];
+    const dx = touch.clientX - startX;
+    const dy = touch.clientY - startY;
+    startX = null;
+    startY = null;
+    if(Math.abs(dx) < 45 || Math.abs(dx) <= Math.abs(dy) * 1.2) return;
+    showProductPage(activeProductPage + (dx < 0 ? 1 : -1));
+  }, {passive:true});
+}
+
+setupProductPagerV30();
 loadV27();
 addAccessibleLabels();
 save();
@@ -2424,6 +2749,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 29</div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 30</div>
 </body>
 </html>

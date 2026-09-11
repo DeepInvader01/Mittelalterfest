@@ -1,5 +1,5 @@
 // BUILD V29
-const CACHE_NAME = 'mittelalterfest-eggenburg-v29';
+const CACHE_NAME = 'mittelalterfest-eggenburg-v30';
 const APP_SHELL = [
   './',
   './index.html',
