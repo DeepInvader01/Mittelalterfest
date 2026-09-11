@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V32 -->
+  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V33 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1128,7 +1128,11 @@ body{padding:0}
 .spritzer-red{background:linear-gradient(135deg,#ffd9d6,#efa19b);border-color:#b44843}
 .grape-white{background:linear-gradient(135deg,#c9e3ae,#8fbd69);border-color:#4d7d2d}
 .grape-red{background:linear-gradient(135deg,#ddbcda,#b674ad);border-color:#743568}
-.apple-deep{background:linear-gradient(135deg,#f3b2c1,#dc718b);border-color:#a53f59}
+.grape-white-light{background:linear-gradient(135deg,#eef9df,#cce9ad);border-color:#77a64c}
+.grape-red-light{background:linear-gradient(135deg,#f2e2f2,#d8b8dc);border-color:#9b6a9f}
+.apple-red{background:linear-gradient(135deg,#ffd0d5,#ef929f);border-color:#bd5969}
+.apple-deep{background:linear-gradient(135deg,#ef9bab,#d75b72);border-color:#99384c}
+.holler-orange{background:linear-gradient(135deg,#fff0ce,#ffd391);border-color:#d59638}
 .food-ritter{background:linear-gradient(135deg,#eceff1 0 58%,#d36b67 58%);border-color:#7c858c}
 .food-geselcht{background:linear-gradient(135deg,#ffe6ee,#efb7c9);border-color:#bc7189}
 .food-sur{background:linear-gradient(135deg,#f4b19f,#df7664);border-color:#a84c3e}
@@ -1235,7 +1239,7 @@ body{padding:0}
     <div class="deposit-qty-control">
 <button class="qty-btn minus-btn" type="button" onclick="returnDeposit()">−</button>
 <div class="deposit-qty-center">
-<div class="deposit-qty-label">🥛 Glaseinsatz</div>
+<div class="deposit-qty-label">🥛 Krug/Glaseinsatz</div>
 <div class="qty-display" id="count-glass">0</div>
 
 </div>
@@ -1517,7 +1521,7 @@ const items = [
   {id:"wein", name:"Wein", size:"1/8 l", price:2.50, type:"wine", icon:"🍷"},
   {id:"schnaps", name:"Schnaps", size:"2 cl", price:2.00, type:"wine", icon:"🥃"},
 
-  {id:"glaseinsatz", name:"Glaseinsatz", price:7.00, type:"deposit"},
+  {id:"glaseinsatz", name:"Krug/Glaseinsatz", price:7.00, type:"deposit"},
   {id:"glasretour", name:"Glas retour", price:-7.00, type:"deposit"},
 
   {id:"fleischbrot", name:"Fleisch", price:5.00, type:"food"},
@@ -1998,7 +2002,7 @@ function orderTotal(order){
 }
 
 function orderItemCount(order){
-  return order.history.filter(id => id !== "glasretour").length;
+  return order.history.filter(id => id !== "glaseinsatz" && id !== "glasretour").length;
 }
 
 function formatTime(value){
@@ -2018,11 +2022,18 @@ function touchOrder(order){
   order.updatedAt = new Date().toISOString();
 }
 
+function isDrinkItem(id){
+  const item = items.find(entry => entry.id === id);
+  return !!item && ["beer","wine","juice","soda","water"].includes(item.type);
+}
+
 addItem = function(id){
   const order = currentOrder();
   if(order.status === "completed") return;
   order.history.push(id);
-  order.actionHistory.push({type:"add", id});
+  const automaticDeposit = isDrinkItem(id);
+  if(automaticDeposit) order.history.push("glaseinsatz");
+  order.actionHistory.push({type:"add", id, automaticDeposit});
   touchOrder(order);
   save();
   render();
@@ -2034,7 +2045,15 @@ removeItem = function(id){
   const index = order.history.lastIndexOf(id);
   if(index === -1) return;
   order.history.splice(index,1);
-  order.actionHistory.push({type:"remove", id});
+  let automaticDeposit = false;
+  if(isDrinkItem(id)){
+    const depositIndex = order.history.lastIndexOf("glaseinsatz");
+    if(depositIndex !== -1){
+      order.history.splice(depositIndex,1);
+      automaticDeposit = true;
+    }
+  }
+  order.actionHistory.push({type:"remove", id, automaticDeposit});
   touchOrder(order);
   save();
   render();
@@ -2047,8 +2066,13 @@ undoLast = function(){
   if(action.type === "add"){
     const index = order.history.lastIndexOf(action.id);
     if(index !== -1) order.history.splice(index,1);
+    if(action.automaticDeposit){
+      const depositIndex = order.history.lastIndexOf("glaseinsatz");
+      if(depositIndex !== -1) order.history.splice(depositIndex,1);
+    }
   }else if(action.type === "remove"){
     order.history.push(action.id);
+    if(action.automaticDeposit) order.history.push("glaseinsatz");
   }
   touchOrder(order);
   save();
@@ -2487,7 +2511,7 @@ function addAccessibleLabels(){
     if(plus && !plus.hasAttribute("aria-label")) plus.setAttribute("aria-label", `${label} hinzufügen`);
     if(minus && !minus.hasAttribute("aria-label")) minus.setAttribute("aria-label", `${label} entfernen`);
   });
-  document.querySelector(".deposit-qty-control .plus-btn")?.setAttribute("aria-label", "Glaseinsatz hinzufügen");
+  document.querySelector(".deposit-qty-control .plus-btn")?.setAttribute("aria-label", "Krug oder Glaseinsatz hinzufügen");
   document.querySelector(".deposit-qty-control .minus-btn")?.setAttribute("aria-label", "Glasretour hinzufügen");
 }
 
@@ -2700,21 +2724,21 @@ function setupProductPagerV30(){
     ],
     [
       {name:"Himbeersaft mit Soda",icon:"🌼",color:"juice",ids:["himbeer_soda033","himbeer_soda05"]},
-      {name:"Hollersaft mit Soda",icon:"🌼",color:"juice",ids:["holler_soda033","holler_soda05"]},
+      {name:"Hollersaft mit Soda",icon:"🌼",color:"holler-orange",ids:["holler_soda033","holler_soda05"]},
       {name:"Himbeersaft mit Leitung",icon:"🌼",color:"juice",ids:["himbeer_leitung033","himbeer_leitung05"]},
-      {name:"Hollersaft mit Leitung",icon:"🌼",color:"juice",ids:["holler_leitung033","holler_leitung05"]},
+      {name:"Hollersaft mit Leitung",icon:"🌼",color:"holler-orange",ids:["holler_leitung033","holler_leitung05"]},
       {name:"Soda",icon:"🥤",color:"soda",ids:["soda033","soda05"]},
       {name:"Apfelsaft pur",icon:"🍎",color:"apple-deep",ids:["apfel_pur033","apfel_pur05"]},
-      {name:"Apfelsaft mit Soda",icon:"🍎",color:"juice",ids:["apfel_soda033","apfel_soda05"]},
-      {name:"Apfelsaft mit Leitung",icon:"🍎",color:"juice",ids:["apfel_leitung033","apfel_leitung05"]}
+      {name:"Apfelsaft mit Soda",icon:"🍎",color:"apple-red",ids:["apfel_soda033","apfel_soda05"]},
+      {name:"Apfelsaft mit Leitung",icon:"🍎",color:"apple-red",ids:["apfel_leitung033","apfel_leitung05"]}
     ],
     [
       {name:"Traubensaft Weiß pur",icon:"🟢",color:"grape-white",ids:["traube_weiss_pur033","traube_weiss_pur05"]},
       {name:"Traubensaft Rot pur",icon:"🍇",color:"grape-red",ids:["traube_rot_pur033","traube_rot_pur05"]},
       {name:"Traubensaft Weiß mit Soda",icon:"🟢",color:"grape-white",ids:["traube_weiss_soda033","traube_weiss_soda05"]},
       {name:"Traubensaft Rot mit Soda",icon:"🍇",color:"grape-red",ids:["traube_rot_soda033","traube_rot_soda05"]},
-      {name:"Traubensaft Weiß mit Leitung",icon:"🟢",color:"grape-white",ids:["traube_weiss_leitung033","traube_weiss_leitung05"]},
-      {name:"Traubensaft Rot mit Leitung",icon:"🍇",color:"grape-red",ids:["traube_rot_leitung033","traube_rot_leitung05"]}
+      {name:"Traubensaft Weiß mit Leitung",icon:"🟢",color:"grape-white-light",ids:["traube_weiss_leitung033","traube_weiss_leitung05"]},
+      {name:"Traubensaft Rot mit Leitung",icon:"🍇",color:"grape-red-light",ids:["traube_rot_leitung033","traube_rot_leitung05"]}
     ]
   ];
   const foodIds = ["ritterbrot","geselchtesbrot","surbratenbrot","schweinsbratenbrot","blutwurstbrot","grammelaufstrichbrot","liptauerbrot","scherzel_schmalzbrot"];
@@ -2808,6 +2832,6 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 <div class="easter-egg" id="marcelEasterEgg" hidden><img src="marcel-easter-egg.png" alt="Marcel mit einem großen Plüschtier"></div>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 32</div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 33</div>
 </body>
 </html>
