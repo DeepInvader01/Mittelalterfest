@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V31 -->
+  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V32 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1122,16 +1122,17 @@ body{padding:0}
 .custom-added-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:7px;padding-top:7px;border-top:1px solid rgba(0,0,0,.16)}
 .custom-added-name{font-weight:850;overflow-wrap:anywhere}.custom-added-price{font-weight:900}.custom-empty{opacity:.65;font-size:14px}
 .radler-pale{background:linear-gradient(135deg,#fff9c9,#f2df85);border-color:#c9aa35}
-.sturm-green{background:linear-gradient(135deg,#e7f8d4,#bddd99);border-color:#6c9d45}
+.sturm-green{background:linear-gradient(135deg,#f3ead8,#d9c29e);border-color:#9d7d51}
 .kaiser-lime{background:linear-gradient(135deg,#f6f5b5,#cedc78);border-color:#98a83d}
 .spritzer-white{background:linear-gradient(135deg,#e2f7da,#b7dfaa);border-color:#5c9b55}
 .spritzer-red{background:linear-gradient(135deg,#ffd9d6,#efa19b);border-color:#b44843}
-.grape-white{background:linear-gradient(135deg,#e4f7d6,#b9dda0);border-color:#659846}
-.grape-red{background:linear-gradient(135deg,#f4d9eb,#dda5c8);border-color:#994f7d}
+.grape-white{background:linear-gradient(135deg,#c9e3ae,#8fbd69);border-color:#4d7d2d}
+.grape-red{background:linear-gradient(135deg,#ddbcda,#b674ad);border-color:#743568}
+.apple-deep{background:linear-gradient(135deg,#f3b2c1,#dc718b);border-color:#a53f59}
 .food-ritter{background:linear-gradient(135deg,#eceff1 0 58%,#d36b67 58%);border-color:#7c858c}
 .food-geselcht{background:linear-gradient(135deg,#ffe6ee,#efb7c9);border-color:#bc7189}
-.food-sur{background:linear-gradient(135deg,#f1f2f3,#c8cdd1);border-color:#7f888e}
-.food-schwein{background:linear-gradient(135deg,#ffddeb,#f2a9c8);border-color:#c75e8c}
+.food-sur{background:linear-gradient(135deg,#f4b19f,#df7664);border-color:#a84c3e}
+.food-schwein{background:linear-gradient(135deg,#ddd8d2,#aaa39a);border-color:#777068}
 .food-blutwurst{background:linear-gradient(135deg,#ffd7d3,#d96d67);border-color:#9f332f}
 .food-grammel{background:linear-gradient(135deg,#ead2ae,#bd8957);border-color:#83572f}
 .food-liptauer{background:linear-gradient(135deg,#ffe1b3,#f2a253);border-color:#bd681f}
@@ -1140,8 +1141,15 @@ body{padding:0}
 .new-order-btn{grid-column:1/-1;min-height:60px;font-size:20px}
 .lower-orders-btn{width:100%;margin-top:48px;min-height:55px}
 .lower-orders-btn + .orders-panel + .daily-total-btn{margin-top:10px !important}
+.easter-egg{margin:18px auto 6px;max-width:420px;text-align:center}
+.easter-egg[hidden]{display:none}.easter-egg img{display:block;width:100%;height:auto;border:3px solid #745226;border-radius:16px;box-shadow:0 7px 22px rgba(0,0,0,.24)}
+.cheers{cursor:pointer;user-select:none;touch-action:manipulation;border:0;padding:0;background:transparent;appearance:none}
 
 @media(max-width:520px){
+  .order-switcher{grid-template-columns:48px minmax(0,1fr) 48px}
+  .order-switcher > .order-nav-btn:first-child{grid-column:1/2}
+  .order-switcher-center{grid-column:2/3}
+  .order-switcher > .order-nav-btn:nth-of-type(2){grid-column:3/4}
   .product-tabs{margin-top:7px;padding:4px 0;gap:4px}
   .product-tab{min-height:42px;padding:0 2px;font-size:11px}
   .swipe-hint{font-size:12px;margin-bottom:5px}
@@ -1181,7 +1189,7 @@ body{padding:0}
     <div class="title-wrap">
       <div class="title">Mittelalterfest Eggenburg</div>
     </div>
-    <div class="cheers">Marcel</div>
+    <button class="cheers" type="button" onclick="marcelClick()" aria-label="Marcel">Marcel</button>
   </div>
 
 
@@ -1247,8 +1255,8 @@ body{padding:0}
   </div>
 
   <nav class="product-tabs" aria-label="Produktkategorien">
-    <button type="button" class="product-tab active" data-page="0" aria-selected="true" onclick="showProductPage(0)">Ausschank</button>
-    <button type="button" class="product-tab" data-page="1" aria-selected="false" onclick="showProductPage(1)">Himbeer</button>
+    <button type="button" class="product-tab active" data-page="0" aria-selected="true" onclick="showProductPage(0)">Alkohol</button>
+    <button type="button" class="product-tab" data-page="1" aria-selected="false" onclick="showProductPage(1)">Him/Apf</button>
     <button type="button" class="product-tab" data-page="2" aria-selected="false" onclick="showProductPage(2)">Traube</button>
     <button type="button" class="product-tab" data-page="3" aria-selected="false" onclick="showProductPage(3)">Speisen</button>
     <button type="button" class="product-tab" data-page="4" aria-selected="false" onclick="showProductPage(4)">Sonder</button>
@@ -1435,10 +1443,6 @@ body{padding:0}
       <span style="text-align:right">Summe</span>
     </div>
     <div id="summary"></div>
-    <div class="order-total">
-      <span>Gesamtsumme</span>
-      <span class="total-number" id="bottomTotal">0,00 €</span>
-    </div>
   </section>
 
   <button class="orders-btn lower-orders-btn" type="button" onclick="toggleOrdersPanel()">📋 Bestellungen</button>
@@ -1690,7 +1694,8 @@ function render(){
   });
 
   document.getElementById("total").textContent = euro(total);
-  document.getElementById("bottomTotal").textContent = euro(total);
+  const bottomTotal = document.getElementById("bottomTotal");
+  if(bottomTotal) bottomTotal.textContent = euro(total);
 
   // Navigation / Bestellungsanzeige
   document.getElementById("orderPosition").textContent =
@@ -2236,7 +2241,8 @@ render = function(){
   order.history.forEach(id => counts[id] = (counts[id] || 0) + 1);
   const completeTotal = orderTotal(order);
   document.getElementById("total").textContent = euro(completeTotal);
-  document.getElementById("bottomTotal").textContent = euro(completeTotal);
+  const bottomTotal = document.getElementById("bottomTotal");
+  if(bottomTotal) bottomTotal.textContent = euro(completeTotal);
   const positionCount = orderItemCount(order);
   document.getElementById("orderInfo").textContent = positionCount === 0 && !(order.tipAmount > 0)
     ? "Neue Bestellung"
@@ -2698,7 +2704,7 @@ function setupProductPagerV30(){
       {name:"Himbeersaft mit Leitung",icon:"🌼",color:"juice",ids:["himbeer_leitung033","himbeer_leitung05"]},
       {name:"Hollersaft mit Leitung",icon:"🌼",color:"juice",ids:["holler_leitung033","holler_leitung05"]},
       {name:"Soda",icon:"🥤",color:"soda",ids:["soda033","soda05"]},
-      {name:"Apfelsaft pur",icon:"🍎",color:"juice",ids:["apfel_pur033","apfel_pur05"]},
+      {name:"Apfelsaft pur",icon:"🍎",color:"apple-deep",ids:["apfel_pur033","apfel_pur05"]},
       {name:"Apfelsaft mit Soda",icon:"🍎",color:"juice",ids:["apfel_soda033","apfel_soda05"]},
       {name:"Apfelsaft mit Leitung",icon:"🍎",color:"juice",ids:["apfel_leitung033","apfel_leitung05"]}
     ],
@@ -2778,6 +2784,21 @@ loadV27();
 addAccessibleLabels();
 save();
 render();
+
+let marcelClicks = 0;
+let marcelClickTimer = null;
+function marcelClick(){
+  marcelClicks++;
+  clearTimeout(marcelClickTimer);
+  if(marcelClicks >= 3){
+    marcelClicks = 0;
+    const egg = document.getElementById("marcelEasterEgg");
+    egg.hidden = false;
+    egg.scrollIntoView({behavior:"smooth",block:"end"});
+    return;
+  }
+  marcelClickTimer = setTimeout(() => {marcelClicks = 0;}, 1500);
+}
 </script>
 <script>
 if ('serviceWorker' in navigator) {
@@ -2786,6 +2807,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 31</div>
+<div class="easter-egg" id="marcelEasterEgg" hidden><img src="marcel-easter-egg.png" alt="Marcel mit einem großen Plüschtier"></div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 32</div>
 </body>
 </html>

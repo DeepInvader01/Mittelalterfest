@@ -1,10 +1,11 @@
-// BUILD V29
-const CACHE_NAME = 'mittelalterfest-eggenburg-v31';
+// BUILD V32
+const CACHE_NAME = 'mittelalterfest-eggenburg-v32';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.json',
-  './icon.svg'
+  './icon.svg',
+  './marcel-easter-egg.png'
 ];
 
 self.addEventListener('install', event => {
