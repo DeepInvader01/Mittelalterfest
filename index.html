@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V28 -->
+  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V29 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -888,7 +888,7 @@ body{padding:0}
 .change-subtitle{font-size:14px;font-weight:750;color:#536b54;margin-top:2px}
 .change-result{font-size:38px;line-height:1;font-weight:950;color:#103d13;white-space:nowrap}
 .change-result.short{color:#b21d1d}
-.cash-entry{display:grid;grid-template-columns:minmax(125px,1.5fr) repeat(5,minmax(72px,1fr));gap:8px;margin-top:10px}
+.cash-entry{display:grid;grid-template-columns:minmax(125px,1.5fr) repeat(6,minmax(64px,1fr));gap:8px;margin-top:10px}
 .cash-input,.cash-entry button{
   min-height:52px;
   border:1.5px solid rgba(0,0,0,.25);
@@ -1059,6 +1059,50 @@ body{padding:0}
   .food.item{grid-template-columns:minmax(0,1fr) auto !important}
 }
 
+/* V29: kurze Produktseiten statt einer langen Artikelliste */
+.product-tabs{
+  position:sticky;
+  top:0;
+  z-index:12;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+  margin:10px 0 0;
+  padding:6px 0;
+  background:rgba(251,244,232,.96);
+  backdrop-filter:blur(8px);
+}
+.product-tab{
+  min-height:48px;
+  border:1.5px solid #aeb9c4;
+  border-radius:10px;
+  background:linear-gradient(#fff,#edf1f4);
+  color:#344353;
+  font-size:17px;
+  font-weight:900;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+.product-tab.active{
+  border-color:#2783c2;
+  background:linear-gradient(#e3f4ff,#c9e8fb);
+  color:#174f75;
+  box-shadow:inset 0 0 0 1px rgba(39,131,194,.14);
+}
+.swipe-hint{margin:0 0 7px;text-align:center;color:#677483;font-size:13px;font-weight:750}
+.product-pager{touch-action:pan-y;overflow:hidden}
+.product-page[hidden]{display:none !important}
+.product-page-title{display:none}
+.product-page .grid,.product-page .food-grid{margin-top:0}
+.product-page .food-grid{grid-template-columns:repeat(3,1fr)}
+
+@media(max-width:520px){
+  .product-tabs{margin-top:7px;padding:4px 0;gap:4px}
+  .product-tab{min-height:42px;padding:0 4px;font-size:14px}
+  .swipe-hint{font-size:12px;margin-bottom:5px}
+  .product-page .food-grid{grid-template-columns:1fr 1fr;gap:6px}
+}
+
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -1107,6 +1151,7 @@ body{padding:0}
     </div>
     <div class="cash-entry">
       <input id="cashReceived" class="cash-input" type="text" inputmode="decimal" autocomplete="off" placeholder="z. B. 50" aria-label="Gegebener Geldbetrag" oninput="setCashReceived(this.value)">
+      <button type="button" onclick="setCashPreset(0)">0 €</button>
       <button type="button" onclick="setCashPreset(10)">10 €</button>
       <button type="button" onclick="setCashPreset(20)">20 €</button>
       <button type="button" onclick="setCashPreset(50)">50 €</button>
@@ -1140,6 +1185,13 @@ body{padding:0}
       </div>
     </div>
   </div>
+
+  <nav class="product-tabs" aria-label="Produktkategorien">
+    <button type="button" class="product-tab active" data-page="0" aria-selected="true" onclick="showProductPage(0)">Bier & Co.</button>
+    <button type="button" class="product-tab" data-page="1" aria-selected="false" onclick="showProductPage(1)">Säfte</button>
+    <button type="button" class="product-tab" data-page="2" aria-selected="false" onclick="showProductPage(2)">Speisen</button>
+  </nav>
+  <div class="swipe-hint" id="swipeHint">1 von 3 · Zum Wechseln seitlich wischen</div>
 
   <div class="section-title">Getränke</div>
   <div id="drinkGrid" class="grid">
@@ -1996,7 +2048,7 @@ function updateChange(){
 
 function setEditingState(order, counts){
   const locked = order.status === "completed";
-  document.querySelectorAll("#drinkGrid .qty-btn, #foodGrid .qty-btn, .deposit-qty-control .qty-btn").forEach(button => {
+  document.querySelectorAll("#productPager .qty-btn, .deposit-qty-control .qty-btn").forEach(button => {
     if(locked) button.disabled = true;
     else if(button.classList.contains("minus-btn")){
       const card = button.closest("[data-item-id]");
@@ -2272,6 +2324,94 @@ function addAccessibleLabels(){
   document.querySelector(".deposit-qty-control .minus-btn")?.setAttribute("aria-label", "Glasretour hinzufügen");
 }
 
+let activeProductPage = 0;
+
+function setupProductPager(){
+  const drinkGrid = document.getElementById("drinkGrid");
+  const foodGrid = document.getElementById("foodGrid");
+  if(!drinkGrid || !foodGrid) return;
+
+  const groups = [
+    {
+      title:"Bier, Sturm, Soda, Wein und Schnaps",
+      ids:["bier_radler033","bier_radler05","sturm_spritzer_kaiser033","sturm_spritzer_kaiser05","soda033","soda05","wein","schnaps"],
+      gridClass:"grid"
+    },
+    {
+      title:"Apfel, Himbeer und Holler",
+      ids:["saftpur033","saftpur05","saft_soda033","saft_soda05","saftwasser033","saftwasser05","himb_wasser033","himb_wasser05"],
+      gridClass:"grid"
+    },
+    {
+      title:"Speisen",
+      ids:["fleischbrot","aufstrichbrot","schmalzbrot"],
+      gridClass:"food-grid"
+    }
+  ];
+
+  const allCards = new Map();
+  document.querySelectorAll("[data-item-id]").forEach(card => allCards.set(card.dataset.itemId, card));
+  const pager = document.createElement("div");
+  pager.id = "productPager";
+  pager.className = "product-pager";
+
+  groups.forEach((group,index) => {
+    const page = document.createElement("section");
+    page.className = "product-page";
+    page.dataset.productPage = index;
+    page.hidden = index !== 0;
+    page.setAttribute("aria-label", group.title);
+    const title = document.createElement("h2");
+    title.className = "product-page-title";
+    title.textContent = group.title;
+    const grid = document.createElement("div");
+    grid.className = group.gridClass;
+    group.ids.forEach(id => {
+      const card = allCards.get(id);
+      if(card) grid.appendChild(card);
+    });
+    page.append(title,grid);
+    pager.appendChild(page);
+  });
+
+  drinkGrid.replaceWith(pager);
+  foodGrid.remove();
+  document.querySelector(".food-title")?.remove();
+
+  let startX = null;
+  let startY = null;
+  pager.addEventListener("touchstart", event => {
+    if(event.target.closest("button,input")) return;
+    const touch = event.changedTouches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+  }, {passive:true});
+  pager.addEventListener("touchend", event => {
+    if(startX === null) return;
+    const touch = event.changedTouches[0];
+    const dx = touch.clientX - startX;
+    const dy = touch.clientY - startY;
+    startX = null;
+    startY = null;
+    if(Math.abs(dx) < 45 || Math.abs(dx) <= Math.abs(dy) * 1.2) return;
+    showProductPage(activeProductPage + (dx < 0 ? 1 : -1));
+  }, {passive:true});
+}
+
+function showProductPage(index){
+  const pages = [...document.querySelectorAll("[data-product-page]")];
+  if(!pages.length) return;
+  activeProductPage = Math.max(0, Math.min(index, pages.length - 1));
+  pages.forEach((page,pageIndex) => page.hidden = pageIndex !== activeProductPage);
+  document.querySelectorAll(".product-tab").forEach((button,buttonIndex) => {
+    const active = buttonIndex === activeProductPage;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-selected", String(active));
+  });
+  document.getElementById("swipeHint").textContent = `${activeProductPage + 1} von ${pages.length} · Zum Wechseln seitlich wischen`;
+}
+
+setupProductPager();
 loadV27();
 addAccessibleLabels();
 save();
@@ -2284,6 +2424,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 28</div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 29</div>
 </body>
 </html>
