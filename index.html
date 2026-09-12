@@ -888,7 +888,7 @@ body{padding:0}
 .change-subtitle{font-size:14px;font-weight:750;color:#536b54;margin-top:2px}
 .change-result{font-size:38px;line-height:1;font-weight:950;color:#103d13;white-space:nowrap}
 .change-result.short{color:#b21d1d}
-.cash-entry{display:grid;grid-template-columns:minmax(125px,1.5fr) repeat(6,minmax(64px,1fr));gap:8px;margin-top:10px}
+.cash-entry{display:grid;grid-template-columns:minmax(125px,1.5fr) repeat(8,minmax(58px,1fr));gap:8px;margin-top:10px}
 .cash-input,.cash-entry button{
   min-height:52px;
   border:1.5px solid rgba(0,0,0,.25);
@@ -945,6 +945,7 @@ body{padding:0}
   .orders-btn{grid-column:3 / 4}
   .cash-entry{grid-template-columns:repeat(3,1fr)}
   .cash-input{grid-column:1 / 3}
+  .cash-entry .cash-exact{grid-column:span 2}
   .stats-cards{grid-template-columns:1fr 1fr}
 }
 @media(max-width:640px){
@@ -953,6 +954,7 @@ body{padding:0}
   .change-result{font-size:32px}
   .cash-entry{grid-template-columns:1fr 1fr 1fr}
   .cash-input{grid-column:1 / 4}
+  .cash-entry .cash-exact{grid-column:span 2}
   .order-list-card{grid-template-columns:1fr}
   .order-list-actions{justify-content:stretch}
   .order-list-actions button{flex:1}
@@ -1239,10 +1241,12 @@ body{padding:0}
     <div class="cash-entry">
       <input id="cashReceived" class="cash-input" type="text" inputmode="decimal" autocomplete="off" placeholder="z. B. 50" aria-label="Gegebener Geldbetrag" oninput="setCashReceived(this.value)">
       <button type="button" onclick="setCashPreset(0)">0 €</button>
-      <button type="button" onclick="setCashPreset(10)">10 €</button>
-      <button type="button" onclick="setCashPreset(20)">20 €</button>
-      <button type="button" onclick="setCashPreset(50)">50 €</button>
-      <button type="button" onclick="setCashPreset(100)">100 €</button>
+      <button type="button" onclick="addCashAmount(1)">+1 €</button>
+      <button type="button" onclick="addCashAmount(2)">+2 €</button>
+      <button type="button" onclick="addCashAmount(5)">+5 €</button>
+      <button type="button" onclick="addCashAmount(10)">+10 €</button>
+      <button type="button" onclick="addCashAmount(20)">+20 €</button>
+      <button type="button" onclick="addCashAmount(50)">+50 €</button>
       <button type="button" class="cash-exact" onclick="setCashExact()">Passend</button>
     </div>
     <div class="change-message" id="changeMessage">Noch kein Bargeld eingegeben.</div>
@@ -2045,7 +2049,7 @@ function loadV27(){
 save = function(){
   try{
     const payload = JSON.stringify({
-      version: 38,
+      version: 39,
       orders,
       activeOrderIndex,
       nextOrderNumber
@@ -2282,7 +2286,7 @@ function togglePreparingOrder(){
 }
 
 function parseCash(value){
-  const cleaned = String(value || "").trim().replace(/\s/g, "").replace(",", ".").replace(/[^0-9.]/g, "");
+  const cleaned = String(value ?? "").trim().replace(/\s/g, "").replace(",", ".").replace(/[^0-9.]/g, "");
   if(!cleaned) return null;
   const amount = Number(cleaned);
   return Number.isFinite(amount) && amount >= 0 ? amount : null;
@@ -2300,6 +2304,15 @@ function setCashPreset(amount){
   input.value = String(amount).replace(".", ",");
   setCashReceived(amount);
 };
+
+function addCashAmount(amount){
+  const order = currentOrder();
+  const current = Number.isFinite(order.cashReceived) ? order.cashReceived : 0;
+  const next = current + amount;
+  const input = document.getElementById("cashReceived");
+  input.value = next.toFixed(2).replace(".", ",");
+  setCashReceived(next);
+}
 
 function setCashExact(){
   const amount = Math.max(0, orderTotal(currentOrder()));
@@ -2784,7 +2797,7 @@ function resetDay(){
 };
 
 function exportData(){
-  const data = JSON.stringify({version:38, exportedAt:new Date().toISOString(), orders, nextOrderNumber}, null, 2);
+  const data = JSON.stringify({version:39, exportedAt:new Date().toISOString(), orders, nextOrderNumber}, null, 2);
   const blob = new Blob([data], {type:"application/json"});
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -3078,6 +3091,6 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 <div class="easter-egg" id="marcelEasterEgg" hidden><img src="marcel-easter-egg.png" alt="Marcel mit einem großen Plüschtier"></div>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 38</div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 39</div>
 </body>
 </html>
