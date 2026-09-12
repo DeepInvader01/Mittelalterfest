@@ -2107,7 +2107,14 @@ function orderTotal(order){
 function orderItemCount(order){
   return order.history.filter(id => id !== "glaseinsatz" && id !== "glasretour").length;
 }
-
+function undoButtonText(order){
+  const action = order.actionHistory[order.actionHistory.length - 1];
+  if(!action) return "↩ Letzte Eingabe zurück";
+  const item = items.find(entry => entry.id === action.id);
+  if(!item) return "↩ Letzte Eingabe zurück";
+  const label = `${item.name}${item.size ? ` ${item.size}` : ""}`;
+  return `↩ Rückgängig: ${action.type === "remove" ? "−" : "+"} ${label}`;
+}
 function formatTime(value){
   if(!value) return "";
   const date = new Date(value);
@@ -2370,7 +2377,9 @@ function setEditingState(order, counts){
       else button.disabled = false;
     }else button.disabled = false;
   });
-  document.getElementById("undoBtn").disabled = locked || !order.actionHistory.length;
+  const undoButton = document.getElementById("undoBtn");
+undoButton.disabled = locked || !order.actionHistory.length;
+undoButton.textContent = undoButtonText(order);
   document.querySelector(".action.reset").disabled = locked;
   document.querySelector(".order").classList.toggle("order-locked", locked);
   const completeButton = document.getElementById("completeBtn");
