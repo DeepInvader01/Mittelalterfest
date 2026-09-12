@@ -2045,7 +2045,7 @@ function loadV27(){
 save = function(){
   try{
     const payload = JSON.stringify({
-      version: 35,
+      version: 38,
       orders,
       activeOrderIndex,
       nextOrderNumber
@@ -2107,6 +2107,7 @@ function orderTotal(order){
 function orderItemCount(order){
   return order.history.filter(id => id !== "glaseinsatz" && id !== "glasretour").length;
 }
+
 function undoButtonText(order){
   const action = order.actionHistory[order.actionHistory.length - 1];
   if(!action) return "↩ Letzte Eingabe zurück";
@@ -2115,6 +2116,7 @@ function undoButtonText(order){
   const label = `${item.name}${item.size ? ` ${item.size}` : ""}`;
   return `↩ Rückgängig: ${action.type === "remove" ? "−" : "+"} ${label}`;
 }
+
 function formatTime(value){
   if(!value) return "";
   const date = new Date(value);
@@ -2378,8 +2380,8 @@ function setEditingState(order, counts){
     }else button.disabled = false;
   });
   const undoButton = document.getElementById("undoBtn");
-undoButton.disabled = locked || !order.actionHistory.length;
-undoButton.textContent = undoButtonText(order);
+  undoButton.disabled = locked || !order.actionHistory.length;
+  undoButton.textContent = undoButtonText(order);
   document.querySelector(".action.reset").disabled = locked;
   document.querySelector(".order").classList.toggle("order-locked", locked);
   const completeButton = document.getElementById("completeBtn");
@@ -2782,7 +2784,7 @@ function resetDay(){
 };
 
 function exportData(){
-  const data = JSON.stringify({version:35, exportedAt:new Date().toISOString(), orders, nextOrderNumber}, null, 2);
+  const data = JSON.stringify({version:38, exportedAt:new Date().toISOString(), orders, nextOrderNumber}, null, 2);
   const blob = new Blob([data], {type:"application/json"});
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -3076,6 +3078,6 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 <div class="easter-egg" id="marcelEasterEgg" hidden><img src="marcel-easter-egg.png" alt="Marcel mit einem großen Plüschtier"></div>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 37</div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 38</div>
 </body>
 </html>
