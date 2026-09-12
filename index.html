@@ -1948,7 +1948,8 @@ const detailedMenuItems = [
   {id:"scherzel_schmalzbrot",name:"Schmalzbrot mit Zwiebel (Scherzel)",price:3.00,type:"food",icon:"🧅"},
 
   {id:"sommerspritzer033",name:"Sommerspritzer",size:"1/3 l",price:4.00,type:"wine",icon:"🥂"},
-  {id:"sommerspritzer05",name:"Sommerspritzer",size:"1/2 l",price:5.00,type:"wine",icon:"🥂"}
+  {id:"sommerspritzer05",name:"Sommerspritzer",size:"1/2 l",price:5.00,type:"wine",icon:"🥂"},
+  {id:"leitungswasser_sonder",name:"Leitungswasser",price:1.00,type:"water",icon:"💧"}
 ];
 detailedMenuItems.forEach(item => {
   if(!items.some(existing => existing.id === item.id)) items.push(item);
@@ -3005,7 +3006,7 @@ function setupProductPagerV30(){
   specialPage.hidden = true;
   const specialGrid = document.createElement("div");
   specialGrid.className = "single-menu-grid special-menu-grid";
-  specialGrid.append(createSingleCard("wein","wine"),createSingleCard("schnaps","wine"),createComboCard({name:"Sommerspritzer",icon:"🥂",color:"wine",ids:["sommerspritzer033","sommerspritzer05"]}));
+  specialGrid.append(createSingleCard("wein","wine"),createSingleCard("schnaps","wine"),createComboCard({name:"Sommerspritzer",icon:"🥂",color:"wine",ids:["sommerspritzer033","sommerspritzer05"]}),createSingleCard("leitungswasser_sonder","soda"));
   specialPage.append(specialGrid,createCustomPanel());
   pager.appendChild(specialPage);
 
@@ -3066,6 +3067,6 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 <div class="easter-egg" id="marcelEasterEgg" hidden><img src="marcel-easter-egg.png" alt="Marcel mit einem großen Plüschtier"></div>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 36</div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 37</div>
 </body>
 </html>
