@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#f7f9fb">
-<title>Getränkerechner – Eggenburger Stadtkrug</title>
+<title>Getränkerechner - Eggenburger Stadtkrug</title>
 
 
 <style>
@@ -691,7 +691,7 @@ body{padding:0}
 }
 
 
-/* V23: Lebensmittelkarten – Name und Preis dürfen sich nicht überlagern */
+/* V23: Lebensmittelkarten - Name und Preis dürfen sich nicht überlagern */
 .item.food .name,
 .food.item .name,
 .item.green .name{
@@ -1155,6 +1155,7 @@ body{padding:0}
 .status-actions{display:grid;grid-template-columns:1fr 1.35fr;gap:7px;margin-bottom:10px}.status-actions .top-complete-btn{margin:0}.prepare-btn{min-height:58px;border:1.5px solid #d0a331;border-radius:12px;background:linear-gradient(#fff4ca,#f5d67c);color:#57400c;font-size:19px;font-weight:950;cursor:pointer}.prepare-btn.active{background:linear-gradient(#ffe3a3,#edbd45);border-color:#ae7912}
 .quick-order-bar{position:fixed;z-index:18;left:max(8px,env(safe-area-inset-left));right:max(8px,env(safe-area-inset-right));bottom:max(7px,env(safe-area-inset-bottom));display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;min-height:54px;padding:7px 12px;border:2px solid #42627b;border-radius:13px;background:rgba(239,248,255,.97);box-shadow:0 5px 20px rgba(0,0,0,.28);color:#20394c;text-align:left;cursor:pointer;touch-action:manipulation}.quick-order-main{min-width:0;font-size:15px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.quick-order-meta{display:block;margin-top:2px;font-size:12px;font-weight:750;color:#587083}.quick-order-total{font-size:19px;font-weight:950;white-space:nowrap}
 .quick-sheet[hidden]{display:none}.quick-sheet{position:fixed;z-index:30;inset:0;display:flex;align-items:flex-end;justify-content:center;padding:14px;background:rgba(18,25,31,.55)}.quick-sheet-card{width:min(620px,100%);max-height:82vh;overflow:auto;border:2px solid #66798a;border-radius:16px 16px 10px 10px;background:#fffaf0;box-shadow:0 12px 35px rgba(0,0,0,.38)}.quick-sheet-head{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid #ccd4da;background:#edf6fc}.quick-sheet-title{font-size:20px;font-weight:950}.quick-sheet-close{width:44px;height:44px;border:1px solid #9ba9b4;border-radius:9px;background:#fff;font-size:27px}.quick-order-tabs{display:flex;gap:6px;overflow-x:auto;padding:8px 12px;border-bottom:1px solid #d4dadd;background:#f7fafc}.quick-order-tabs button{flex:0 0 auto;min-height:44px;padding:0 11px;border:1.5px solid #a6b3be;border-radius:9px;background:#fff;font-size:14px;font-weight:900}.quick-order-tabs button.active{border-color:#287eb8;background:#d9efff;color:#164e73}.quick-sheet-list{padding:8px 14px}.quick-sheet-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;padding:8px 0;border-bottom:1px solid #ddd;font-size:15px}.quick-sheet-row strong{font-variant-numeric:tabular-nums}.quick-sheet-empty{padding:18px;text-align:center;color:#687585}.quick-sheet-total{display:flex;justify-content:space-between;padding:12px 14px;font-size:20px;font-weight:950}.app{padding-bottom:calc(82px + env(safe-area-inset-bottom))}
+.phone-options{display:grid;gap:8px;margin:12px 0;padding:10px;border:1.5px solid #aebbc5;border-radius:12px;background:rgba(247,251,253,.9)}.phone-options-title{font-size:16px;font-weight:950;color:#344b5b}.phone-option{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;min-height:52px;padding:5px 7px;border-radius:9px;background:#fff}.phone-option-text{font-size:15px;font-weight:900}.phone-option-note{display:block;margin-top:2px;color:#687784;font-size:12px;font-weight:700}.phone-option input{position:absolute;opacity:0;pointer-events:none}.phone-switch{position:relative;width:54px;height:32px;border:2px solid #8796a1;border-radius:18px;background:#d7dde1}.phone-switch:after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.32)}.phone-option input:checked + .phone-switch{border-color:#297747;background:#56b576}.phone-option input:checked + .phone-switch:after{left:25px}.phone-option input:focus-visible + .phone-switch{outline:3px solid #2f82bb;outline-offset:2px}.phone-option.unavailable{opacity:.55}.phone-option.unavailable .phone-option-text:after{content:" (nicht unterstützt)";color:#9a2525;font-size:12px}.phone-option-status{min-height:16px;color:#667580;font-size:12px;font-weight:750}
 
 @media(max-width:520px){
   .order-switcher{grid-template-columns:48px minmax(0,1fr) 48px}
@@ -1467,6 +1468,21 @@ body{padding:0}
   </section>
 
   <button class="orders-btn lower-orders-btn" type="button" onclick="toggleOrdersPanel()">📋 Bestellungen</button>
+
+  <section class="phone-options" aria-labelledby="phoneOptionsTitle">
+    <div class="phone-options-title" id="phoneOptionsTitle">Handy-Einstellungen</div>
+    <label class="phone-option" id="wakeLockOption">
+      <span class="phone-option-text">Bildschirm aktiv halten<span class="phone-option-note">Verbraucht etwas mehr Akku</span></span>
+      <input id="wakeLockToggle" type="checkbox" onchange="setWakeLockEnabled(this.checked)">
+      <span class="phone-switch" aria-hidden="true"></span>
+    </label>
+    <div class="phone-option-status" id="wakeLockStatus" role="status" aria-live="polite"></div>
+    <label class="phone-option" id="hapticOption">
+      <span class="phone-option-text">Vibration bei Eingaben<span class="phone-option-note">Hinzufügen, Entfernen, Bestellwechsel und Bezahlung</span></span>
+      <input id="hapticToggle" type="checkbox" onchange="setHapticEnabled(this.checked)">
+      <span class="phone-switch" aria-hidden="true"></span>
+    </label>
+  </section>
 
   <section class="orders-panel" id="ordersPanel" hidden aria-labelledby="ordersTitle">
     <div class="orders-panel-header">
@@ -2123,6 +2139,7 @@ addItem = function(id){
   touchOrder(order);
   save();
   render();
+  hapticFeedback("add");
 };
 
 removeItem = function(id){
@@ -2143,6 +2160,7 @@ removeItem = function(id){
   touchOrder(order);
   save();
   render();
+  hapticFeedback("remove");
 };
 
 undoLast = function(){
@@ -2188,6 +2206,7 @@ newOrder = function(){
   activeOrderIndex = orders.length - 1;
   save();
   render();
+  hapticFeedback("switch");
   window.scrollTo({top:0, behavior:"smooth"});
 };
 
@@ -2196,6 +2215,7 @@ previousOrder = function(){
   activeOrderIndex--;
   save();
   render();
+  hapticFeedback("switch");
   window.scrollTo({top:0, behavior:"smooth"});
 };
 
@@ -2204,11 +2224,13 @@ nextOrder = function(){
   activeOrderIndex++;
   save();
   render();
+  hapticFeedback("switch");
   window.scrollTo({top:0, behavior:"smooth"});
 };
 
 function toggleCompleteOrder(){
   const order = currentOrder();
+  let paymentCompleted = false;
   if(order.status === "paid"){
     order.status = "open";
     order.completedAt = null;
@@ -2228,10 +2250,12 @@ function toggleCompleteOrder(){
     }
     order.status = "paid";
     order.completedAt = new Date().toISOString();
+    paymentCompleted = true;
   }
   touchOrder(order);
   save();
   render();
+  if(paymentCompleted) hapticFeedback("paid");
 };
 
 function togglePreparingOrder(){
@@ -2432,10 +2456,90 @@ function renderQuickOrderSheet(){
 
 function selectQuickOrder(index){
   if(index < 0 || index >= orders.length) return;
+  if(index === activeOrderIndex) return;
   activeOrderIndex = index;
   save();
   render();
+  hapticFeedback("switch");
 }
+
+const PHONE_SETTINGS_KEY = "mittelalterfestPhoneSettingsV36";
+let phoneSettings = {wakeLock:false, haptic:false};
+let screenWakeLock = null;
+
+function loadPhoneSettings(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(PHONE_SETTINGS_KEY) || "null");
+    if(saved && typeof saved === "object"){
+      phoneSettings.wakeLock = saved.wakeLock === true;
+      phoneSettings.haptic = saved.haptic === true;
+    }
+  }catch(error){}
+}
+
+function savePhoneSettings(){
+  try{ localStorage.setItem(PHONE_SETTINGS_KEY, JSON.stringify(phoneSettings)); }catch(error){}
+}
+
+function hapticFeedback(kind){
+  if(!phoneSettings.haptic || typeof navigator === "undefined" || typeof navigator.vibrate !== "function") return;
+  const pattern = kind === "paid" ? 180 : kind === "remove" ? [35,45,35] : 35;
+  try{ navigator.vibrate(pattern); }catch(error){}
+}
+
+function updatePhoneSettingsUI(){
+  const wakeToggle = document.getElementById("wakeLockToggle");
+  const hapticToggle = document.getElementById("hapticToggle");
+  const wakeOption = document.getElementById("wakeLockOption");
+  const hapticOption = document.getElementById("hapticOption");
+  const wakeSupported = typeof navigator !== "undefined" && "wakeLock" in navigator;
+  const hapticSupported = typeof navigator !== "undefined" && typeof navigator.vibrate === "function";
+  wakeToggle.checked = phoneSettings.wakeLock && wakeSupported;
+  wakeToggle.disabled = !wakeSupported;
+  wakeOption.classList.toggle("unavailable", !wakeSupported);
+  hapticToggle.checked = phoneSettings.haptic && hapticSupported;
+  hapticToggle.disabled = !hapticSupported;
+  hapticOption.classList.toggle("unavailable", !hapticSupported);
+  const status = document.getElementById("wakeLockStatus");
+  status.textContent = !wakeSupported ? "Auf diesem Browser nicht verfügbar." : phoneSettings.wakeLock ? (screenWakeLock ? "Bildschirm bleibt aktiv." : "Wachhalten wird aktiviert, sobald die App sichtbar ist.") : "";
+}
+
+async function requestScreenWakeLock(){
+  if(!phoneSettings.wakeLock || document.visibilityState !== "visible" || !("wakeLock" in navigator)) return;
+  try{
+    screenWakeLock = await navigator.wakeLock.request("screen");
+    screenWakeLock.addEventListener("release", () => {
+      screenWakeLock = null;
+      updatePhoneSettingsUI();
+    }, {once:true});
+  }catch(error){
+    screenWakeLock = null;
+  }
+  updatePhoneSettingsUI();
+}
+
+async function setWakeLockEnabled(enabled){
+  phoneSettings.wakeLock = enabled;
+  savePhoneSettings();
+  if(enabled){
+    await requestScreenWakeLock();
+  }else if(screenWakeLock){
+    try{ await screenWakeLock.release(); }catch(error){}
+    screenWakeLock = null;
+  }
+  updatePhoneSettingsUI();
+}
+
+function setHapticEnabled(enabled){
+  phoneSettings.haptic = enabled;
+  savePhoneSettings();
+  updatePhoneSettingsUI();
+  if(enabled) hapticFeedback("add");
+}
+
+document.addEventListener("visibilitychange", () => {
+  if(document.visibilityState === "visible" && phoneSettings.wakeLock && !screenWakeLock) requestScreenWakeLock();
+});
 
 function requestPersistentStorage(){
   if(navigator.storage && navigator.storage.persist){
@@ -2930,9 +3034,12 @@ function setupProductPagerV30(){
 }
 
 setupProductPagerV30();
+loadPhoneSettings();
+updatePhoneSettingsUI();
 loadV27();
 addAccessibleLabels();
 requestPersistentStorage();
+if(phoneSettings.wakeLock) requestScreenWakeLock();
 save();
 render();
 
@@ -2959,6 +3066,6 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 <div class="easter-egg" id="marcelEasterEgg" hidden><img src="marcel-easter-egg.png" alt="Marcel mit einem großen Plüschtier"></div>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 35</div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 36</div>
 </body>
 </html>
