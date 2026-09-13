@@ -1461,7 +1461,7 @@ body{padding:0}
   <div class="actions">
     <button id="undoBtn" class="action undo" onclick="undoLast()" disabled>↩ Letzte Eingabe zurück</button>
     <button class="action reset" onclick="resetAll()">🗑 Bestellung leeren</button>
-    <button id="completeBtn" class="action complete" onclick="toggleCompleteOrder()">✓ Bezahlt & abschließen</button>
+    <button id="completeBtn" class="action complete" onclick="completeAndNewOrder()">✓ Bezahlt & neue Bestellung</button>
   </div>
 
   <section class="order">
@@ -2055,7 +2055,7 @@ function loadV27(){
 save = function(){
   try{
     const payload = JSON.stringify({
-      version: 41,
+      version: 43,
       orders,
       activeOrderIndex,
       nextOrderNumber
@@ -2221,10 +2221,15 @@ resetAll = function(){
   render();
 };
 
+function scrollToDeposit(){
+  const deposit = document.querySelector(".deposit-grid");
+  if(deposit && typeof deposit.scrollIntoView === "function") deposit.scrollIntoView({block:"start", behavior:"auto"});
+}
+
 newOrder = function(){
   const order = currentOrder();
   if(order.status === "open" && !order.history.length && !(order.tipAmount > 0)){
-    window.scrollTo({top:0, behavior:"smooth"});
+    scrollToDeposit();
     return;
   }
   orders.push(createOrder());
@@ -2232,7 +2237,7 @@ newOrder = function(){
   save();
   render();
   hapticFeedback("switch");
-  window.scrollTo({top:0, behavior:"smooth"});
+  scrollToDeposit();
 };
 
 previousOrder = function(){
@@ -2283,6 +2288,17 @@ function toggleCompleteOrder(){
   render();
   if(paymentCompleted) hapticFeedback("paid");
 };
+
+function completeAndNewOrder(){
+  const completedOrder = currentOrder();
+  toggleCompleteOrder();
+  if(completedOrder.status !== "paid") return;
+  orders.push(createOrder());
+  activeOrderIndex = orders.length - 1;
+  save();
+  render();
+  scrollToDeposit();
+}
 
 function parseCash(value){
   const cleaned = String(value ?? "").trim().replace(/\s/g, "").replace(",", ".").replace(/[^0-9.]/g, "");
@@ -2404,7 +2420,7 @@ function setEditingState(order, counts){
   document.querySelector(".action.reset").disabled = locked;
   document.querySelector(".order").classList.toggle("order-locked", locked);
   const completeButton = document.getElementById("completeBtn");
-  completeButton.textContent = locked ? "↺ Bestellung wieder öffnen" : "✓ Bezahlt & abschließen";
+  completeButton.textContent = locked ? "↺ Bestellung wieder öffnen" : "✓ Bezahlt & neue Bestellung";
   completeButton.classList.toggle("reopen", locked);
   const completeTopButton = document.getElementById("completeTopBtn");
   completeTopButton.textContent = locked ? "↺ Bestellung wieder öffnen" : "✓ Bezahlt & abschließen";
@@ -2797,7 +2813,7 @@ function resetDay(){
 };
 
 function exportData(){
-  const data = JSON.stringify({version:41, exportedAt:new Date().toISOString(), orders, nextOrderNumber}, null, 2);
+  const data = JSON.stringify({version:43, exportedAt:new Date().toISOString(), orders, nextOrderNumber}, null, 2);
   const blob = new Blob([data], {type:"application/json"});
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -3091,6 +3107,6 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 <div class="easter-egg" id="marcelEasterEgg" hidden><img src="marcel-easter-egg.png" alt="Marcel mit einem großen Plüschtier"></div>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 41</div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 43</div>
 </body>
 </html>
