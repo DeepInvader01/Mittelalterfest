@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V35 -->
+  <!-- BUILD: MITTELALTERFEST-EGGENBURG-V40 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -902,6 +902,7 @@ body{padding:0}
 .cash-entry button{cursor:pointer;touch-action:manipulation}
 .cash-entry button:active{transform:scale(.97)}
 .cash-entry .cash-exact{background:#d8ebff;border-color:#62a9dc}
+.cash-entry .cash-exact.active{background:#9ed2f7;border-color:#287eb8;box-shadow:inset 0 0 0 2px rgba(40,126,184,.2)}
 .change-message{margin-top:7px;font-size:15px;font-weight:800;color:#4c654e}
 .change-message.short{color:#a51d1d}
 .actions{grid-template-columns:1fr 1fr 1fr}
@@ -1144,6 +1145,8 @@ body{padding:0}
 .food-grammel{background:linear-gradient(135deg,#ead2ae,#bd8957);border-color:#83572f}
 .food-liptauer{background:linear-gradient(135deg,#ffe1b3,#f2a253);border-color:#bd681f}
 .food-schmalz{background:linear-gradient(135deg,#fafafa,#dfe3e5);border-color:#9aa2a7}
+.food-bratenfett{background:linear-gradient(135deg,#f7f7f7,#d9dee1);border-color:#929ba1}
+.food-emmentaler{background:linear-gradient(135deg,#fff4a8,#e6c94f);border-color:#b49419}
 .order-switcher{grid-template-columns:64px minmax(180px,1fr) 64px}
 .new-order-btn{grid-column:1/-1;min-height:60px;font-size:20px}
 .lower-orders-btn{width:100%;margin-top:48px;min-height:55px}
@@ -1154,10 +1157,10 @@ body{padding:0}
 .save-status{margin:2px 0 5px;text-align:right;color:#257137;font-size:13px;font-weight:850}.save-status.error{color:#a51616}.save-status.recovered{color:#8a5c00}
 .order-label-row{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px;margin:0 0 8px;padding:7px 9px;border:1.5px solid #c6d0d9;border-radius:10px;background:rgba(255,255,255,.82)}
 .order-label-row label{font-size:14px;font-weight:900}.order-label-row input{min-width:0;height:42px;padding:0 9px;border:1.5px solid #aab5bf;border-radius:8px;background:#fff;font-size:17px;font-weight:800}
-.status-actions{display:grid;grid-template-columns:1fr 1.35fr;gap:7px;margin-bottom:10px}.status-actions .top-complete-btn{margin:0}.prepare-btn{min-height:58px;border:1.5px solid #d0a331;border-radius:12px;background:linear-gradient(#fff4ca,#f5d67c);color:#57400c;font-size:19px;font-weight:950;cursor:pointer}.prepare-btn.active{background:linear-gradient(#ffe3a3,#edbd45);border-color:#ae7912}
+.status-actions{display:grid;grid-template-columns:1fr;gap:7px;margin-bottom:10px}.status-actions .top-complete-btn{margin:0}.status-actions .new-order-btn{width:100%;min-height:54px}
 .quick-order-bar{position:fixed;z-index:18;left:max(8px,env(safe-area-inset-left));right:max(8px,env(safe-area-inset-right));bottom:max(7px,env(safe-area-inset-bottom));display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;min-height:54px;padding:7px 12px;border:2px solid #42627b;border-radius:13px;background:rgba(239,248,255,.97);box-shadow:0 5px 20px rgba(0,0,0,.28);color:#20394c;text-align:left;cursor:pointer;touch-action:manipulation}.quick-order-main{min-width:0;font-size:15px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.quick-order-meta{display:block;margin-top:2px;font-size:12px;font-weight:750;color:#587083}.quick-order-total{font-size:19px;font-weight:950;white-space:nowrap}
 .quick-sheet[hidden]{display:none}.quick-sheet{position:fixed;z-index:30;inset:0;display:flex;align-items:flex-end;justify-content:center;padding:14px;background:rgba(18,25,31,.55)}.quick-sheet-card{width:min(620px,100%);max-height:82vh;overflow:auto;border:2px solid #66798a;border-radius:16px 16px 10px 10px;background:#fffaf0;box-shadow:0 12px 35px rgba(0,0,0,.38)}.quick-sheet-head{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid #ccd4da;background:#edf6fc}.quick-sheet-title{font-size:20px;font-weight:950}.quick-sheet-close{width:44px;height:44px;border:1px solid #9ba9b4;border-radius:9px;background:#fff;font-size:27px}.quick-order-tabs{display:flex;gap:6px;overflow-x:auto;padding:8px 12px;border-bottom:1px solid #d4dadd;background:#f7fafc}.quick-order-tabs button{flex:0 0 auto;min-height:44px;padding:0 11px;border:1.5px solid #a6b3be;border-radius:9px;background:#fff;font-size:14px;font-weight:900}.quick-order-tabs button.active{border-color:#287eb8;background:#d9efff;color:#164e73}.quick-sheet-list{padding:8px 14px}.quick-sheet-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;padding:8px 0;border-bottom:1px solid #ddd;font-size:15px}.quick-sheet-row strong{font-variant-numeric:tabular-nums}.quick-sheet-empty{padding:18px;text-align:center;color:#687585}.quick-sheet-total{display:flex;justify-content:space-between;padding:12px 14px;font-size:20px;font-weight:950}.app{padding-bottom:calc(82px + env(safe-area-inset-bottom))}
-.phone-options{display:grid;gap:8px;margin:12px 0;padding:10px;border:1.5px solid #aebbc5;border-radius:12px;background:rgba(247,251,253,.9)}.phone-options-title{font-size:16px;font-weight:950;color:#344b5b}.phone-option{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;min-height:52px;padding:5px 7px;border-radius:9px;background:#fff}.phone-option-text{font-size:15px;font-weight:900}.phone-option-note{display:block;margin-top:2px;color:#687784;font-size:12px;font-weight:700}.phone-option input{position:absolute;opacity:0;pointer-events:none}.phone-switch{position:relative;width:54px;height:32px;border:2px solid #8796a1;border-radius:18px;background:#d7dde1}.phone-switch:after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.32)}.phone-option input:checked + .phone-switch{border-color:#297747;background:#56b576}.phone-option input:checked + .phone-switch:after{left:25px}.phone-option input:focus-visible + .phone-switch{outline:3px solid #2f82bb;outline-offset:2px}.phone-option.unavailable{opacity:.55}.phone-option.unavailable .phone-option-text:after{content:" (nicht unterstützt)";color:#9a2525;font-size:12px}.phone-option-status{min-height:16px;color:#667580;font-size:12px;font-weight:750}
+.phone-options{display:grid;gap:8px;margin:12px 0;padding:10px;border:1.5px solid #aebbc5;border-radius:12px;background:rgba(247,251,253,.9)}.phone-options-title{min-height:44px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:16px;font-weight:950;color:#344b5b;list-style:none}.phone-options-title::-webkit-details-marker{display:none}.phone-options-title:after{content:"▾";font-size:20px}.phone-options:not([open]) .phone-options-title:after{content:"▸"}.phone-option{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;min-height:52px;padding:5px 7px;border-radius:9px;background:#fff}.phone-option-text{font-size:15px;font-weight:900}.phone-option-note{display:block;margin-top:2px;color:#687784;font-size:12px;font-weight:700}.phone-option input{position:absolute;opacity:0;pointer-events:none}.phone-switch{position:relative;width:54px;height:32px;border:2px solid #8796a1;border-radius:18px;background:#d7dde1}.phone-switch:after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.32)}.phone-option input:checked + .phone-switch{border-color:#297747;background:#56b576}.phone-option input:checked + .phone-switch:after{left:25px}.phone-option input:focus-visible + .phone-switch{outline:3px solid #2f82bb;outline-offset:2px}.phone-option.unavailable{opacity:.55}.phone-option.unavailable .phone-option-text:after{content:" (nicht unterstützt)";color:#9a2525;font-size:12px}.phone-option-status{min-height:16px;color:#667580;font-size:12px;font-weight:750}
 
 @media(max-width:520px){
   .order-switcher{grid-template-columns:48px minmax(0,1fr) 48px}
@@ -1184,7 +1187,7 @@ body{padding:0}
   .custom-fields button{grid-column:1/-1;min-height:40px}
   .custom-added-row{grid-template-columns:minmax(0,1fr) auto}.custom-added-row .combo-controls{grid-column:1/-1;justify-self:end}
   .new-order-btn{grid-column:1/-1 !important;min-height:54px !important;font-size:18px !important}
-  .status-actions{grid-template-columns:1fr}.prepare-btn,.status-actions .top-complete-btn{min-height:52px;font-size:18px}
+  .status-actions .top-complete-btn{min-height:52px;font-size:18px}
 }
 
 </style>
@@ -1204,7 +1207,7 @@ body{padding:0}
     <div class="title-wrap">
       <div class="title">Mittelalterfest Eggenburg</div>
     </div>
-    <button class="cheers" type="button" onclick="marcelClick()" aria-label="Marcel">Tancel</button>
+    <button class="cheers" type="button" onclick="marcelClick()" aria-label="Tancel">Tancel</button>
   </div>
   <div class="save-status" id="saveStatus" role="status" aria-live="polite">✓ Gespeichert</div>
 
@@ -1217,7 +1220,6 @@ body{padding:0}
       <div class="order-switcher-time" id="orderTime"></div>
     </div>
     <button class="order-nav-btn" id="nextOrderBtn" type="button" onclick="nextOrder()" aria-label="Nächste Bestellung">›</button>
-    <button class="new-order-btn" type="button" onclick="newOrder()">＋ Neue Bestellung</button>
   </div>
 
   <div class="order-label-row">
@@ -1253,8 +1255,8 @@ body{padding:0}
   </section>
 
   <div class="status-actions">
-    <button id="prepareTopBtn" class="prepare-btn" type="button" onclick="togglePreparingOrder()">👨‍🍳 In Vorbereitung</button>
     <button id="completeTopBtn" class="top-complete-btn" type="button" onclick="toggleCompleteOrder()">✓ Bezahlt & abschließen</button>
+    <button class="new-order-btn" type="button" onclick="newOrder()">＋ Neue Bestellung</button>
   </div>
 
   <div class="deposit-grid">
@@ -1473,21 +1475,6 @@ body{padding:0}
 
   <button class="orders-btn lower-orders-btn" type="button" onclick="toggleOrdersPanel()">📋 Bestellungen</button>
 
-  <section class="phone-options" aria-labelledby="phoneOptionsTitle">
-    <div class="phone-options-title" id="phoneOptionsTitle">Handy-Einstellungen</div>
-    <label class="phone-option" id="wakeLockOption">
-      <span class="phone-option-text">Bildschirm aktiv halten<span class="phone-option-note">Verbraucht etwas mehr Akku</span></span>
-      <input id="wakeLockToggle" type="checkbox" onchange="setWakeLockEnabled(this.checked)">
-      <span class="phone-switch" aria-hidden="true"></span>
-    </label>
-    <div class="phone-option-status" id="wakeLockStatus" role="status" aria-live="polite"></div>
-    <label class="phone-option" id="hapticOption">
-      <span class="phone-option-text">Vibration bei Eingaben<span class="phone-option-note">Hinzufügen, Entfernen, Bestellwechsel und Bezahlung</span></span>
-      <input id="hapticToggle" type="checkbox" onchange="setHapticEnabled(this.checked)">
-      <span class="phone-switch" aria-hidden="true"></span>
-    </label>
-  </section>
-
   <section class="orders-panel" id="ordersPanel" hidden aria-labelledby="ordersTitle">
     <div class="orders-panel-header">
       <div>
@@ -1524,6 +1511,21 @@ body{padding:0}
     </div>
     <button class="day-reset-btn" type="button" onclick="resetDay()">Alle Tagesdaten löschen</button>
   </div>
+
+  <details class="phone-options">
+    <summary class="phone-options-title" id="phoneOptionsTitle">Handy-Einstellungen</summary>
+    <label class="phone-option" id="wakeLockOption">
+      <span class="phone-option-text">Bildschirm aktiv halten<span class="phone-option-note">Verbraucht etwas mehr Akku</span></span>
+      <input id="wakeLockToggle" type="checkbox" onchange="setWakeLockEnabled(this.checked)">
+      <span class="phone-switch" aria-hidden="true"></span>
+    </label>
+    <div class="phone-option-status" id="wakeLockStatus" role="status" aria-live="polite"></div>
+    <label class="phone-option" id="hapticOption">
+      <span class="phone-option-text">Vibration bei Eingaben<span class="phone-option-note">Hinzufügen, Entfernen, Bestellwechsel und Bezahlung</span></span>
+      <input id="hapticToggle" type="checkbox" onchange="setHapticEnabled(this.checked)">
+      <span class="phone-switch" aria-hidden="true"></span>
+    </label>
+  </details>
 
   <div class="undo-toast" id="undoToast" hidden role="status" aria-live="polite">
     <span id="undoToastText"></span>
@@ -1950,6 +1952,8 @@ const detailedMenuItems = [
   {id:"grammelaufstrichbrot",name:"Grammelaufstrichbrot",price:3.50,type:"food",icon:"🥨"},
   {id:"liptauerbrot",name:"Liptauerbrot",price:3.50,type:"food",icon:"🧀"},
   {id:"scherzel_schmalzbrot",name:"Schmalzbrot mit Zwiebel (Scherzel)",price:3.00,type:"food",icon:"🧅"},
+  {id:"bratenfettbrot",name:"Bratenfettbrot",price:3.00,type:"food",icon:"🍞"},
+  {id:"emmentalerbrot",name:"Emmentaler Brot",price:4.50,type:"food",icon:"🧀"},
 
   {id:"sommerspritzer033",name:"Sommerspritzer",size:"1/3 l",price:4.00,type:"wine",icon:"🥂"},
   {id:"sommerspritzer05",name:"Sommerspritzer",size:"1/2 l",price:5.00,type:"wine",icon:"🥂"},
@@ -1971,7 +1975,8 @@ function createOrder(history = [], number = nextOrderNumber++){
     customerLabel: "",
     history: Array.isArray(history) ? history : [],
     actionHistory: [],
-    cashReceived: null,
+    cashReceived: 0,
+    cashMode: "exact",
     tipAmount: 0
   };
 }
@@ -2005,11 +2010,12 @@ function normalizeOrder(order, index){
     createdAt,
     updatedAt: order.updatedAt || createdAt,
     completedAt: order.completedAt || null,
-    status: order.status === "paid" || order.status === "completed" ? "paid" : order.status === "preparing" ? "preparing" : "open",
+    status: order.status === "paid" || order.status === "completed" ? "paid" : "open",
     customerLabel: typeof order.customerLabel === "string" ? order.customerLabel.slice(0,40) : "",
     history: normalizedHistory.filter(id => items.some(item => item.id === id)),
     actionHistory: Array.isArray(order.actionHistory) ? order.actionHistory : [],
     cashReceived: Number.isFinite(order.cashReceived) ? order.cashReceived : null,
+    cashMode: order.cashMode === "manual" ? "manual" : order.cashMode === "exact" ? "exact" : Number.isFinite(order.cashReceived) ? "manual" : "exact",
     tipAmount: Number.isFinite(order.tipAmount) && order.tipAmount >= 0 ? order.tipAmount : 0
   };
 }
@@ -2049,7 +2055,7 @@ function loadV27(){
 save = function(){
   try{
     const payload = JSON.stringify({
-      version: 39,
+      version: 41,
       orders,
       activeOrderIndex,
       nextOrderNumber
@@ -2106,6 +2112,10 @@ function orderTotal(order){
     return sum + (item ? item.price : 0);
   }, 0);
   return itemTotal + (Number.isFinite(order.tipAmount) ? order.tipAmount : 0);
+}
+
+function effectiveCashReceived(order){
+  return order.cashMode === "exact" ? Math.max(0, orderTotal(order)) : order.cashReceived;
 }
 
 function orderItemCount(order){
@@ -2203,7 +2213,8 @@ resetAll = function(){
   if((order.history.length || order.tipAmount > 0) && !confirm(`Bestellung ${order.number} wirklich leeren?`)) return;
   order.history = [];
   order.actionHistory = [];
-  order.cashReceived = null;
+  order.cashReceived = 0;
+  order.cashMode = "exact";
   order.tipAmount = 0;
   touchOrder(order);
   save();
@@ -2254,12 +2265,13 @@ function toggleCompleteOrder(){
       return;
     }
     const total = orderTotal(order);
-    if(!Number.isFinite(order.cashReceived)){
+    const cashReceived = effectiveCashReceived(order);
+    if(!Number.isFinite(cashReceived)){
       alert("Bitte zuerst den erhaltenen Betrag eingeben oder Passend wählen.");
       return;
     }
-    if(order.cashReceived < total - 0.005){
-      alert(`Die Zahlung ist noch ${euro(total - order.cashReceived)} zu niedrig.`);
+    if(cashReceived < total - 0.005){
+      alert(`Die Zahlung ist noch ${euro(total - cashReceived)} zu niedrig.`);
       return;
     }
     order.status = "paid";
@@ -2272,19 +2284,6 @@ function toggleCompleteOrder(){
   if(paymentCompleted) hapticFeedback("paid");
 };
 
-function togglePreparingOrder(){
-  const order = currentOrder();
-  if(order.status === "paid") return;
-  if(!order.history.length && !(order.tipAmount > 0)){
-    alert("Eine leere Bestellung kann nicht vorbereitet werden.");
-    return;
-  }
-  order.status = order.status === "preparing" ? "open" : "preparing";
-  touchOrder(order);
-  save();
-  render();
-}
-
 function parseCash(value){
   const cleaned = String(value ?? "").trim().replace(/\s/g, "").replace(",", ".").replace(/[^0-9.]/g, "");
   if(!cleaned) return null;
@@ -2295,6 +2294,7 @@ function parseCash(value){
 function setCashReceived(value){
   const order = currentOrder();
   order.cashReceived = parseCash(value);
+  order.cashMode = "manual";
   save();
   updateChange();
 };
@@ -2307,7 +2307,7 @@ function setCashPreset(amount){
 
 function addCashAmount(amount){
   const order = currentOrder();
-  const current = Number.isFinite(order.cashReceived) ? order.cashReceived : 0;
+  const current = order.cashMode === "exact" ? 0 : Number.isFinite(order.cashReceived) ? order.cashReceived : 0;
   const next = current + amount;
   const input = document.getElementById("cashReceived");
   input.value = next.toFixed(2).replace(".", ",");
@@ -2315,10 +2315,14 @@ function addCashAmount(amount){
 }
 
 function setCashExact(){
-  const amount = Math.max(0, orderTotal(currentOrder()));
+  const order = currentOrder();
+  const amount = Math.max(0, orderTotal(order));
+  order.cashMode = "exact";
+  order.cashReceived = amount;
   const input = document.getElementById("cashReceived");
   input.value = amount.toFixed(2).replace(".", ",");
-  setCashReceived(amount);
+  save();
+  updateChange();
 };
 
 function setTipAmount(value){
@@ -2355,21 +2359,23 @@ function roundUpTip(){
 function updateChange(){
   const order = currentOrder();
   const total = orderTotal(order);
+  const cashReceived = effectiveCashReceived(order);
   const result = document.getElementById("changeResult");
   const message = document.getElementById("changeMessage");
   const input = document.getElementById("cashReceived");
   if(document.activeElement !== input){
-    input.value = Number.isFinite(order.cashReceived) ? order.cashReceived.toFixed(2).replace(".", ",") : "";
+    input.value = Number.isFinite(cashReceived) ? cashReceived.toFixed(2).replace(".", ",") : "";
   }
   input.disabled = order.status === "paid";
-  if(!Number.isFinite(order.cashReceived)){
+  document.querySelector(".cash-exact").classList.toggle("active", order.cashMode === "exact");
+  if(!Number.isFinite(cashReceived)){
     result.textContent = "0,00 €";
     result.classList.remove("short");
     message.className = "change-message";
     message.textContent = "Noch kein Bargeld eingegeben.";
     return;
   }
-  const difference = order.cashReceived - total;
+  const difference = cashReceived - total;
   result.textContent = euro(Math.abs(difference));
   if(difference < -0.005){
     result.classList.add("short");
@@ -2414,14 +2420,10 @@ function setEditingState(order, counts){
   if(customButton) customButton.disabled = locked;
   const labelInput = document.getElementById("orderLabel");
   labelInput.disabled = locked;
-  const prepareButton = document.getElementById("prepareTopBtn");
-  prepareButton.disabled = locked;
-  prepareButton.classList.toggle("active", order.status === "preparing");
-  prepareButton.textContent = order.status === "preparing" ? "↺ Wieder offen" : "👨‍🍳 In Vorbereitung";
 }
 
 function orderStatusText(order){
-  return order.status === "paid" ? "Bezahlt" : order.status === "preparing" ? "In Vorbereitung" : "Offen";
+  return order.status === "paid" ? "Bezahlt" : "Offen";
 }
 
 function updateQuickOrderBar(order){
@@ -2640,9 +2642,8 @@ function orderItemSummary(order){
 function renderOrdersPanel(){
   const list = document.getElementById("ordersList");
   const openCount = orders.filter(order => order.status === "open").length;
-  const preparingCount = orders.filter(order => order.status === "preparing").length;
   const paidCount = orders.filter(order => order.status === "paid").length;
-  document.getElementById("ordersMeta").textContent = `${openCount} offen · ${preparingCount} in Vorbereitung · ${paidCount} bezahlt`;
+  document.getElementById("ordersMeta").textContent = `${openCount} offen · ${paidCount} bezahlt`;
   list.innerHTML = "";
   [...orders].map((order,index) => ({order,index})).reverse().forEach(({order,index}) => {
     const card = document.createElement("div");
@@ -2762,7 +2763,6 @@ renderDailyTotal = function(){
   });
   if(!list.children.length) list.innerHTML = `<div class="daily-total-empty">Noch keine Artikel in den Bestellungen vorhanden.</div>`;
   const openCount = nonEmpty.filter(order => order.status === "open").length;
-  const preparingCount = nonEmpty.filter(order => order.status === "preparing").length;
   const paidCount = nonEmpty.filter(order => order.status === "paid").length;
   const issued = counts.glaseinsatz || 0;
   const returned = counts.glasretour || 0;
@@ -2772,7 +2772,7 @@ renderDailyTotal = function(){
     return sum + (item && item.type !== "deposit" ? item.price : 0);
   }, Number.isFinite(order.tipAmount) ? order.tipAmount : 0);
   const highest = nonEmpty.length ? Math.max(...nonEmpty.map(saleTotalForOrder)) : 0;
-  meta.textContent = `${nonEmpty.length} Bestellungen · ${openCount} offen · ${preparingCount} in Vorbereitung · ${paidCount} bezahlt · ${enteredCount} Eingaben`;
+  meta.textContent = `${nonEmpty.length} Bestellungen · ${openCount} offen · ${paidCount} bezahlt · ${enteredCount} Eingaben`;
   grand.textContent = euro(salesTotal);
   const cards = document.getElementById("statsCards");
   cards.innerHTML = `
@@ -2797,7 +2797,7 @@ function resetDay(){
 };
 
 function exportData(){
-  const data = JSON.stringify({version:39, exportedAt:new Date().toISOString(), orders, nextOrderNumber}, null, 2);
+  const data = JSON.stringify({version:41, exportedAt:new Date().toISOString(), orders, nextOrderNumber}, null, 2);
   const blob = new Blob([data], {type:"application/json"});
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -2979,8 +2979,8 @@ function setupProductPagerV30(){
     ],
     [
       {name:"Himbeersaft mit Soda",icon:"🍓",color:"juice",ids:["himbeer_soda033","himbeer_soda05"]},
-      {name:"Hollersaft mit Soda",icon:"🌼",color:"holler-orange",ids:["holler_soda033","holler_soda05"]},
       {name:"Himbeersaft mit Leitung",icon:"🍓",color:"juice",ids:["himbeer_leitung033","himbeer_leitung05"]},
+      {name:"Hollersaft mit Soda",icon:"🌼",color:"holler-orange",ids:["holler_soda033","holler_soda05"]},
       {name:"Hollersaft mit Leitung",icon:"🌼",color:"holler-orange",ids:["holler_leitung033","holler_leitung05"]},
       {name:"Soda",icon:"🥤",color:"soda",ids:["soda033","soda05"]},
       {name:"Apfelsaft pur",icon:"🍎",color:"apple-deep",ids:["apfel_pur033","apfel_pur05"]},
@@ -2996,7 +2996,7 @@ function setupProductPagerV30(){
       {name:"Traubensaft Rot mit Leitung",icon:"🍇",color:"grape-red-light",ids:["traube_rot_leitung033","traube_rot_leitung05"]}
     ]
   ];
-  const foodIds = ["ritterbrot","geselchtesbrot","surbratenbrot","schweinsbratenbrot","blutwurstbrot","grammelaufstrichbrot","liptauerbrot","scherzel_schmalzbrot"];
+  const foodIds = ["ritterbrot","geselchtesbrot","surbratenbrot","schweinsbratenbrot","blutwurstbrot","grammelaufstrichbrot","liptauerbrot","scherzel_schmalzbrot","bratenfettbrot","emmentalerbrot"];
   const pager = document.createElement("div");
   pager.id = "productPager";
   pager.className = "product-pager";
@@ -3019,7 +3019,7 @@ function setupProductPagerV30(){
   foodPage.hidden = true;
   const foodMenuGrid = document.createElement("div");
   foodMenuGrid.className = "single-menu-grid food-menu-grid";
-  const foodColors = ["food-ritter","food-geselcht","food-sur","food-schwein","food-blutwurst","food-grammel","food-liptauer","food-schmalz"];
+  const foodColors = ["food-ritter","food-geselcht","food-sur","food-schwein","food-blutwurst","food-grammel","food-liptauer","food-schmalz","food-bratenfett","food-emmentaler"];
   foodIds.forEach((id,index) => foodMenuGrid.appendChild(createSingleCard(id,foodColors[index])));
   foodPage.appendChild(foodMenuGrid);
   pager.appendChild(foodPage);
@@ -3091,6 +3091,6 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 <div class="easter-egg" id="marcelEasterEgg" hidden><img src="marcel-easter-egg.png" alt="Marcel mit einem großen Plüschtier"></div>
-<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 39</div>
+<div style="text-align:center;font-size:11px;opacity:.45;margin:10px 0 4px">Version 41</div>
 </body>
 </html>
